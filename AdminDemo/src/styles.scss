@@ -1,0 +1,893 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+
+
+@import "~ngx-spinner/animations/ball-clip-rotate.css"; // round
+
+//@import "~ngx-spinner/animations/line-scale-party.css"; // music symbol
+
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$AdminDemo-primary: mat.define-palette(mat.$indigo-palette);
+$AdminDemo-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to #ff0f0f).
+$AdminDemo-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$AdminDemo-theme: mat.define-light-theme((color: (primary: $AdminDemo-primary,
+        accent: $AdminDemo-accent,
+        warn: $AdminDemo-warn,
+      )));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($AdminDemo-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+
+
+//dropdown
+::ng-deep .col2 {
+  display: inline-flex;
+  align-items: baseline;
+  box-sizing: border-box;
+}
+
+.mat-select-panel {
+  flex-basis: 100%;
+  margin-top: 40px;
+  width: 50mm;
+}
+
+.mat-select .mat-select-arrow {
+  color: #000183;
+
+  transform: rotate(0deg);
+}
+
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+  color: #000183;
+  transform: rotate(180deg);
+}
+
+.mat-form-field .mat-select.mat-select-invalid .mat-select-arrow {
+  color: #ff0f0f;
+}
+
+.mat-option {
+  color: #000183;
+}
+
+.mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+  background: rgb(232, 240, 254);
+}
+
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #000183;
+}
+
+.mat-option.mat-active {
+  color: #000183;
+  //background: none;
+}
+
+.mat-select-value {
+  color: #000183;
+  margin-left: -1px;
+}
+
+
+//expansion panel drop down
+.mat-expansion-panel {
+  width: 70%;
+
+}
+
+.mat-panel-title {
+  color: #000183;
+  box-shadow: none;
+
+}
+
+.mat-expansion-panel-header {
+  color: #000183;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.mat-expansion-panel-header:hover {
+
+  background-color: currentColor
+}
+
+// .mat-expanded .mat-expansion-panel-header .material-icons {
+//   transform: rotate(180deg);
+// }
+
+.mat-expanded #parent-exp .material-icons {
+  transform: rotate(180deg);
+}
+
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+  opacity: 0.03 !important;
+  background-color: #000183;
+}
+
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #000183;
+}
+
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #000183;
+}
+
+// input box
+
+// input{
+//   text-transform: capitalize;
+// }
+
+.example-header .mat-form-field {
+  margin-left: 60px;
+  width: 70%;
+
+}
+
+.example-header .mat-form-field mat-label {
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.asterix--before:after {
+  content: "*";
+  color: #ff0f0f;
+  margin-left: 5px;
+}
+
+.mat-raised-button {
+  background-color: #000183;
+  color: white;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.mat-form-field input.mat-input-element {
+  color: #000183;
+}
+
+
+.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+  color: #ff0f0f;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: #000183;
+}
+
+//input box label
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  opacity: 0;
+  color: #000183;
+}
+
+.mat-form-field:not(mat-focused) .mat-form-field-label {
+  color: #000183 !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: #000183 !important;
+
+}
+
+.mat-form-field.mat-focused .mat-form-field-appearance-outline {
+  color: #000183;
+}
+
+.mat-form-field.mat-form-field-invalid .mat-form-field-label {
+  color: #ff0f0f !important;
+}
+
+.example-header .mat-form-field-invalid .mat-input-element {
+  color: #ff0f0f !important;
+}
+
+.mat-form-field:mat-focused .mat-form-field-label {
+  color: #000183 !important;
+}
+
+//mat lable password icon color
+.mat-form-field .mat-icon{
+  color:#000183;
+}
+
+.mat-form-field.mat-form-field-invalid .mat-icon{
+  color:#ff0f0f;
+}
+
+.mat-error {
+  color: #ff0f0f;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+//ft balance-container
+
+@media screen and (min-width:500px) {
+  .table {
+    margin-top: 30px;
+    border: 1px solid #dee2e6;;
+   // box-shadow: 0 0 20px 0px rgb(208, 206, 206);
+    clip-path: inset(-15px -15px -15px -15px);
+    margin-top: 3%;
+    margin-left: 30%;
+    width: 30%;
+
+  }
+}
+
+
+@media screen and (max-width:500px) {
+  .table {
+    //margin-top: 30px;
+    //box-shadow: 0 0 20px 0px rgb(208, 206, 206);
+    clip-path: inset(-15px -15px -15px -15px);
+    margin-top: 2%;
+    margin-left: 15%;
+    width: 70%;
+    border: 1px solid #dee2e6;;
+
+  }
+
+
+}
+
+
+
+
+
+.container {
+  margin-left: 10px;
+}
+
+//paginator 
+.mat-paginator-icon {
+  height: 60%;
+  user-select: none;
+
+}
+
+.mat-paginator .mat-form-field-underline {
+  display: none;
+}
+
+.mat-paginator .mat-form-field {
+  padding-right: 20%;
+
+}
+
+//paginator dropdown
+
+.mat-select-panel {
+  flex-basis: 100%;
+  margin-top: 40px;
+  width: 5px;
+}
+
+.mat-paginator {
+  font-size: 14px;
+
+}
+
+.mat-paginator.mat-select-value {
+  font-size: 14px;
+  width: 50%
+}
+
+.mat-paginator-page-size .mat-select-trigger {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+}
+
+.mat-paginator {
+  color: #000183;
+}
+
+//mat-table
+
+table {
+  width: 100%;
+}
+
+.mat-header-cell {
+  padding: 14px 10px;
+  color: #000183;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.mat-header-row:hover .mat-header-cell {
+  background-color: rgb(232, 240, 254);
+}
+
+//ft-balance,wallet balance table 
+th:hover {
+  background-color: rgb(232, 240, 254);
+}
+
+.mat-row:hover .mat-cell {
+  background-color: #e4e4e4;
+}
+
+.mat-row .mat-cell {
+  color: #000183;
+}
+
+.mat-elevation-z8 {
+
+  width: 100%;
+}
+
+.table th {
+  border-top: none;
+  border-bottom: none;
+}
+
+//text area
+
+.example-header .mat-form-field textarea {
+  resize: none;
+}
+
+.mat-form-field textarea.mat-input-element {
+  color: #000183;
+}
+
+
+//datepicker
+
+.mat-datepicker-content .mat-calendar {
+  width: 230px !important;
+  height: unset !important;
+}
+
+@media screen and (min-width: 1100px) {
+  .mat-datepicker-content .mat-calendar {
+    width: 300px !important;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .mat-datepicker-content .mat-calendar {
+    width: 230px !important;
+  }
+}
+
+//date picker icon and calender content color
+.mat-calendar-body-cell-content,
+.mat-date-range-input-separator {
+  color: #000183;
+  border-color: transparent;
+}
+
+.mat-calendar-arrow {
+  fill: #000183;
+}
+
+.mat-calendar-body-selected {
+  background-color: #000183;
+  color: white;
+}
+
+.mat-calendar-table-header,
+.mat-calendar-body-label {
+  color: #000183;
+}
+
+.mat-button,
+.mat-stroked-button {
+  color: #000183;
+  background: transparent;
+}
+
+.mat-datepicker-toggle,
+.mat-datepicker-content .mat-calendar-next-button,
+.mat-datepicker-content .mat-calendar-previous-button {
+  color: #000183;
+}
+
+.example-header .mat-form-field-invalid .mat-datepicker-toggle {
+  color: #ff0f0f !important;
+}
+
+// slide toggle
+.example-header .mat-slide-toggle {
+  margin-left: 60px;
+  margin-top: 2px;
+  color: #000183;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: #000183;
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: #2440dc;
+}
+
+@media screen {
+  .example-header .mat-slide-toggle {
+    min-width: 200px;
+  }
+}
+
+//tooltip
+
+.mat-tooltip {
+  background-color: #000183;
+}
+
+//menu popup
+td .mat-icon {
+  cursor: pointer;
+}
+
+//table column
+.mat-column-commisionamt {
+  text-align: right;
+  justify-content: flex-end;
+}
+
+.mat-column-amount {
+  text-align: right;
+  justify-content: flex-end;
+}
+
+//chaeck box
+
+.mat-table .mat-checkbox {
+  color: #000183;
+}
+
+//search input box
+.example .mat-form-field {
+  margin-left:40px;
+  width: 50%;
+}
+
+.example .mat-form-field input {
+  padding-left: 8px;
+  margin-bottom: 3px;
+}
+
+.example .mat-form-field mat-label {
+  font-size: 17px;
+  font-weight: 500;
+  margin-left: 8px;
+  color: #000183
+}
+
+.example .mat-form-field .mat-icon {
+  color: #000183 !important;
+}
+
+
+.example1 .mat-form-field {
+  margin-left:40px;
+  width: 50%;
+}
+
+.example1 .mat-form-field input {
+  padding-left: 8px;
+  margin-bottom: 3px;
+}
+
+.example1 .mat-form-field mat-label {
+  font-size: 17px;
+  font-weight: 500;
+  margin-left: 8px;
+  color: #000183
+}
+
+.example1 .mat-form-field .mat-icon {
+  color: #000183 !important;
+}
+//auto fillSS
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  -webkit-text-fill-color: #000183;
+  -webkit-text-size-adjust: 17px;
+
+}
+
+//snackbar
+
+.center  {
+  background: #000183;
+  font-weight: 500;
+
+  color: white !important;
+  .mat-simple-snackbar {
+      display: block !important;
+  text-align: center;
+  }
+}
+.action{
+  background: #000183;
+  color: white;
+  display: block !important;
+  text-align: center;
+}
+
+.mat-simple-snackbar-action > button { color: rgb(0, 187, 255)} 
+
+
+// Expansion Panel 
+
+.disable_ripple:hover{
+  background: white !important;
+  }
+
+  // Eye Edge
+  ::-ms-reveal {
+    display: none
+  }
+
+  // form label color
+  .mat-form-field:mat-focused .mat-form-field-label {
+    color: #000183 !important;
+  }
+
+
+  // delete pop up message
+
+  .mat-dialog-title
+  {
+
+    color: #000183;
+   
+  }
+
+
+
+  h4
+  {
+    color: #000183; font-size: 17px; font-weight: 400;
+  }
+  
+
+  .cdk-global-scrollblock{
+    position: unset;
+  }
+
+
+
+  .parent {
+    display: flex;
+    flex-direction:row;
+  }
+  
+
+  // drop down present in red color when it get error 
+  .mat-form-field.mat-focused.mat-primary .mat-select.mat-select-invalid .mat-select-arrow {
+    color: #ff0f0f;
+    transform: rotate(180deg);
+  }
+
+ 
+
+  // calender
+::ng-deep .mat-calendar-body-label {
+
+  visibility: hidden;
+}
+
+
+// search bar style
+
+// .example   {
+//   transform: translateY(-1.1em) scale(.75);
+//     width: 133.33333%;
+    
+   
+// } 
+
+.bar_content {
+  display: block;
+  color: #150750 !important ;
+  // color: #000183 !important;
+  font-size: 17px;
+  font-weight: 400;
+  width: 100%;
+  transform: translateX(100%); 
+
+  animation: move 10s linear infinite;
+}
+
+@keyframes move {
+  to { transform: translateX(-100%); }
+}
+
+@keyframes my-animation {
+  from {
+    -moz-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+  to {
+    -moz-transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+}
+
+// pop up curve style
+// mat-dialog-container {
+//   border-radius: 30px !important;
+// }
+
+.mat-dialog-container {
+  padding: 24px;
+  border-radius: 43px !important;
+  border: solid;
+  border-color: #000183;
+  border-width: initial;
+  box-sizing: inherit;
+  overflow: unset !important;
+  outline: 0;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  max-height: inherit;
+}
+
+
+
+
+//dropdown scroll
+
+.options{
+  display: list-item !important;
+  overflow: visible !important;
+  min-width:500px;
+}
+
+
+
+
+.mat-calendar-body-label {
+
+  visibility: hidden;
+}
+
+
+
+//paginator space
+.mat-paginator-range-label {
+  margin: 0 4px 0 4px !important;
+}
+
+// popup close button 
+
+.close {
+  vertical-align: middle;
+  border: none;
+  color: #000183;
+  border-radius: 50%;
+  margin-right: 3px;
+  // background: transparent;
+  position: relative;
+  width: 25px;
+  height: 25px;
+  opacity: 0.6;
+}
+.close:focus,
+.close:hover {
+  opacity: 1;
+  background: #000183;
+  color: #fff;
+}
+.close:active {
+  background: rgba(128, 128, 128, 0.9);
+}
+.close::before,
+.close::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height:16px;
+  width: 4px;
+  background-color: currentColor;
+}
+.close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+// snack bar 
+
+.mat-snack-bar-container {
+  border-radius: 15px !important;
+}
+
+
+// welcome page
+
+.popupBackdropClass {
+
+ // background-image: url("assets/images/web loader 2Artboard 1 copy2x.png");
+  background-image: url("assets/images/portal bg r1Artboard 62x-100.jpg");
+  background-size: 1600px 750px;
+  background-repeat: no-repeat;
+}
+
+
+.dialog-responsive .mat-dialog-container {
+  width: 300px !important;
+  height: 300px !important;
+  border-radius: 50% !important;
+  border-color: darkgrey;
+}
+
+// }
+
+
+@media screen and (max-width:500px) {
+  // ::ng-deep .dialog-responsive .mat-dialog-container {
+
+    .dialog-responsive .mat-dialog-container {
+    width: 215px !important;
+    height: 215px !important;
+    border-radius: 50% !important;
+    border-color: darkgrey;
+  }
+
+  .moneypurse {
+    width: 126px;
+    margin-left: -4px;
+    margin-top: 38px;
+  }
+
+  .dot-flashing {
+    margin-top: 0px;
+    margin-left: 38px;
+    position: relative;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #000183;
+    color: #000183;
+    animation: dot-flashing 1s infinite linear alternate;
+    animation-delay: 0.5s;
+  }
+
+  .dot-flashing::before,
+  .dot-flashing::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+  }
+
+  .dot-flashing::before {
+    left: -28px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #000183;
+    color: #000183;
+    animation: dot-flashing 1s infinite alternate;
+    animation-delay: 0s;
+  }
+  
+  .dot-flashing::after {
+    left: 31px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #000183;
+    color: #000183;
+    animation: dot-flashing 1s infinite alternate;
+    animation-delay: 1s;
+  }
+
+  
+  @keyframes dot-flashing {
+    0% {
+      background-color: #000183;
+    }
+  
+    50%,
+    100% {
+      background-color: rgba(48, 20, 175, 0.2);
+    }
+  }
+
+}
+
+
+// custome snackBar css
+
+.wave {
+  font-size: 2rem;
+  display: inline-block;
+  -webkit-font-kerning: none;
+  font-kerning: none;
+  transform: translate3d(0px, 0px, 0.1px);
+  transform-origin: 60% 70%;
+  user-select: none;
+  animation: wave-animation 0.5s 9 ease-in-out;
+  animation-play-state: running;
+}
+
+
+@keyframes wave-animation {
+    0%,100% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+
+    50% {
+        -webkit-transform: rotate(30deg);
+        transform: rotate(30deg)
+    }
+}
+
+.snackbar-container {
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  border-radius: 18px;
+  background: rgb(232, 240, 254);
+  color: #000183;
+  box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.2);
+  padding: 1em;
+  font-size: 17px;
+  font-weight: 500;
+  animation: snackbarIn 0.5s;
+  transform: translateX(-50%);
+  // min-width: ;
+  display: flex;
+  justify-content: space-between;
+}
+
+@keyframes snackbarIn {
+  from {
+    transform: translateX(-50%) translateY(-100px);
+    opacity: 0;
+  }
+  to {
+    ransform: translateX(-50%) translateY(100px);
+    opacity: 1;
+  }
+}
+
+@keyframes snackbarOut {
+  to {
+    transform: translateX(-50%) translateY(-100px);
+    opacity: 0;
+  }
+}

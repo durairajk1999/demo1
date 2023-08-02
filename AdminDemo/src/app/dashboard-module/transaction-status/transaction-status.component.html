@@ -1,0 +1,343 @@
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card p-0"><br><br>
+        <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate" color="#000183"></ngx-spinner>
+
+        <form class="form" #transactionstatusform="ngForm" (ngSubmit)="transactionStatus()">
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Merchant Code</mat-label>
+                            <input onlyAlphanumeric  ondragstart="return false;" noSpace
+                                [(ngModel)]="transaction.merchantId" id="merchantcode" name="merchantcode"
+                                required={{merchant}} matInput placeholder="" #input autocomplete="off"
+                                autocorrect="off" [formControl]="merchantCodeValueForm1" (ngModelChange)="change()"
+                                maxlength="11" minlength="9" toUppercase pattern="^[A-Z_a-z]{2,3}[0-9]{6,9}$">
+
+                            <mat-error *ngIf="merchantCodeValueForm1.errors?.pattern">{{passwordChange1()}}</mat-error>
+                            <!-- <mat-error *ngIf="merchantCodeValueForm1.errors?.minlength">
+                                Should have minimum 10 characters
+                            </mat-error> -->
+
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px ;margin-top: -20px;" *ngIf="merchant">
+                            Merchant code is required
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Service Type</mat-label>
+                            <mat-select ondragstart="return false;"  required={{serviceType}}
+                                disableOptionCentering [(ngModel)]="transaction.type" id="servicetype"
+                                name="servicetype" #servicetype="ngModel" (selectionChange)="onChange()">
+
+                                <mat-option>
+                                    <lib-mat-select-search id="search" (keypress)="letterOnly($event)"
+                                        [list]="servicetype1" [searchProperties]="['name']" [fixOnTop]="true"
+                                        [clearSearchInput]="true" (filtered)="servicetype2 = $event">
+                                    </lib-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngIf="servicetype2.length==0">Record not found</mat-option>
+                                <mat-option value={{Service.name}} *ngFor="let Service of servicetype2">
+                                    {{Service.name}}
+                                </mat-option>
+                            </mat-select>
+                            <!-- <mat-error *ngIf="servicetype.errors && servicetype.invalid && servicetype.touched">
+                                Service Type is Required!
+                            </mat-error> -->
+                            <!-- <mat-error *ngIf="serviceType">
+                                Service Type is Required!
+                            </mat-error> -->
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px ; margin-top: -20px;" *ngIf="serviceType">
+                            Service type is required
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label>Min.Transaction Value</mat-label>
+                            <!-- [formControl]="minRate" -->
+
+                            <input min="0" max="10000000"
+                                onKeyUp="if(this.value>10000000){this.value='10000000';}else if(this.value<0){this.value='0';}"
+                                maxlength="8" onlyNumber  ondragstart="return false;" noSpace
+                                [(ngModel)]="transaction.minAmount" (keypress)="handleZero($event)"
+                                id="mintransactionvalue" name="mintransactionvalue" matInput placeholder="" #input
+                                autocomplete="off" autocorrect="off" (ngModelChange)="min($event)">
+
+
+                        </mat-form-field>
+                        <!-- <span class="mat-error" style="margin-left:70px ; margin-top: -20px;" *ngIf="minAmount">
+                            Min.transaction value is required
+                        </span> -->
+                    </div>
+                </div>
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label>Max.Transaction Value</mat-label>
+                            <input onlyNumber max="10000000" noSpace
+                                onKeyUp="if(this.value>10000000){this.value='10000000';}else if(this.value<0){this.value='0';}"
+                                maxlength="8"   ondragstart="return false;" id="maxtransactionvalue"
+                                name="maxtransactionvalue" [formControl]="tranMaxValue" matInput (blur)='onBlur()'
+                                (keypress)="handleZero($event)" placeholder="" #input autocomplete="off"
+                                autocorrect="off" (ngModelChange)="max($event)" [(ngModel)]="transaction.maxAmount">
+                            <!-- <mat-error *ngIf="tranMaxValue.invalid">
+                                   {{getMaxValueError()}}
+                                </mat-error> -->
+
+                            <mat-error *ngIf="maxvalue">Max.transaction value required </mat-error>
+
+                            <mat-error *ngIf="tranMaxValue.invalid ">Max amount should be greater than min amount
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" (click)="picker1.open()">
+                            <mat-label>From Date</mat-label>
+                            <input readonly  ondragstart="return false;" matInput
+                                [matDatepicker]="picker1" [max]="startToday" [formControl]="startDate"
+                                [(ngModel)]="newDate" (ngModelChange)="txndate()">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-group" class="col-md-6 mb-4">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" (click)="picker.open()" (click)="clickEndDate()">
+                            <mat-label>To Date</mat-label>
+                            <input readonly  ondragstart="return false;" matInput
+                                [min]="startDate.value" [max]="today" [matDatepicker]="picker" [formControl]="endDate"
+                                [(ngModel)]="enDate" (ngModelChange)="txnEnddate()">
+                            <mat-datepicker-toggle matSuffix [for]="picker">
+                                <mat-icon matDatepickerToggleIcon>today</mat-icon>
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #picker [disabled]="disToDate"></mat-datepicker>
+
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline"
+                            (click)="clickFromTime()">
+                            <mat-label>From Time</mat-label>
+                            <input readonly  ondragstart="return false;" matInput
+                                [(ngModel)]="transaction.fromtime" [ngxMatTimepicker]="disabled"
+                                [disableClick]="disFromTime" [formControl]="startTime" (ngModelChange)="timeChange()" />
+                            <mat-icon matSuffix (click)="disFromTime==false && disabled.open()">
+                                access_time
+                            </mat-icon>
+                            <ngx-mat-timepicker [timepickerClass]=" 'time' " #disabled></ngx-mat-timepicker>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline"
+                            (click)="clickToTime()">
+                            <mat-label>To Time</mat-label>
+                            <input  readonly ondragstart="return false;" matInput 
+                                [(ngModel)]="transaction.totime" [ngxMatTimepicker]="picker3" [disableClick]="disToTime" [min]="minTime"
+                                [formControl]="endTime" (ngModelChange)="timeChanged()" />
+                            <mat-icon matSuffix (click)="disToTime==false && picker3.open()">
+                                access_time
+                            </mat-icon>
+                            <ngx-mat-timepicker [timepickerClass]=" 'time' " #picker3></ngx-mat-timepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <h4 class="text-center">-- OR --</h4>
+            <br>
+            <div class="row">
+                <!-- <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label>Reference ID
+                            </mat-label>
+                            <input autocomplete="off" onlyAlphanumeric  ondragstart="return false;"
+                                [(ngModel)]="transRequest.referenceId" id="referenceid" name="referenceid"
+                                #referenceid="ngModel" matInput placeholder="" #input (ngModelChange)="newChange()"
+                               (ngModelChange)="transRequest.referenceId=$event.toUpperCase()" (keyup)="refChange()">
+                        </mat-form-field>
+                    </div>
+                </div> -->
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label>Merchant Code</mat-label>
+                            <input autocomplete="off" autocorrect="off" 
+                                ondragstart="return false;" id="merchantId" toUppercase required={{oldMerchant}}
+                                name="merchantId" matInput placeholder="" #input (input)="newMethod()"
+                                [(ngModel)]="transRequest.merchantId" onlyAlphanumeric
+                                [formControl]="merchantCodeValueForm2" (keyup)="refChange()" noSpace maxlength="11"
+                                minlength="9" pattern="^[A-Z_a-z]{2,3}[0-9]{6,9}$">
+                            <mat-error *ngIf="merchantCodeValueForm2.errors?.pattern">{{passwordChange()}}</mat-error>
+
+                            <!-- <mat-error *ngIf="merchantCodeValueForm2.errors?.minlength">
+                                    Should have minimum 10 characters
+                                </mat-error> -->
+
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="example-header">
+                <div class="text-center">
+                    <!-- <button mat-raised-button color="warn" style="margin-right:10px ;">Cancel</button> -->
+                    <button mat-raised-button style="width: 90px;margin-right: 10px;">Submit</button>
+                </div>
+            </div>
+
+
+        </form>
+
+
+        <div *ngIf="monthPeriod">
+            <div class="design">
+                <h3> Note : The transaction period must be within 3 months. </h3>
+            </div>
+        </div>
+
+        <!-- <span *ngIf="notes" id="notes">
+            <h3> Note : The transaction period must be within 3 months. </h3>
+        </span> -->
+
+        <br>
+
+        <div style="padding-top: 30px;">
+            <div *ngIf="table">
+
+                <div class="form-group" class="col-md-6 mb-4">
+                    <div class="example">
+
+                        <mat-form-field appearance="outline">
+                            <mat-label> Search</mat-label>
+                            <mat-icon matPrefix>search</mat-icon>
+                            <input matInput (keyup)="applyFilter($event)" placeholder="" #input autocomplete="off"
+                                autocorrect="off" [formControl]="filter" singleSpace maxlength="30">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div>
+                    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" *ngIf="pagination">
+                    </mat-paginator>
+                </div>
+
+
+                <div class="table-responsive">
+                    <table mat-table [dataSource]="dataSource" matTableExporter #exporter="matTableExporter" matSort>
+
+                        <ng-container matColumnDef="Timestamp">
+                            <th style="padding-left: 20px;" mat-header-cell *matHeaderCellDef mat-sort-header="date"
+                                sortActionDescription="Sort by Timestamp">
+                                Txn Date & Time
+                            </th>
+                            <td class="p-3" mat-cell *matCellDef="let element"> {{element.date}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="ReferenceId">
+                            <th style="padding-left: 15px;" mat-header-cell *matHeaderCellDef
+                                mat-sort-header="referenceid" sortActionDescription="Sort by ReferenceId">
+                                Reference ID
+                            </th>
+                            <td style="padding-right: 25px;" mat-cell *matCellDef="let element"> {{element.referenceid}} </td>
+                        </ng-container>
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="ServiceType">
+                            <th style="padding-right: 45px; width: 200px;" mat-header-cell *matHeaderCellDef mat-sort-header="type"
+                                sortActionDescription="Sort by ServiceType">
+                                Service Type
+                            </th>
+                            <td style="padding-right: 45px;" mat-cell *matCellDef="let element"> {{element.type}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Amount">
+                            <th style="padding-right: 55px;" mat-header-cell *matHeaderCellDef mat-sort-header="amount"
+                                sortActionDescription="Sort by Amount">
+                                Amount (&#8377;)
+
+                            </th>
+                            <td mat-cell *matCellDef="let element"
+                                style="padding-right: 65px;text-align: right;width: 170px;justify-content: right;"> {{element.amount}} </td>
+                        </ng-container>
+
+
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="Status">
+                            <th style="padding-left: 25px;" mat-header-cell *matHeaderCellDef mat-sort-header="status"
+                                sortActionDescription="Sort by Status">
+
+
+                                Status
+                            </th>
+                            <td style="padding-left: 25px;"  mat-cell *matCellDef="let element">
+                                <!-- {{element.status}}  -->
+                                <div *ngIf="element.status == statusSuccessResponse ">
+                                    Success
+                                </div>
+                                <div *ngIf="element.status == statusFailedResponse">
+                                    Failure
+                                </div>
+                                <div
+                                    *ngIf="element.status != statusSuccessResponse && element.status != statusFailedResponse">
+                                    Pending
+                                </div>
+
+                            </td>
+                        </ng-container>
+                        <!-- Symbol Column -->
+
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" class="search" colspan="5">
+                                <br>
+                                Record not found
+                            </td>
+                        </tr>
+
+
+
+
+                    </table>
+
+
+                </div>
+
+                <div *ngIf="dataSource.filteredData.length > 0">
+                    <br>
+                    <button mat-raised-button
+                        style="width:130px ; float: right; margin-right: 20px; margin-bottom: 10px;"
+                        (click)="exportExcel()">
+                        <!-- <img src="assets/images/icons8-export-excel-22.png" style="margin-left: -25px;"> -->
+                        Export to excel</button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,461 @@
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card p-0">
+        <br><br>
+        <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate" color="#000183">
+        </ngx-spinner>
+        <form class="from" #iacreationform="ngForm" (ngSubmit)="submit()">
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">IA Name</mat-label>
+                            <input singleSpace OnlyCharacter type="text" toUppercase  
+                                (blur)='onclick()' [(ngModel)]="iacreate.name_of_SHPI" id="name_of_SHPI"
+                                name="name_of_SHPI" [formControl]="iaName" required matInput placeholder="" #input
+                                (ngModelChange)="iaNameEnter(iacreate.name_of_SHPI)"  autocomplete="off"  autocorrect="off" minlength="3">
+                            <mat-error *ngIf="iaName.errors?.minlength">Should have minimum 3 characters </mat-error>
+                            <mat-error *ngIf="iaName.errors?.required">
+                                IA name is required
+                            </mat-error>
+                        </mat-form-field>
+                        <!-- <span class=" mat-error" style="margin-left:70px;  margin-top:-20px ; font-size: 75%;"
+                            *ngIf="iaNameValue">
+                            IA Name is required!
+                        </span> -->
+                    </div>
+                </div>
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Category</mat-label>
+                            <mat-select required={{categoryvalue}} disableOptionCentering
+                                [(ngModel)]="iacreate.category" id="category" name="category" [formControl]="category"
+                                (selectionChange)="selectCategoryName($event.value)">
+
+                                <mat-option>
+                                    <lib-mat-select-search id="search" [list]="categorylist1" (keypress)="letterOnly($event)"
+                                        [searchProperties]="['category']" [fixOnTop]="true" [clearSearchInput]="true"
+                                        (filtered)="categorylist2 = $event">
+                                    </lib-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngIf="categorylist2.length == 0">Record not found</mat-option>
+
+
+                                <mat-option value={{category.category}} *ngFor="let category of categorylist2">
+                                    {{category.category|uppercase}}
+                                </mat-option>
+
+                            </mat-select>
+                            <!-- <mat-error *ngIf="category.errors?.required ">
+                                Category is required
+                            </mat-error> -->
+                        </mat-form-field>
+                        <span class=" mat-error" style="margin-left:70px;  margin-top:-20px ; font-size: 75%;"
+                            *ngIf="categoryvalue">
+                            Category is required
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Registration Number</mat-label>
+                            <input  [(ngModel)]="iacreate.reg_No" id="reg_No" name="reg_No"
+                                [formControl]="registerationNumber" required matInput #input
+                                (ngModelChange)="registrationNumberEnter(iacreate.reg_No)" (blur)='onclick()'
+                                autocomplete="off" autocorrect="off"  noSpace>
+
+                            <mat-error *ngIf="registerationNumber.errors?.required">
+                                Registration number is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <!-- <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker"
+                            (click)="picker.open()">
+                            <mat-label class="asterix--before">Registration date</mat-label>
+                            <input readonly matInput required={{regDateValue}} [formControl]="registrationDate"
+                                [matDatepicker]="picker" name="reg_Date" [(ngModel)]="iacreate.reg_Date"
+                                (ngModelChange)="regDateSelect(iacreate.reg_Date)" (blur)='onclick()' [max] = "today">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                           
+                        </mat-form-field> -->
+
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker"
+                            (click)="picker.open()">
+                            <mat-label class="asterix--before">Registration Date</mat-label>
+                            <input readonly matInput required={{regDateValue}} [formControl]="registrationDate"
+                                [matDatepicker]="picker" name="reg_Date" (dateChange)="orgValueChange()"
+                                (input)="regDateSelect(iacreate.reg_Date)" [max] = "today">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="regDateValue">
+                                Registration date is required
+                            </mat-error>
+                        </mat-form-field>
+                        <!-- <span class=" mat-error" style="margin-left:70px;  margin-top:-20px ; " *ngIf="regDateValue">
+                            Registration date is required
+                        </span> -->
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">State</mat-label>
+                            <mat-select required={{statevalue}} disableOptionCentering [(ngModel)]="iacreate.state_Name"
+                                id="state" name="state_name" #state_name="ngModel"
+                                (selectionChange)="getDistrictName($event.value)">
+                                <mat-option>
+                                    <lib-mat-select-search id="search" [list]="statelist1" (keypress)="letterOnly($event)"
+                                        [searchProperties]="['state_name']" [fixOnTop]="true" [clearSearchInput]="true"
+                                        (filtered)="statelist2 = $event">
+                                    </lib-mat-select-search>
+                                </mat-option>
+                                <mat-option  *ngIf="statelist2.length ==0"  >Record not found</mat-option>
+
+                                <mat-option value={{state.state_name}} *ngFor="let state of statelist2">
+                                    {{state.state_name}}
+                                </mat-option>
+                            </mat-select>
+                            <!-- <mat-error *ngIf="stateName.errors?.required">
+                                State is required!
+                            </mat-error> -->
+                        </mat-form-field>
+                        <span class=" mat-error" style="margin-left:70px;  margin-top:-20px ; " *ngIf="statevalue">
+                            State is required
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker" class="yes"
+                            (click)="districtTouch('yes')">
+                            <mat-label class="asterix--before">District</mat-label>
+                            <mat-select required={{districtvalue}} disableOptionCentering
+                                [(ngModel)]="iacreate.district_Name" name="district_name"
+                                (selectionChange)="selectDistrict($event.value)">
+                                <mat-option>
+                                    <lib-mat-select-search id="search" (keypress)="letterOnly($event)" [list]="districtlist1"
+                                        [searchProperties]="['district_name']" [fixOnTop]="true"
+                                        [clearSearchInput]="true" (filtered)="districtlist2 = $event">
+                                    </lib-mat-select-search>
+                                </mat-option>
+                                <mat-option  *ngIf="districtlist2.length ==0"  >Record not found</mat-option>
+                                <mat-option value={{district.district_name}} *ngFor="let district of districtlist2">
+                                    {{district.district_name}}
+                                </mat-option>
+                            </mat-select>
+                            <!-- <mat-error *ngIf="districtName.errors?.required ">
+                                District is required!
+                            </mat-error> -->
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;" *ngIf="districtvalue">
+                            District is required
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field class="example-full-width" appearance="outline"
+                            [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label>Address
+                            </mat-label>
+                            <textarea   
+                                matInput placeholder="" [(ngModel)]="iacreate.address" name="address" #address="ngModel"
+                                autocomplete="off" autocorrect="off"></textarea>
+
+                           
+
+                        </mat-form-field>
+
+                    </div>
+                </div>
+
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">CEO Name</mat-label>
+                            <input singleSpace  OnlyCharacter type="text"
+                                (blur)='onclick()' [(ngModel)]="iacreate.name_of_CEO" id="name_of_CEO"
+                                name="name_of_CEO" [formControl]="ceoName" required matInput placeholder="" #input
+                                (ngModelChange)="enterceoName(iacreate.name_of_CEO)" autocomplete="off" autocorrect="off" minlength="3"
+                                maxlength="32"  style="text-transform: capitalize;">
+
+                            <mat-error *ngIf="ceoName.errors?.minlength">Should have minimum 3 characters </mat-error>
+                            <mat-error *ngIf="ceoName.errors?.required">
+                                CEO name is required
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">CEO Contact Number</mat-label>
+                            <input onlyNumber (blur)='onclick()' [(ngModel)]="iacreate.conNo_CEO" id="conNo_CEO"
+                                name="conNo_CEO" [formControl]="ceoContactNumber" required matInput placeholder=""
+                                #input autocomplete="off" autocorrect="off"  maxlength="12"  noSpace>
+                            <mat-error *ngIf="ceoContactNumber.invalid" >
+                                {{getMobileError()}}
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Secretary Name</mat-label>
+                            <input singleSpace   OnlyCharacter
+                                (blur)='onclick()' [(ngModel)]="iacreate.name_of_Secretary" id="name_of_Secretary"
+                                name="name_of_Secretary" [formControl]="secretaryName" required matInput #input
+                                (ngModelChange)="enterSecretaryname(iacreate.name_of_Secretary)" autocomplete="off" autocorrect="off"
+                                maxlength="32" minlength="3"   style="text-transform: capitalize;">
+                            <mat-error *ngIf="secretaryName.errors?.minlength">Should have minimum 3 characters
+                            </mat-error>
+                            <mat-error *ngIf="secretaryName.errors?.required">
+                                Secretary name is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">MIS Operator Name</mat-label>
+                            <input OnlyCharacter singleSpace
+                                (blur)='onclick()' [(ngModel)]="iacreate.name_of_MIS_Operator" id="name_of_MIS_Operator"
+                                name="name_of_MIS_Operator"  [formControl]="misOperatorName" required matInput
+                                placeholder="" #input (ngModelChange)="enterOperatorName(iacreate.name_of_MIS_Operator)"
+                                autocomplete="off" autocorrect="off" maxlength="32" minlength="3"  style="text-transform: capitalize;">
+                            <mat-error *ngIf="misOperatorName.errors?.minlength">Should have minimum 3 characters
+                            </mat-error>
+                            <mat-error *ngIf="misOperatorName.errors?.required">
+                                MIS operator name is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">MIS Operator Contact Number</mat-label>
+                            <input onlyNumber (blur)='onclick()' [(ngModel)]="iacreate.conNo_MIS_Operator"
+                                id="conNo_MIS_Operator" name="conNo_MIS_Operator"
+                                [formControl]="misOperatorContactNumber" required matInput placeholder="" #input
+                                autocomplete="off" autocorrect="off" maxlength="12"  noSpace>
+
+                            <mat-error *ngIf="misOperatorContactNumber.invalid">
+                                {{getMobile1Error()}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">IA Email ID 1</mat-label>
+                            <input  (blur)='onclick()' noSpace
+                                [(ngModel)]="iacreate.email_ID1_SHPI" type="email" id="email_ID1_SHPI"
+                                name="email_ID1_SHPI" [formControl]="iaEmailId1" required matInput placeholder=""
+                                autocomplete="off" autocorrect="off"   (ngModelChange)="iacreate.email_ID1_SHPI=$event?.toLowerCase()||''">
+
+                            <mat-error *ngIf="iaEmailId1.invalid">
+                                {{getEmail1Error()}} </mat-error>
+
+                            <!-- <mat-error *ngIf="iacrationform.get('email_ID1_SHPI').hasError('required')"
+                            >Email is required</mat-error
+                          >
+                          <mat-error *ngIf="iacrationform.get('email_ID1_SHPI').hasError('email')"
+                            >Please enter a valid email address
+                          </mat-error>                         -->
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">IA Email ID 2</mat-label>
+                            <input  (blur)='onclick()' noSpace
+                                [(ngModel)]="iacreate.email_ID2_SHPI" id="email_ID2_SHPI" name="email_ID2_SHPI"
+                                [formControl]="iaEmailId2" required matInput placeholder="" autocomplete="off" autocorrect="off"
+                                    (ngModelChange)="iacreate.email_ID2_SHPI=$event?.toLowerCase()||''"  >
+
+                            <mat-error *ngIf="iaEmailId2.invalid">
+                                {{getEmail2Error()}}
+                            </mat-error>
+
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Username</mat-label>
+                            <input singleSpace OnlyCharacter
+                                (blur)='onclick()' [(ngModel)]="iacreate.username" id="username" name="username"
+                                [formControl]="userName" required matInput placeholder="" #input
+                                (ngModelChange)="enterUsername(iacreate.username)" autocomplete="off" autocorrect="off" minlength="3" maxlength="32"  style="text-transform: capitalize;">
+                            <mat-error *ngIf="userName.errors?.minlength">Should have minimum 3 characters </mat-error>
+
+                            <mat-error *ngIf="userName.errors?.required">
+                                Username is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Password</mat-label>
+                            
+                            
+                            <input (blur)='onclick()' [type]="hide ? 'password' : 'text'" noSpace
+                                [(ngModel)]="iacreate.password" id="password" name="password" [formControl]="password"
+                                matInput placeholder="" #input (input)="passwordEnter(iacreate.password)"
+                                required={{firstpassword}} autocomplete="off" autocorrect="off"    maxlength="16" >
+                           
+                                <!-- <mat-icon [matTooltipHideDelay]="4000" matSuffix matTooltipClass="custom-tooltip" matTooltip="Password should contain: 1)Minimum 8 characters 2)Atleast one uppercase and one lowercase 
+                                letter 3)Atleast 1 special character 4)Minimum 1 numeric
+                                5)Max length of password should be 16">help</mat-icon> -->
+
+
+                                <mat-icon [matTooltipHideDelay]="300000" matSuffix matTooltipClass="custom-tooltip" 
+                                matTooltip="Password should contain: 1)Minimum 8 characters 
+                                2)Atleast 1 uppercase and 1 lowercase letter 3)Atleast 1 special character 4)Minimum 1 numeric
+                                5)Max length of password should be 16" (mouseenter)="$event.stopImmediatePropagation()" (onmouseover)="$event.stopImmediatePropagation()"
+                                (mouseleave)="$event.stopImmediatePropagation()" (click)="tooltip.toggle()" #tooltip="matTooltip" style="cursor: pointer;">help</mat-icon>
+                            <mat-error *ngIf="password.invalid">
+                                {{getPwdError()}}
+                            </mat-error>
+
+                            
+
+                            <!-- <mat-error *ngIf="password.invalid">{{getpass1()}}</mat-error> -->
+                        </mat-form-field>
+                        <!-- <p style="color: #000183;padding-left: 60px;">Password should have 1 lower case 1 upper case 1 special character and 1 numeric </p> -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Confirm Password</mat-label>
+                            <input (blur)='onclick()' [type]="hide1 ? 'password' : 'text'" noSpace
+                                [(ngModel)]="iacreate.confirmpassword" id="confirmpassword" name="confirmpassword"
+                                [formControl]="confirmPassword" matInput placeholder="" #input
+                                (input)="confirmPasswordEnter(iacreate.confirmpassword)" required={{confirmpassword}}
+                                autocomplete="off" autocorrect="off"  >
+                            <mat-icon matSuffix (click)="hide1 = !hide1">{{hide1 ? 'visibility_off' :
+                                'visibility'}}</mat-icon>
+                            <!-- <mat-error *ngIf="f.confirm_Password.errors?.confirmedValidator">
+                                    Confirm Password does not match
+                                  </mat-error> -->
+                            <mat-error *ngIf="confirmpassword">
+                                {{confirmpassmsg}}
+                            </mat-error>
+
+                            <!-- <mat-error *ngIf="confirmPassword.invalid">{{getpass2()}}</mat-error> -->
+                            <!-- <mat-error *ngIf="confirmpassword.value != password.value && submitted">
+                                Password & Confirm Password must be same
+                            </mat-error> -->
+
+                            <!-- <div mat-error *ngIf="submitted && f.confirmpassword.errors" >
+                                <div mat-error *ngIf="f.confirmpassword.errors.required">Confirm Password is required</div>
+                    
+                                <div mat-error *ngIf="f.confirmpassword.errors.value">Passsword and
+                                    Confirm Password didn't match. </div>
+                                </div> -->
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header" style="margin-top:10px;">
+                        <mat-slide-toggle (change)="setMessage0($event)" name="payoutFlag">
+                            <!-- <mat-slide-toggle (toggleChange)="onToggleChange($event)"
+                            [(ngModel)]="iacreate.ngO_Payout_Flag"> -->
+                            Payout Provision
+                        </mat-slide-toggle>
+                        <mat-slide-toggle class="toggle" (change)="setMessage($event)" name="transactionFlag">
+                            SHG Txn Commission
+                        </mat-slide-toggle>
+                        <!-- <mat-slide-toggle [(ngModel)]="iacreate.ngO_Name_Flag" [checked]="checked2"
+                            (change)="checked2 = !checked2">
+                            NGO Name
+                        </mat-slide-toggle>
+                        <mat-slide-toggle [(ngModel)]="iacreate.ngO_Logo_Flag" [checked]="checked3"
+                            (change)="checked3 = !checked3">
+                            NGO Logo
+                        </mat-slide-toggle>
+                        <mat-slide-toggle [(ngModel)]="iacreate.ngO_Member_Flag" [checked]="checked4"
+                            (change)="checked4 = !checked4">
+                            Member Name
+                        </mat-slide-toggle> -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-slide-toggle (change)="setMessage1($event)" name="ngoNameFlag">
+                            NGO Name
+                        </mat-slide-toggle>
+                        <mat-slide-toggle class="toggle" (change)="setMessage2($event)" name="ngoLogoFlag">
+                            NGO Logo
+                        </mat-slide-toggle>
+                    </div>
+                </div>
+
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-slide-toggle (change)="setMessage3($event)" name="ngoMemberName">
+                            Member Name
+                        </mat-slide-toggle>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="example-header">
+
+                <div class="text-center">
+
+                    <button mat-raised-button style="margin-right:20px ; width: 90px; ">Submit</button>
+                    <!-- <button mat-raised-button style="margin-left: 30px;width: 90px; "
+                        (click)="reloadCurrentRoute()">Cancel</button> -->
+
+                </div><br><br>
+            </div>
+        </form>
+    </div>
+</div>

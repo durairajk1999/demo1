@@ -1,0 +1,142 @@
+<div class="container">
+    <form #formControl="ngForm">
+        <div class="form">
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                <mat-label class="asterix--before">Group ID</mat-label>
+                <input autocomplete="off" autocorrect="off"  ondragstart="return false;" matInput
+                    [disabled]="true" #input placeholder="" [(ngModel)]="data.roleGroupId" name="roleGroupId" />
+            </mat-form-field>
+            <!-- <span class="mat-error"  style="margin-left:70px;  margin-top:-20px ;  " >
+                Group ID is required
+              </span> -->
+        </div>
+        <div class="form">
+
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                <mat-label class="asterix--before"> Parent ID</mat-label>
+                <input autocomplete="off" autocorrect="off"  ondragstart="return false;" matInput
+                    [disabled]="true" #input placeholder="" [(ngModel)]="data.parentMenuId" name="parentMenuId">
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                <mat-label class="asterix--before">Master menu ID</mat-label>
+                <input autocomplete="off" autocorrect="off"  ondragstart="return false;" matInput
+                    [disabled]="true" #input placeholder="" [(ngModel)]="data.masterMenuId" name="masterMenuId">
+            </mat-form-field>
+        </div>
+        <div class="form">
+
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                <mat-label class="asterix--before">Master menu name</mat-label>
+                <input autocomplete="off" autocorrect="off" OnlyCharacter 
+                    ondragstart="return false;" matInput required={{mastermenuname}} style="text-transform: capitalize;"
+                    #input placeholder="" [(ngModel)]="data.masterMenuName" name="masterMenuName"
+                    (ngModelChange)="mastermenunameenter(data.masterMenuName)" singleSpace
+                    [formControl]="mastermenunameform" maxlength="30" minlength="3">
+
+
+                <mat-error *ngIf="mastermenunameform.errors?.minlength ">Should have minimum 3 characters </mat-error>
+
+                <mat-error *ngIf="mastermenuname">
+                    Master menu name is required
+                </mat-error>
+
+            </mat-form-field>
+            <!-- <span class="mat-error"  style="margin-left:70px;  margin-top:-20px ;  " *ngIf="mastermenuname">
+                State is Required!
+              </span> -->
+        </div>
+        <div class="form">
+
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                <mat-label class="asterix--before">Navigation URL</mat-label>
+                <input autocomplete="off" autocorrect="off"  ondragstart="return false;" matInput
+                    #input placeholder="" [(ngModel)]="data.navigationUrl" name="navigationUrl"
+                    (ngModelChange)="navigationurlEnter(data.navigationUrl)" singleSpace required={{navigationurl}}
+                    [formControl]="naviurl" maxlength="30" minlength="3">
+
+                <mat-error *ngIf="naviurl.errors?.minlength ">Should have minimum 3 characters </mat-error>
+
+                <mat-error *ngIf="navigationurl">
+                    Navigation URL is required
+                </mat-error>
+
+            </mat-form-field>
+            <!-- <span class="mat-error"  style="margin-left:70px;  margin-top:-20px ;  " *ngIf="navigationurl">
+                State is Required!
+              </span> -->
+        </div>
+        <div class="form">
+
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                <mat-label class="asterix--before">Icon name</mat-label>
+
+                <mat-select ondragstart="return false;" [(ngModel)]="data.iconName" disableOptionCentering
+                     required={{iconName}} autocorrect="off" name="iconName"
+                    (ngModelChange)="iconnameEnter(data.iconName)" [formControl]="iconnamevalue">
+
+                    <!-- <mat-option>
+                        <lib-mat-select-search (keypress)="letterOnly($event)" id="search"  [fixOnTop]="true" [clearSearchInput]="true" [list]="iconName2" [searchProperties]="['iconName']" (filtered)="iconName3=$event">
+     
+                        </lib-mat-select-search>
+                      </mat-option> -->
+
+                    <mat-option value={{icon.iconName}} *ngFor="let icon of iconName1">
+                        <img draggable="false" src="../assets/images/faces/{{icon.iconName}}" width="20px"
+                            height="20px">
+                        {{icon.iconName}}
+                    </mat-option>
+                </mat-select>
+
+                <mat-error *ngIf="iconName">
+                    Icon name is required
+                </mat-error>
+            </mat-form-field>
+
+        </div>
+
+
+        <div class="form">
+
+            <mat-form-field appearance="outline">
+                <mat-label>New group ID</mat-label>
+                <input autocomplete="off" autocorrect="off" onlyNumber  ondragstart="return false;"
+                    matInput #input placeholder="" [(ngModel)]="roleMenuRequest.roleGroupId" name="newroleGroupId"
+                    [disabled]="true">
+            </mat-form-field>
+        </div>
+        <div class="form">
+
+            <mat-form-field appearance="outline">
+                <mat-label>New parent menu ID</mat-label>
+                <input autocomplete="off" autocorrect="off" onlyNumber  ondragstart="return false;"
+                    matInput #input placeholder="" [(ngModel)]="parentMenuRequest.parentMenuId" name="newparentMenuId"
+                    [disabled]="true">
+
+            </mat-form-field>
+        </div>
+
+
+        <div class="form">
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                <mat-label class="asterix--before">Order ID</mat-label>
+                <input autocomplete="off" autocorrect="off" onlyNumber  ondragstart="return false;"
+                    matInput #input [disabled]="true" placeholder="" [(ngModel)]="data.orderId" name="orderId">
+            </mat-form-field>
+        </div>
+
+
+
+      
+
+
+
+        <div class="mat-dialog-actions">
+            <button class="a1" mat-raised-button (click)="submit()"> Save</button>
+            <button class="b1" mat-raised-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+        </div>
+    </form>
+</div>

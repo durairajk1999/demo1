@@ -1,0 +1,102 @@
+<html>
+
+<body>
+  <script src="../assets/js/preloader.js"></script>
+  <div class="body-wrapper" spellcheck="false">
+    <div class="main-wrapper">
+      <div class="page-wrapper full-page-wrapper d-flex align-items-center ">
+        <main class="auth-page">
+          <div class="mdc-layout-grid" style="margin-top:-10%;">
+            <div class="mdc-layout-grid__inner">
+              <div class="stretch-card mdc-layout-grid__cell--span-4-desktop mdc-layout-grid__cell--span-1-tablet">
+              </div>
+              <div
+                class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-4-desktop mdc-layout-grid__cell--span-6-tablet">
+                <div class="mdc-card">
+
+                  <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate" color="#000183">
+                  </ngx-spinner>
+                  <form>
+                    <div class="text-center">
+                      <img id="logo"      draggable="false"  oncontextmenu="return false"     matPrefix class="input-icon" src="assets/images/MoneyPurse_Logo2.svg"
+                        ><br>
+
+
+                        
+                    </div><br>
+
+
+                    <div class="example-header text-center">
+                      <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                        <mat-label class="asterix--before"> Username</mat-label>
+                        <mat-icon matPrefix>person</mat-icon>
+                        <input  style="text-transform: none;"   #myInput  autocomplete="off" autocorrect="off" ondragstart="return false;"  (blur)='onBlur()'
+                          matInput placeholder="" #input name="username" required={{usernameForm}}
+                          [(ngModel)]="usernameValue" [formControl]="username" noSpace
+                          (input)="userNameEnter(usernameValue)" maxlength="30" appLowerCase  #inputValue >
+                        <mat-error *ngIf="usernameForm" >
+                          Username is required
+                        </mat-error></mat-form-field>
+                    </div>
+                    <div class="example-header text-center">
+                      <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                        <mat-label class="asterix--before">Password</mat-label>
+                        <mat-icon matPrefix>lock</mat-icon>
+                        <input autocomplete="off" autocorrect="off" ondragstart="return false;"  (blur)='onBlur1()'
+                          matInput [type]="hide ? 'password' : 'text'" required={{passwordvalue}} name="password"
+                          [(ngModel)]="passwordValue" [formControl]="password"
+                          (input)="passwordValueEnter(passwordValue)" noSpace
+                          maxlength="16">
+                        <button mat-icon-button matSuffix type="button" (click)="hide = !hide"
+                          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+
+                        <mat-error *ngIf="passwordvalue">
+
+                          Password is required
+
+                        </mat-error>
+
+
+                      </mat-form-field>
+                    </div>
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
+                    </div>
+                    <div
+                      class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-mini">
+                      <a       routerLink="" id="forgotpassword" style="color: #000183; text-decoration: none;float:right;margin-right: 44px;"
+                        (click)="email()">Forgot Password ?</a>
+
+                    </div>
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+
+                    </div>
+                    <div class="example-header">
+
+                      <div class="text-center">
+                        <button type="submit" mat-raised-button color="primary"
+                          style="width: 80%; background-color: #000183;" (click)="signInCalling()">Login</button>
+
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="stretch-card mdc-layout-grid__cell--span-4-desktop mdc-layout-grid__cell--span-1-tablet">
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../../assets/vendors/js/vendor.bundle.base.js"></script>
+
+  <script src="../../../assets/js/material.js"></script>
+  <script src="../../../assets/js/misc.js"></script>
+
+</body>
+
+</html>

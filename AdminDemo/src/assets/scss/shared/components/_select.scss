@@ -1,0 +1,8 @@
+////  select values /////
+.mdc-select {
+  &:not(.mdc-select--disabled) {
+    .mdc-select__selected-text {
+      border-bottom-color: $border-color;
+    }
+  }
+}

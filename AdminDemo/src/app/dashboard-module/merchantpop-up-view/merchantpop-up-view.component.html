@@ -1,0 +1,63 @@
+<button type="button" class="close" aria-label="Close" data-dismiss="modal" [mat-dialog-close]="true">
+
+</button>
+<br>
+
+<div class="confirm-container">
+    <h1 ondragstart="return false;"  mat-dialog-title class="text-center"
+        style="color:#000183 ; font-size: 25px;font-weight: 500;">Merchant TopUp</h1>
+    <h1 ondragstart="return false;"  mat-dialog-title class="text-center"
+        style="color:#000183 ; font-size: 25px;font-weight: 500;"></h1>
+    <mat-dialog-content ondragstart="return false;"  style="color:#000183">
+        <h4>
+            <mat-label style="font-weight: 500; line-height: 30px;">
+                Merchant Code   :
+
+
+            </mat-label>{{data.merchantinfo.merchantID}}
+            <br>
+            <mat-label style="font-weight: 500; line-height: 30px;">
+                Amount   :
+
+
+            </mat-label>{{" ₹ "+" "+this.amt}}
+            <br>
+
+            <mat-label style="font-weight: 500; line-height: 30px;">
+                UTR Number   :
+
+
+            </mat-label>{{data.merchantinfo.utr}}
+
+            <br>
+           
+            <mat-label style="font-weight: 500; line-height: 30px;">
+                Status   :
+
+
+            </mat-label>{{data.merchantinfo.status}}
+            <br>
+            <mat-label style="font-weight: 500; line-height: 30px;">
+                Message   :
+
+                
+            </mat-label>{{data.merchantinfo.message}}
+            <br>
+            <!-- <mat-label style="font-weight: 500; line-height: 30px;">
+            Account Validation Status :
+          </mat-label>{{data.accountStatus}} -->
+            <br>
+
+        </h4>
+    </mat-dialog-content>
+
+    <!-- <div mat-dialog-actions style="float:right;margin:20px; "> -->
+
+    <!-- <button mat-button [mat-dialog-close]="{ clicked: 'Ok' }">Delete</button> -->
+    <!-- <div align="center">
+      <button style="width: 90px;" mat-raised-button [mat-dialog-close]="{ clicked: 'Cancel' }">
+        Close
+      </button>
+  </div> -->
+    <!-- </div> -->
+</div>

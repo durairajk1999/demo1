@@ -1,0 +1,151 @@
+
+<body>
+  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card p-0"><br><br>
+      <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate"   color="#000183"></ngx-spinner>
+
+      <form #pennyDropForm="ngForm" (ngSubmit)="fundTransfer()">
+
+
+        <div class="row">
+          <div class="form-group" class="col-md-6 mb-4 ">
+            <div class="example-header">
+
+              <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+                <mat-label class="asterix--before">Account Number</mat-label>
+                <mat-select required={{accountnumbervalue}} disableOptionCentering [(ngModel)]="penny.accountNumber" id="accountNumber"
+                  name="accountNumber" #accountNumber="ngModel" (selectionChange)="accNumberSelected($event.value)">
+                 
+                 
+                  <mat-option>
+                    <lib-mat-select-search (keypress)="onlyNumberKey($event)" id="search"     [list]="accountnumberlist1" [searchProperties]="['accNo']"
+                        [fixOnTop]="true" [clearSearchInput]="true" (filtered)="accountnumberlist2 = $event">
+                    </lib-mat-select-search>
+                </mat-option>
+
+                <mat-option *ngIf="accountnumberlist2.length==0">Record not found</mat-option>
+                 
+                 
+                 
+                  <mat-option value={{accNumber.customerId}}  *ngFor="let accNumber of accountnumberlist2">
+                    {{accNumber.accNo}}
+                  </mat-option>
+                 
+                                 </mat-select>
+                <!-- <mat-error *ngIf="accountNumber.errors && accountNumber.invalid && accountNumber.touched">
+                  Account Number is Required!
+                </mat-error> -->
+              </mat-form-field>
+              <span class="mat-error"  style="margin-left:70px;  margin-top:-20px ;  " *ngIf="accountnumbervalue">
+                Account number is required
+              </span>
+            </div>
+          </div>
+
+
+
+
+
+          <div align="center" class="form-group" class="col-md-6 mb-4">
+
+            <!-- <button (click)="toggleData()" mat-raised-button color="primary" style="margin-bottom:40px;margin-left: 110px; margin-top:10px;width:90px;">Submit</button> -->
+            <button  style="width: 90px;margin-top: 16px;" mat-raised-button 
+              class="a1">Submit</button>
+
+          </div>
+
+        </div><br>
+      </form>
+      <!-- </form>
+        </div>
+      </div> -->
+      <!-- <div *ngIf="toDisplay" class="table-responsive"> -->
+      <!-- <div *ngIf="toDisplay">
+        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
+
+      </div> -->
+      <div *ngIf="toDisplay" class="table-responsive">
+
+
+              
+
+
+        <table mat-table #firstTableSort="matSort" [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+          <!-- <ng-container matColumnDef="consentId">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>Customer ID </th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.ConsentId}} </td>
+          </ng-container> -->
+
+          <ng-container matColumnDef="creationDateTime">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>Created date & time </th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.CreationDateTime | date : 'dd/MM/y hh:mm:ss a'}} </td>
+          </ng-container>
+          
+
+
+
+
+          <ng-container matColumnDef="status">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+            <!-- <td class="p-3" mat-cell *matCellDef="let element"> {{pennydropStatus}} </td> -->
+            <td class="p-3" mat-cell *matCellDef="let element"> 
+              {{element.Status}}
+              <!-- <div>
+                Success
+              </div>
+              <div *ngIf="element.status != stsvalue">
+                Failed
+              </div>
+              <div *ngIf="element.status != stsvalue">
+                Pending
+              </div> -->
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="instructionIdentification">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>System Ref.No.</th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.Initiation.InstructionIdentification}} </td>
+          </ng-container>
+          <ng-container matColumnDef="identification">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>Debit A/c No.</th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.Initiation.DebtorAccount.Identification}} </td>
+          </ng-container>
+          <ng-container matColumnDef="schemeName">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>Beneficiary IFSC </th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.Initiation.CreditorAccount.SchemeName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="schemeIdentification">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>Beneficiary A/c No.</th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.Initiation.CreditorAccount.Identification}} </td>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>Beneficiary Name</th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.Initiation.CreditorAccount.Name}} </td>
+          </ng-container>
+          <!-- <ng-container matColumnDef="merchantCategoryCode">
+            <th class="p-3 " mat-header-cell *matHeaderCellDef mat-sort-header> Merchant Category Code</th>
+            <td class="p-3" mat-cell *matCellDef="let element">  </td>
+          </ng-container> -->
+          <ng-container matColumnDef="clearingSystemIdentification">
+            <th class="p-3" class="text-left w-0" mat-header-cell *matHeaderCellDef mat-sort-header>Transfer Mode</th>
+            <td class="p-3" mat-cell *matCellDef="let element"> IMPS</td>
+          </ng-container>
+          <ng-container matColumnDef="amount">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header> Amount &nbsp; (&#8377;) </th>
+            <td class="p-3" mat-cell *matCellDef="let element"> 1.00 </td>
+          </ng-container>
+          <!-- <ng-container matColumnDef="merchantIdentification">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header> Merchant Identification </th>
+            <td class="p-3" mat-cell *matCellDef="let element">  </td>
+          </ng-container> -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+          </tr>
+        </table>
+      </div>
+
+
+
+      <br>
+      <br>
+     

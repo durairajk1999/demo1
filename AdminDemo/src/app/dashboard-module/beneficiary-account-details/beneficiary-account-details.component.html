@@ -1,0 +1,411 @@
+<br>
+<br>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate" color="#000183"></ngx-spinner>
+<div *ngIf="pagination">
+
+    <div class="form-group" class="col-md-6 mb-4 ">
+
+        <div class="example">
+
+            <mat-form-field appearance="outline">
+                <mat-label> Search</mat-label>
+                <mat-icon matPrefix>search</mat-icon>
+                <input matInput (keyup)="applyFilter($event)" placeholder="" #input [formControl]="groupNameSearch"
+                    (keydown)="handleInput($event)" (keydown)="isAlfa($event)" maxlength="30" autocomplete="off"
+                    autocorrect="off">
+            </mat-form-field>
+        </div>
+    </div>
+    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+</div>
+
+
+<!-- <div *ngIf="show">
+    <div class="table-responsive">
+
+        <table matTableExporter #exporter="matTableExporter" mat-table #firstTableSort="matSort"
+            [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+            <ng-container matColumnDef="createdDate">
+                <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Created Date
+                </th>
+                <td  style="padding-left: 10px;" mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="userName">
+                <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Created By
+                </th>
+                <td class="p-3" mat-cell *matCellDef="let element"> {{element.userName}} </td>
+            </ng-container>
+
+
+
+
+            
+
+            <ng-container matColumnDef="addressLine">
+                <th  mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Address
+                </th>
+                <td  mat-cell *matCellDef="let element"> {{element.addressLine}} </td>
+            </ng-container>
+
+          
+            <ng-container matColumnDef="debitAccountNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left: 20px;">
+                    Debit Account No.
+                </th>
+                <td style="padding-left: 20px;"
+                mat-cell *matCellDef="let element"> {{element.debitAccountNumber}} </td>
+            </ng-container>
+
+           
+            <ng-container matColumnDef="beneficiaryAccountNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left: 10px;"
+                >
+                    Beneficiary Account No.
+                </th>
+                <td  style="padding-left: 20px;"
+                mat-cell *matCellDef="let element"> {{element.beneficiaryAccountNumber}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="beneficiaryIFSC">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left:20px ;">
+                    Beneficiary IFSC
+                </th>
+                <td mat-cell *matCellDef="let element" style="padding-left: 40px;"> {{element.beneficiaryIFSC}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="beneficiaryName">
+                <th style="padding-left: 20px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Beneficiary Name
+                </th>
+                <td mat-cell *matCellDef="let element" style="padding-left:20px;">
+                    {{element.beneficiaryName}}
+                </td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="maxLimit">
+                <th style="padding-left: 30px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Max.Limit (&#8377;)
+                </th>
+                <td mat-cell *matCellDef="let element"
+                    style="justify-content: right; text-align: right;padding-right:30px;"> {{element.maxLimit+" "+".00"}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="beneficiaryStatus">
+                <th style="padding-left: 20px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Status
+                </th>
+                <td mat-cell *matCellDef="let element"
+                    style="padding-left:20px;">
+                    {{element.beneficiaryStatus}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="transferType">
+                <th style="padding-left: 5px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Transfer Type
+                </th>
+                <td mat-cell *matCellDef="let element"
+                    style="padding-left:6px;">
+                    {{element.transferType}}
+                </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="bankName">
+                <th style="padding-left: 20px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Bank Name
+                </th>
+                <td mat-cell *matCellDef="let element"
+                    style="padding-left:20px;"> {{element.bankName}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="branchName">
+                <th style="padding-left: 20px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Branch Name
+                </th>
+                <td mat-cell *matCellDef="let element"
+                    style="padding-left:20px;">
+                    {{element.branchName}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="shortName">
+                <th style="padding-left: 20px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Nick Name
+                </th>
+                <td mat-cell *matCellDef="let element"
+                    style="padding-left:20px;"> {{element.shortName}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Approve/Reject </th>
+                <td mat-cell *matCellDef="let element">
+
+                    <mat-icon matTooltip="Approve" style="margin-left: 30%;"
+                        (click)="approve(statusValue,element.userId,element.beneficiaryAccountNumber)">task_alt</mat-icon>
+
+                    <mat-icon matTooltip="Reject" style="margin-left:15px ;"
+                        (click)="reject(statusValue,element.userId,element.beneficiaryAccountNumber)">cancel</mat-icon>
+
+                    
+                </td>
+            </ng-container>
+
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" class="search" colspan="56">
+                            <br>
+                            Record not found
+                        </td>
+                    </tr>
+        </table>
+    </div>
+</div> -->
+
+
+
+<div *ngIf="show">
+    <div class="table-responsive">
+        <table matTableExporter #exporter="matTableExporter" mat-table #firstTableSort="matSort" mat-table
+            [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+            <ng-container matColumnDef="createdDate">
+                <th class="p-1" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Created Date & Time
+                </th>
+                <td style="padding-left: 10px;" mat-cell *matCellDef="let element"> {{element.createdDate}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="beneficiaryName">
+                <th style="padding-left: 5px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Beneficiary Name
+                </th>
+                <td mat-cell *matCellDef="let element" style="padding-left:10px;">
+                    {{element.beneficiaryName}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="beneficiaryAccountNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left: 10px;">
+                    Beneficiary Account No.
+                </th>
+                <td style="padding-left: 20px;" mat-cell *matCellDef="let element">
+                    {{element.beneficiaryAccountNumber}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="beneficiaryIFSC">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left:15px ;">
+                    Beneficiary IFSC
+                </th>
+                <td mat-cell *matCellDef="let element" style="padding-left: 20px;"> {{element.beneficiaryIFSC}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="shortName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left:10px ;">
+                    Nick Name
+                </th>
+                <td mat-cell *matCellDef="let element" style="padding-left: 20px;"> {{element.shortName}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="bankName">
+                <th style="padding-left: 15px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Bank Name
+                </th>
+                <td mat-cell *matCellDef="let element" style="padding-left:15px;"> {{element.bankName}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="branchName">
+                <th style="padding-left: 10px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Branch Name
+                </th>
+                <td mat-cell *matCellDef="let element" style="padding-left:20px;">
+                    {{element.branchName}}
+                </td>
+            </ng-container>
+
+            <!-- <ng-container matColumnDef="maxLimit">
+                <th style="padding-left: 10px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Max.Limit (&#8377;)
+                </th>
+                <td mat-cell *matCellDef="let element"
+                    style="justify-content: right; text-align: right;padding-right:5px;"> {{element.maxLimit}}
+                </td>
+            </ng-container> -->
+
+            <!-- <ng-container matColumnDef="userName">
+                <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Created By
+                </th>
+                <td class="p-3" mat-cell *matCellDef="let element"> {{element.userName}} </td>
+            </ng-container> -->
+
+            <!-- <ng-container matColumnDef="debitAccountNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left: 20px;">
+                    Debit Account No.
+                </th>
+                <td style="padding-left: 20px;" mat-cell *matCellDef="let element">
+                    {{element.debitAccountNumber}} </td>
+            </ng-container> -->
+
+            <ng-container matColumnDef="beneficiaryStatus">
+                <th style="padding-left:5px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Beneficiary Account Status
+                </th>
+                <td mat-cell *matCellDef="let element" style="padding-left:35px;">
+                    {{element.beneficiaryStatus}} </td>
+            </ng-container>
+
+            <!-- <ng-container matColumnDef="approvedBy">
+                <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Updated By
+                </th>
+                <td class="p-3" mat-cell *matCellDef="let element"> {{element.approvedBy}} </td>
+            </ng-container> -->
+
+            <!-- <ng-container matColumnDef="modifiedBy">
+                <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Updated By
+                </th>
+                <td class="p-3" mat-cell *matCellDef="let element"> {{element.modifiedBy}} </td>
+            </ng-container> -->
+
+            <!-- <ng-container matColumnDef="modifiedDate">
+                <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Updated Date & Time
+                </th>
+                <td style="padding-left: 10px;" mat-cell *matCellDef="let element"> {{element.modifiedDate}}
+                </td>
+            </ng-container> -->
+
+
+
+
+
+
+
+
+
+
+
+            <!-- <ng-container matColumnDef="accountStatus">
+                <th style="padding-left: 20px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Account Validation Status
+                </th>
+                <td mat-cell *matCellDef="let element" style="padding-left:20px;">
+                    {{element.accountStatus}} </td>
+            </ng-container> -->
+
+
+
+
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;"> Approve/Reject </th>
+                <td mat-cell *matCellDef="let element">
+
+
+
+                    <!-- <span
+                        *ngIf="this.signInNavResponse.responseContent.roles[0]  == 'Super Admin' || this.signInNavResponse.responseContent.roles[0] == 'Admin'  ">
+
+                        <span *ngIf="element.status =='Pending' || element.status =='' ">
+                            <mat-icon matTooltip="Approve" style="margin-left: 30%;"
+                                (click)="approved()">task_alt</mat-icon>
+                            <mat-icon matTooltip="Reject" style="margin-left:15px ;"
+                                (click)="reject()">cancel</mat-icon>
+                        </span>
+                        <span *ngIf="element.status =='Rejected' || element.status =='Unmapped' ">
+                            <mat-icon style="margin-left: 30%; cursor: not-allowed;color: #8c8c8f;">task_alt</mat-icon>
+                            <mat-icon style="margin-left: 15px; cursor: not-allowed;color: #8c8c8f;">cancel</mat-icon>
+                        </span>
+
+                    </span>
+
+
+
+
+
+
+                    <span
+                        *ngIf="this.signInNavResponse.responseContent.roles[0] != 'Super Admin' && this.signInNavResponse.responseContent.roles[0] != 'Admin' ">
+                        <mat-icon style="margin-left: 30%; cursor: not-allowed;color: #8c8c8f;">task_alt</mat-icon>
+                        <mat-icon style="margin-left:15px ;cursor: not-allowed;color: #8c8c8f;">cancel</mat-icon>
+                    </span> -->
+
+                    <span
+                            *ngIf="this.signInNavResponse.responseContent.roles[0]  == 'Super Admin' || this.signInNavResponse.responseContent.roles[0] == 'Admin'  ">
+
+                        <span *ngIf="element.beneficiaryStatus == 'Pending' "> 
+
+                            <mat-icon matTooltip="Approve" style="margin-left: 30px;"
+                                (click)="approve(element.beneficiaryAccountNumber,element.createdBy)">task_alt</mat-icon>
+
+                            <mat-icon matTooltip="Reject" style="margin-left:15px ;"
+                                (click)="reject(element.beneficiaryAccountNumber,element.createdBy)">cancel</mat-icon>
+
+                        </span>
+
+                        <span *ngIf="element.beneficiaryStatus != 'Pending' ">
+
+                            <mat-icon style="margin-left: 30px; cursor: not-allowed;color: #8c8c8f;">task_alt</mat-icon>
+                            <mat-icon style="margin-left:15px ;cursor: not-allowed;color: #8c8c8f;">cancel</mat-icon>
+
+                        </span> </span>
+
+
+
+
+                    <span
+                        *ngIf="this.signInNavResponse.responseContent.roles[0] != 'Super Admin' && this.signInNavResponse.responseContent.roles[0] != 'Admin' ">
+
+
+                        <mat-icon style="margin-left: 30px; cursor: not-allowed;color: #8c8c8f;">task_alt</mat-icon>
+                        <mat-icon style="margin-left:15px ;cursor: not-allowed;color: #8c8c8f;">cancel</mat-icon>
+
+
+                    </span>
+
+
+
+
+
+
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions1">
+                <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;">Info</th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-icon matTooltip="View" style="margin-left: 10px;"
+                        (click)="startView(element.debitAccountNumber,element.userName,element.maxLimit,element.approvedBy,element.modifiedDate,element.accountStatus)">info
+                    </mat-icon>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" class="search" colspan="56">
+                    <br>
+                    Record not found
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

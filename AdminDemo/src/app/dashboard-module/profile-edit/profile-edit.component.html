@@ -1,0 +1,106 @@
+<form>
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate" color="#000183"></ngx-spinner>
+    <div class="form">
+        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+            <mat-label class="asterix--before">First Name</mat-label>
+            <input style="text-transform: capitalize;" autocomplete="off" autocorrect="off" OnlyCharacter
+                ondragstart="return false;"  required={{fname}} [(ngModel)]="data.firstName"
+                name="FirstName" (ngModelChange)="firstNameEnter(data.firstName)" matInput placeholder="" singleSpace
+                minlength="3" maxlength="30" [formControl]="userNameform" (blur)='onBlur()' singleSpace>
+            <mat-error *ngIf="userNameform.errors?.minlength ">Should have minimum 3 characters </mat-error>
+            <mat-error *ngIf="fname">
+                First name is required
+            </mat-error>
+        </mat-form-field>
+
+    </div>
+
+    <div class="form">
+        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+            <mat-label class="asterix--before">Last Name</mat-label>
+            <input style="text-transform: capitalize;" autocomplete="off" autocorrect="off" OnlyCharacter
+                ondragstart="return false;"  required={{lname}} [(ngModel)]="data.lastName"
+                name="FirstName" (ngModelChange)="lastNameEnter(data.lastName)" matInput placeholder="" singleSpace
+                minlength="1" maxlength="30" [formControl]="lastnameform" (blur)='onBlur1()' />
+
+            <mat-error *ngIf="lastnameform.errors?.minlength ">Should have minimum 3 characters </mat-error>
+            <mat-error *ngIf="lname">
+                Last name is required
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+
+
+
+
+    <div class="form">
+        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+            <mat-label class="asterix--before">Username</mat-label>
+            <input autocomplete="off" autocorrect="off" matInput  ondragstart="return false;"
+                #input placeholder="" [(ngModel)]="data.username" name="position"
+                (ngModelChange)="usernameEnter(data.username)" (keydown)="handleInput($event)"
+                (keydown)="isAlfa($event)" [disabled]="true" />
+        </mat-form-field>
+    </div>
+
+
+
+
+
+
+    <!-- not used -->
+    <!-- <div class="form">
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                <mat-label>Email ID </mat-label>
+                <input [disabled]="true"    autocomplete="off" matInput #input
+                    (keydown)="$event.keyCode != 32 ? $event:$event.preventDefault()" 
+                    ondragstart="return false;" placeholder="" [(ngModel)]="data.email" name="ceo"
+                    [formControl]="emailAddress" (ngModelChange)="emailEnter(data.email)" />
+
+                <mat-error *ngIf="emailAddress.invalid">{{getEmailError()}} </mat-error>
+
+
+            </mat-form-field>
+
+
+        </div> / -->
+
+
+    <!-- userd -->
+    <!-- <div class="form">
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                <mat-label>Email ID </mat-label>
+                <input [disabled]="true" autocomplete="off" autocorrect="off" matInput #input 
+                    ondragstart="return false;" placeholder="" [(ngModel)]="data.email" name="ceo"
+                    (ngModelChange)="emailEnter(data.email)">
+            </mat-form-field>
+
+
+        </div> -->
+
+
+
+
+    <div class="form">
+
+        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+            <mat-label class="asterix--before">Mobile Number</mat-label>
+
+
+            <input autocomplete="off" autocorrect="off" onlyNumber matInput 
+                ondragstart="return false;" #input placeholder="" [(ngModel)]="data.mobileNo" [formControl]="mobile"
+                name="name" required (ngModelChange)="mobileNumberEnter(data.mobileNo)" minlength="10" noSpace
+                maxlength="10">
+
+            <mat-error *ngIf="mobile.invalid">{{getMobileError()}} </mat-error>
+        </mat-form-field>
+
+
+    </div>
+
+    <div class="mat-dialog-actions" align="center">
+        <button style="width: 90px" mat-raised-button (click)="save()"> Save</button>
+        <button style="width: 90px" mat-raised-button [mat-dialog-close]="1">Cancel</button>
+    </div>
+</form>

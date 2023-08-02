@@ -1,0 +1,32 @@
+<div>
+    <form mat-dialog-content #modelChangeForm="ngForm">
+
+
+            <div class="form">
+                <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                    <mat-label class="asterix--before">New Model</mat-label>
+                    <mat-select required={{modelrequired}} ondragstart="return false;" 
+                        name="changemodel" id="modelchanged" disableOptionCentering [formControl]="modelname"
+                        (selectionChange)="changeModel($event.value)" [(ngModel)]="selectedmodelname">
+
+                        <ng-container *ngFor="let type of typeList2">
+                            <mat-option *ngIf="this.planType!=type.viewValue" value={{type.viewValue}}>
+                                {{type.viewValue}}
+                            </mat-option>
+                        </ng-container>
+
+                    </mat-select>
+                    <mat-error *ngIf="modelrequired">
+                        New model is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            
+            <div class="mat-dialog-actions">
+                <button class="a1" type="submit" mat-raised-button (click)="changeModelRequest()">Change Model</button>
+            </div>
+
+
+    </form>
+
+</div>

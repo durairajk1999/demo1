@@ -1,0 +1,89 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" color="#000183" type="ball-clip-rotate"></ngx-spinner>
+<form #formControl="ngForm">
+
+    <div mat-dialog-content>
+        <div class="form">
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                <mat-label class="asterix--before">Group ID</mat-label>
+                <input autocomplete="off" autocorrect="off"  ondragstart="return false;" matInput
+                    required [disabled]="true" #input placeholder="" [(ngModel)]="data.roleGroupId"
+                    name="roleGroupId" />
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                <mat-label class="asterix--before">Parent menu ID</mat-label>
+                <input autocomplete="off" autocorrect="off"  ondragstart="return false;" matInput
+                    required #input [disabled]="true" placeholder="" [(ngModel)]="data.parentMenuId"
+                    name="parentMenuId">
+            </mat-form-field>
+        </div>
+
+
+
+        <div class="form">
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                <mat-label class="asterix--before">Parent menu name</mat-label>
+                <input autocomplete="off" autocorrect="off" OnlyCharacter 
+                    ondragstart="return false;" matInput required={{parentmenuname}} #input placeholder=""
+                    [(ngModel)]="data.parentMenuName" style="text-transform: capitalize;" name="parentMenuName"
+                    (ngModelChange)="parentmenunameEnter(data.parentMenuName)" minlength="3" maxlength="30" singleSpace
+                    [formControl]="parentmenu" />
+                <mat-error *ngIf="parentmenu.errors?.minlength ">Should have minimum 3 characters </mat-error>
+
+                <mat-error *ngIf="parentmenuname">
+                    Parent menu name is required
+                </mat-error>
+
+            </mat-form-field>
+
+
+        </div>
+
+        <div class="form">
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                <mat-label class="asterix--before">Icon name</mat-label>
+
+                <mat-select ondragstart="return false;" [(ngModel)]="data.iconName" disableOptionCentering
+                     required={{iconname}} autocorrect="off" name="iconName"
+                    (ngModelChange)="iconnameEnter(data.iconName)" [formControl]="icon">
+                    <!-- <mat-option>
+                      <lib-mat-select-search (keypress)="letterOnly($event)" id="search"  [fixOnTop]="true" [clearSearchInput]="true" [list]="iconName2" [searchProperties]="['iconName']" (filtered)="iconName3=$event">
+   
+                      </lib-mat-select-search>
+                    </mat-option> -->
+
+
+                    <mat-option value={{icon.iconName}} *ngFor="let icon of iconName1">
+                        <img draggable="false" src="../assets/images/faces/{{icon.iconName}}" width="20px"
+                            height="20px">
+                        {{icon.iconName}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="iconname">
+                    Icon name is required
+                </mat-error>
+
+                <!-- <input autocomplete="off" autocorrect="off"  ondragstart="return false;" matInput
+                    required={{iconname}} #input placeholder="" [(ngModel)]="parentmenurequest.iconName" name="iconName"
+                    (ngModelChange)="iconnameEnter(parentmenurequest.iconName)" [formControl]="icon" minlength="3"
+                    maxlength="30" />
+
+                <mat-error *ngIf="icon.errors?.minlength ">Should have minimum 3 characters </mat-error>
+                <mat-error *ngIf="iconname">
+                    Icon name is required
+                </mat-error> -->
+            </mat-form-field>
+
+        </div>
+    </div>
+
+
+
+    <mat-dialog-actions align="center">
+        <button class="a1" (click)="submit()" mat-raised-button> Save</button>
+        <button class="b1" mat-raised-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </mat-dialog-actions>
+</form>

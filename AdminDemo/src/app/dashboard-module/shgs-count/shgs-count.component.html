@@ -1,0 +1,231 @@
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card p-0"><br><br>
+        <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate" color="#000183"> </ngx-spinner>
+
+        <form class="form" #iadetailsform="ngForm" (ngSubmit)="submit()">
+
+            <div class="row">
+
+
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">State</mat-label>
+                            <mat-select required={{statevalue}} disableOptionCentering
+                                [(ngModel)]="credential.state_name" id="state_name" name="state_name"
+                                [formControl]="statenameForm" (selectionChange)=stateName($event.value)>
+
+                                <mat-option>
+                                    <lib-mat-select-search (keypress)="letterOnly($event)" id="search"
+                                        [list]="statelist1" [searchProperties]="['state_name']" [fixOnTop]="true"
+                                        [clearSearchInput]="true" (filtered)="statelist2 = $event">
+                                    </lib-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngIf="statelist2.length==0">Record not found</mat-option>
+
+
+
+                                <mat-option value={{statename.state_name}} *ngFor="let statename of statelist2">
+                                    {{statename.state_name}}
+                                </mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="statevalue">
+                            State is required
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker" class="yes"
+                            (click)="districtTouch()">
+                            <mat-label>District</mat-label>
+                            <mat-select disableOptionCentering [(ngModel)]="credential.district_name" id="district_name"
+                                name="district_name" [formControl]="districtnameForm"
+                                (selectionChange)=iaList($event.value)>
+
+
+                                <mat-option>
+                                    <lib-mat-select-search (keypress)="letterOnly($event)" id="search"
+                                        [list]="districtlist1" [searchProperties]="['district_name']" [fixOnTop]="true"
+                                        [clearSearchInput]="true" (filtered)="districtlist2 = $event">
+                                    </lib-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngIf="districtlist2.length==0">Record not found</mat-option>
+
+                                <mat-option value={{districtname.district_name}}
+                                    *ngFor="let districtname of districtlist2">
+                                    {{districtname.district_name}}
+                                </mat-option>
+                            </mat-select>
+                            <!-- <mat-error *ngIf="districtvalue">               
+                   District is Required!
+                </mat-error> -->
+                        </mat-form-field>
+
+                        <!-- <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="districtvalue">
+                            District is required
+                        </span> -->
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker" class="yes"
+                            (click)="iaTouch()">
+                            <mat-label>IA Name</mat-label>
+                            <mat-select required={{iavalue}} disableOptionCentering
+                                [(ngModel)]="credential.name_of_SHPI" id="name_of_SHPI" name="name_of_SHPI"
+                                [formControl]="ianameForm" (selectionChange)="ianame($event.value)">
+
+                                <mat-option>
+                                    <lib-mat-select-search (keypress)="letterOnly($event)" id="search" [list]="ialist1"
+                                        [searchProperties]="['name_of_SHPI']" [fixOnTop]="true"
+                                        [clearSearchInput]="true" (filtered)="ialist2 = $event">
+                                    </lib-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngIf="ialist2.length==0">Record not found</mat-option>
+
+
+                                <mat-option class="options" value={{ianame.name_of_SHPI}}
+                                    *ngFor="let ianame of ialist2">
+                                    <!-- <span class="bar_content" *ngIf="ianame.name_of_SHPI.length >=25">
+                      {{ianame.name_of_SHPI}}
+                    </span> -->
+                                    {{ianame.name_of_SHPI}}
+                                    <!-- <span *ngIf="ianame.name_of_SHPI.length <25">
+                      {{ianame.name_of_SHPI}}
+                    </span> -->
+                                </mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+
+                        <!-- <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="iavalue">
+                            IA name is required
+                        </span> -->
+                    </div>
+                </div>
+
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+
+                        <button mat-raised-button
+                            style=" margin-left: 130px;width: 90px; margin-top: 15px;">Submit</button>
+
+                    </div>
+                </div>
+
+            </div>
+        </form>
+        <br>
+        <br>
+
+        <div class="row" *ngIf="table1">
+            <div class="form-group" class="col-md-6 mb-4 ">
+
+                <div class="example">
+
+                    <mat-form-field appearance="outline">
+                        <mat-label> Search</mat-label>
+                        <mat-icon matPrefix>search</mat-icon>
+                        <input autocomplete="off" autocorrect="off" matInput (keyup)="applyFilter($event)"
+                            placeholder=" " #input [formControl]="filter" maxlength="30" singleSpace>
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+
+
+            <div *ngIf="pagination">
+                <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+            </div>
+        </div>
+
+
+        <div class="table-responsive" *ngIf="table">
+
+            <table #firstTableSort="matSort" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+                <ng-container matColumnDef="state">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription
+                        style="padding-left: 26px;">
+                        State
+                    </th>
+                    <td class="p-3" mat-cell *matCellDef="let element"> {{element.state}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="district">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription
+                        style="padding-left: 26px;">
+                        District
+                    </th>
+                    <td class="p-3" mat-cell *matCellDef="let element"> {{element.district}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="ia">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription
+                        style="padding-left: 20px;">
+                        IA Count
+                    </th>
+                    <td style="padding-left: 36px;" mat-cell *matCellDef="let element"> {{element.ia}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="no_Of_SHGs">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription>
+                        No.of Groups
+                    </th>
+                    <td style="padding-left: 30px;" mat-cell *matCellDef="let element"> {{element.no_Of_SHGs}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="onlyTransaction">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription>
+                        Transaction
+                    </th>
+                    <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.onlyTransaction}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="onlyBookKeeping">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription>
+                        Bookkeeping
+                    </th>
+                    <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.onlyBookKeeping }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="bothTransactionBookKeeping">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription>
+                        Both Transaction and Bookkeeping
+                    </th>
+                    <td style="text-align: center;" mat-cell *matCellDef="let element">
+                        {{element.bothTransactionBookKeeping}}
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr class="mat-row" *matNoDataRow >
+                    <td class="mat-cell" class="search"  colspan="15">
+                        <br>
+                        Record not found
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</div>

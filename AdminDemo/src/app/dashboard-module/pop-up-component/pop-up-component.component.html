@@ -1,0 +1,35 @@
+<form class="form" myForm="ngform">
+
+
+  <div mat-dialog-content >
+      
+    <div>
+        <mat-form-field  appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+            <mat-label class="asterix--before">Remarks</mat-label>
+            <textarea matInput [formControl]="commentFC"      (blur)='onBlur()'
+            [(ngModel)]="data.comment" style="resize:none;" rows="7" 
+            matInput ></textarea>
+        
+            <mat-error *ngIf="commentFC.hasError('required')">
+  
+              Comment is required
+          </mat-error>
+  
+          <mat-error *ngIf="commentFC.hasError('minlength')">
+  
+            Should have minimum 3 characters
+        </mat-error>
+        
+          </mat-form-field>
+         
+          
+  
+    </div>
+  
+  </div>
+  <mat-dialog-actions align="center">
+    <button  mat-raised-button  style="width:90px; color: white;background-color: #000183; " (click)="myMethod(data.comment)" cdkFocusInitial>Submit</button>
+  </mat-dialog-actions>
+  
+  </form>
+  

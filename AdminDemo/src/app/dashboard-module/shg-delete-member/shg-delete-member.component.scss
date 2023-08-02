@@ -1,0 +1,65 @@
+
+::ng-deep lib-mat-select-search *{
+  color: #000183;
+  }
+
+  
+th.mat-header-cell,td.mat-cell {
+    text-align: center;
+    width: 10%;
+    border: 0.5px solid #CCC;
+    padding: 10px !important;
+    padding-left: 70px;
+  }
+:host ::ng-deep .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .mat-column-select {
+    
+    width: 2% !important;
+   
+  }
+  .mat-column-header-row-zero-group{
+    width: 4% !important;
+
+  }
+
+  @media screen and (max-width:400px) {
+    .example mat-form-field {
+        margin-left: 42px;
+        width: 230px;
+        height: 100px;
+    }
+}
+
+@media screen and (max-width:500px) {
+
+  .search {
+
+    text-align:center;
+  //   padding-left: 180px !important;
+    font-weight: 500;
+    color: #000183;
+  }
+}
+
+@media screen and (min-width: 500px){
+
+ .search {
+    text-align: center;
+  //   transform:translate(55%);
+    padding-right: 25px !important;
+    font-weight: 500;
+    color: #000183;
+  }
+}
+
+:has(.parent-row:hover) .child-row{
+  background-color: rgb(232, 240, 254);
+}
+
+:has(.child-row:hover) .parent-row{
+  background-color: rgb(232, 240, 254);
+}

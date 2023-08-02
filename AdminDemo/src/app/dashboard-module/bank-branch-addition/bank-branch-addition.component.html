@@ -1,0 +1,227 @@
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card p-0"><br><br>
+        <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate" color="#000183"></ngx-spinner>
+
+        <form class="form" #bankbranchform="ngForm" (ngSubmit)="submit()">
+
+            <div class="row">
+
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+
+                        <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+                            <mat-label class="asterix--before">State</mat-label>
+
+                            <mat-select ondragstart="return false;"  required="{{stateValue}}"
+                                disableOptionCentering [(ngModel)]="bankbranchaddition.state" id="state" name="state"
+                                [formControl]="stateName" (selectionChange)="getDistrictName($event.value)">
+
+                                <mat-option>
+                                    <lib-mat-select-search id="search"  (keypress)="letterOnly($event)"  [list]="statelist1"
+                                        [searchProperties]="['state_name']" [fixOnTop]="true" [clearSearchInput]="true"
+                                        (filtered)="statelist2 = $event">
+                                    </lib-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngIf="statelist2.length==0">Record not found</mat-option>
+
+
+
+
+
+
+                                <mat-option value={{state.state_name}} *ngFor="let state of statelist2">
+                                    {{state.state_name}}
+                                </mat-option>
+
+                            </mat-select>
+                            <!-- <mat-error *ngIf="stateName.errors?.required">
+                                State is required
+                            </mat-error> -->
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;" *ngIf="stateValue">
+                            State is required
+                        </span>
+                    </div>
+                </div>
+
+
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker" class="yes"
+                            (click)="districtTouch()">
+                            <mat-label class="asterix--before">District</mat-label>
+                            <mat-select ondragstart="return false;"  required="{{districtValue}}"
+                                (selectionChange)="getBankType($event.value)" disableOptionCentering
+                                [(ngModel)]="bankbranchaddition.district" id="district" name="district"
+                                [formControl]="districtName">
+
+                                <mat-option>
+                                    <lib-mat-select-search id="search" (keypress)="letterOnly($event)"  [list]="districtlist1"
+                                        [searchProperties]="['district_name']" [fixOnTop]="true"
+                                        [clearSearchInput]="true" (filtered)="districtlist2 = $event">
+                                    </lib-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngIf="districtlist2.length==0">Record not found</mat-option>
+
+
+
+
+                                <mat-option value={{district.district_name}} *ngFor="let district of districtlist2">
+                                    {{district.district_name}}
+                                </mat-option>
+
+                            </mat-select>
+                            <!-- <mat-error *ngIf="districtName.errors?.required">
+                                District is required
+                            </mat-error> -->
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="districtValue">
+                            District is required
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker" class="yes"
+                        (click)="bankTypeTouch()">
+                            <mat-label class="asterix--before">Bank Type</mat-label>
+
+                            <mat-select ondragstart="return false;"  required="{{bankTypeValue}}"
+                                disableOptionCentering [(ngModel)]="bankbranchaddition.type" id="bank_agency"
+                                name="bank_agency" [formControl]="banktype"
+                                (selectionChange)="getBankName($event.value)">
+
+
+
+                                <mat-option>
+                                    <lib-mat-select-search id="search"  (keypress)="letterOnly($event)"  [list]="banktypelist1"
+                                        [searchProperties]="['bank_agency']" [fixOnTop]="true" [clearSearchInput]="true"
+                                        (filtered)="banktypelist2 = $event">
+                                    </lib-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngIf="banktypelist2.length==0">Record not found</mat-option>
+
+                                <mat-option class="options"  value={{bankType.bank_agency}} *ngFor="let bankType of banktypelist2"
+                                    [value]="bankType.type">
+                                    {{bankType.bank_agency}}
+                                </mat-option>
+
+                            </mat-select>
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="bankTypeValue">
+                            Bank type is required
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker" class="yes"
+                        (click)="bankNameTouch()">
+                            <mat-label class="asterix--before">Bank</mat-label>
+                            <mat-select ondragstart="return false;"  required="{{bankNameValue}}"
+                                disableOptionCentering [(ngModel)]="bankbranchaddition.bank" id="bank" name="bank"
+                                [formControl]="bank" (selectionChange)="selectBankName($event.value)">
+
+                                <mat-option>
+                                    <lib-mat-select-search id="search"  (keypress)="letterOnly($event)"  [list]="banklist1" [searchProperties]="['bank']"
+                                        [fixOnTop]="true" [clearSearchInput]="true" (filtered)="banklist2 = $event">
+                                    </lib-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngIf="banklist2.length==0">Record not found</mat-option>
+
+
+                                <mat-option class="options"      value="{{name.bank}}" *ngFor="let name of banklist2">
+                                    <!-- <span class="bar_content" style="color: #000183;" *ngIf="name.bank.length >=25">
+                                        {{name.bank}}
+                                    </span>
+                                    <span *ngIf="name.bank.length <25">
+                                        
+                                    </span> -->
+                                    {{name.bank}}
+                                </mat-option>
+
+                            </mat-select>
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="bankNameValue">
+                            Bank is required
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Branch Name</mat-label>
+                            <input autocomplete="off" autocorrect="off" ondragstart="return false;" 
+                                [(ngModel)]="bankbranchaddition.brancH_NAME" id="brancH_NAME" name="brancH_NAME"
+                                [formControl]="branchName" required="{{branchValue}}" (ngModelChange)="branchChange()"
+                                matInput placeholder="" #input OnlyCharacter  minlength="3"   maxlength="30"
+                                singleSpace toUppercase>
+                                <!-- <mat-error *ngIf="villageForm.errors?.minlength ">Should have minimum 3 characters </mat-error> -->
+
+                                <mat-error *ngIf="branchName.errors?.minlength">Should have minimum 3 characters </mat-error>
+
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;" *ngIf="branchValue">
+                            Branch name is required
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">IFSC</mat-label>
+                            <input autocomplete="off" autocorrect="off" ondragstart="return false;" 
+                                [(ngModel)]="bankbranchaddition.ifsC_CODE" id="ifsC_CODE" name="ifsC_CODE"
+                                (blur)='onBlur()' [formControl]="ifsc" required (ngModelChange)="ifscChange()" matInput toUppercase
+                                placeholder="" #input onlyAlphanumeric 
+                                maxlength="11" minlength="11">
+                            <!-- <mat-error *ngIf="ifsc.errors?.minlength">
+                                Enter valid IFSC
+                            </mat-error> -->
+
+                            <mat-error *ngIf="ifsc.invalid">{{getIFSCError()}}</mat-error>
+                        </mat-form-field>
+                        <!-- <span class="mat-error"  style="margin-left:70px;  margin-top:-20px ;" *ngIf="ifscValue">
+                            IFSC is required
+                          </span> -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label >Contact Number</mat-label>
+                            <input autocomplete="off" autocorrect="off" ondragstart="return false;"  onlyNumber
+                                (blur)='onBlur()' [(ngModel)]="bankbranchaddition.contact" id="contact" name="contact" 
+                                  matInput placeholder="" #input
+                                 maxlength="12">
+                            <!-- <mat-error *ngIf="contactNumber.invalid">{{getMobileError()}}</mat-error> -->
+                        </mat-form-field>
+
+                    </div>
+                </div>
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+
+                        <button mat-raised-button style="margin-left: 130px;
+                    width: 90px;
+                    margin-top: 1%;">Submit</button>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

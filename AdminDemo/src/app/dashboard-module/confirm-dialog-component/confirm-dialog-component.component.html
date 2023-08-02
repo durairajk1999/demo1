@@ -1,0 +1,21 @@
+
+<div>
+	<div class="material-icons">
+		<span >
+			<mat-icon style="margin-right: 20px;">info</mat-icon>
+		</span>
+	</div>
+	
+	<div align="center">
+		<p style="font-size: 17px;font-weight: 500 ; color: #000183; margin-right: 20px;">
+			{{message}}
+		</p>
+	</div>
+	
+	<mat-dialog-actions align="center">
+		<button  mat-raised-button  mat-dialog-close (click)="onConfirmClick()" >YES</button>
+		<button  mat-raised-button (click)="onNoClick()">NO</button>
+		
+	</mat-dialog-actions>
+</div>
+

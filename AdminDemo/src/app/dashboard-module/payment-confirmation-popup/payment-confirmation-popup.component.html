@@ -1,0 +1,131 @@
+
+<form class="form"  style="margin-top: 10px;" >
+  <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate"   color="#000183"> </ngx-spinner>
+  <div>
+    <h2 style="text-align: center;font-weight: 500;font-size: 25px;color: #000183;">Payment Details</h2>
+
+        <h4 class="demo">
+          <mat-label style="font-weight: 500; font-size: 17px; line-height: 30px;">
+            Beneficiary Name :
+          </mat-label>{{BeneficiaryName}}
+          <br>
+        
+          <mat-label style="font-weight: 500; font-size: 17px; line-height: 30px;">
+            Bank  :
+          </mat-label>{{Bank}}
+          <br>
+          
+          <mat-label style="font-weight: 500; font-size: 17px; line-height: 30px;">
+            Branch  :
+          </mat-label>{{branch}}
+          
+          <br>
+          <mat-label style="font-weight: 500; font-size: 17px; line-height: 30px;">
+            IFSC :
+          </mat-label>{{IFSC}}
+          
+          <br>
+          <mat-label style="font-weight: 500; font-size: 17px; line-height: 30px;">
+            Account Number  :
+          </mat-label>{{AccountNumber}}
+          
+          <br>
+          <mat-label style="font-weight: 500; font-size: 17px; line-height: 30px;">
+            Amount  :
+          </mat-label>{{" ₹ "+""+amount}}
+          
+          <br>
+          <mat-label style="font-weight: 500; font-size: 17px; line-height: 30px;">
+            Remarks  :
+          </mat-label>{{remarks}}
+<!--           
+          <br> -->
+          <!-- <mat-label style="font-weight: 500; font-size: 17px; line-height: 30px;">
+            Reference ID :
+          </mat-label>{{referenceID}} -->
+          <!-- <br> -->
+          
+        </h4>
+        <!-- <br> -->
+        <div class="row"  *ngIf="otpandresend">
+          <mat-form-field              appearance="outline" [hideRequiredMarker]="hideRequiredMarker"  class="field">
+              <mat-label class="asterix--before" style="font-weight: 400;font-size: 17px;">OTP</mat-label>
+              <input     onlyNumber  (blur) = 'onBlur()' ondragstart="return false;"   matInput placeholder=""  required={{otpfield}}    #input   (keydown)="$event.keyCode != 32 ? $event:$event.preventDefault()"  
+              [(ngModel)]="optenterValue"  id="rechargeNumber" name="rechargeNumber"  noSpace
+                          autocomplete="off" minlength="6" maxlength="6"  (ngModelChange)="otpEnter(optenterValue)" [disabled]="otpvalid"   [readonly]="isOtpExpired" [formControl]="otp" />
+                      
+        <mat-error *ngIf="otp.errors?.minlength">Enter valid OTP </mat-error>
+        <mat-error *ngIf="otpfield">
+
+          OTP is required
+
+        </mat-error>
+                          <!-- <mat-error *ngIf="otpfield">
+
+                        {{otpMessage}}
+
+                      </mat-error> -->
+ </mat-form-field>
+ <button type="button"  mat-raised-button class="btn1"  style="width:90px; height: 35px; margin-top: 10px; color: white;background-color: #000183; display: inline; "    (click)="resetOTP()" >
+  <!-- <mat-icon style="margin-left: -12px;">
+  cached
+  </mat-icon>&nbsp; -->
+  Resend</button>
+  </div>
+
+  <!-- <div *ngIf="validatebutton">
+    <span style="margin-left:10px;  margin-top:-20px ; color: #000183; ">
+      OTP is sent to {{"******"+mobile1}}
+    </span>
+  </div> -->
+
+  <br>
+  <div style="text-align: center;" *ngIf="validatebutton && !isOtpExpired">
+    <!-- <div>
+      <mat-icon style="color: #000183;">timer</mat-icon>
+  
+    </div> -->
+    <div>
+      <span style="margin-left:-9px;  margin-top:-20px ; color: #000183; ">
+        OTP sent to {{"******"+mobile1}} and will expire in <span style="font-weight: 600;">{{counter | formatTime}}</span> 
+      </span>
+    </div>
+  
+  </div>
+
+
+  <div class="row"  *ngIf="validatebutton">
+    
+
+    <mat-dialog-actions align="center">
+      <button  class="a1" type="button"   mat-raised-button   style="width:90px; color: white;background-color:#000183; "(click)="validateOTP()" > Validate</button>
+     
+    </mat-dialog-actions>
+
+ 
+  
+</div>
+  
+
+  <div class="row"  *ngIf="proceedandcancel">
+    
+
+      <mat-dialog-actions align="center">
+        <button  class="a1" type="button"   mat-raised-button   style="width:90px; color: white;background-color: #000183; "(click)="proceed()" > Proceed</button>
+        <button class="b1"  type="button"     mat-raised-button  style="width:90px; color: white;background-color: #000183; " (click)="cancel()" > Cancel</button>
+      </mat-dialog-actions>
+
+   
+    
+</div>
+ 
+  </div>
+
+  
+  
+ 
+  </form>
+
+ 
+  
+

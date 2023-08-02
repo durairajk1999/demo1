@@ -1,0 +1,64 @@
+.form {
+  display: flex;
+  padding-top: 6px;
+}
+
+.mat-form-field {
+  font-size: 16px;
+  width: 250px;
+  flex-grow: 1;
+}
+
+.form input.mat-input-element {
+  color: #000183;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  -webkit-text-fill-color: #000183;
+
+}
+
+mat-dialog-content{
+  width: 350px;
+  height:400px;
+  padding: 20px;
+}
+
+mat-dialog-actions{
+  padding-bottom: 20px;
+}
+
+
+.mat-form-field mat-label {
+  font-size: 17px;
+  font-weight: 500;
+}
+
+
+@media screen and (min-width: 1280px) {
+  .a1 {
+    margin-left: 0px;
+    width:90px;
+  }
+
+  .b1{
+    margin-left: 0px;
+    width:90px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .a1 {
+    margin-left: 5x;
+    width:90px;
+  }
+
+  .b1{
+    margin-left: 5px;
+    width:90px;
+  }
+}

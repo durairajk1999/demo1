@@ -1,0 +1,102 @@
+<!-- <div class="mdc-layout-grid__inner"> -->
+
+
+
+    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+        <div class="mdc-card p-0"><br><br>
+            <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate"   color="#000183"> </ngx-spinner>
+
+            <form #ftBalanceForm="ngForm" (ngSubmit)="getBalance()">
+                <div class="row">
+                    <div class="col-md-12">
+                        <br>
+                        <div class="row input-group">
+                            <div class="form-group" class="col-md-6 mb-4 ">
+                                <div class="example-header">
+                                    
+    
+                                    <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+                                        <mat-label class="asterix--before">Account Number</mat-label>
+                                        <mat-select disableOptionCentering required={{accountnumbervalue}} disableOptionCentering
+                                            [(ngModel)]="ftBalance.accountNumber" id="accountNumber" name="accountNumber"
+                                            #accountNumber="ngModel" (selectionChange)="selectedAccountNumber($event.value)">
+                                            
+                                            
+                                            <mat-option>
+                                                <lib-mat-select-search id="search"  (keypress)="onlyNumberKey($event)"  [list]="accountnumberlist1" [searchProperties]="['accNo']"
+                                                    [fixOnTop]="true" [clearSearchInput]="true" (filtered)="accountnumberlist2 = $event">
+                                                </lib-mat-select-search>
+                                            </mat-option>
+
+                                            <mat-option *ngIf="accountnumberlist2.length==0">Record not found</mat-option>
+                                            
+                                            
+                                            <mat-option value={{accNumber.customerId}}   *ngFor="let accNumber of accountnumberlist2"> 
+                                                {{accNumber.accNo}}
+                                            </mat-option>
+                                          
+    
+                                        </mat-select>
+                                        <!-- <mat-error
+                                            *ngIf="accountNumber.errors && accountNumber.invalid && accountNumber.touched">
+                                            Account Number is Required!
+                                        </mat-error> -->
+                                    </mat-form-field>
+                                    <span class="mat-error"  style="margin-left:70px;  margin-top:-20px ;  " *ngIf="accountnumbervalue">
+                                        Account number is required
+                                      </span>
+                                </div>
+                            </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+                            <!-- <div class="form-group" class="col-md-3">
+                                                    <button (click)="toggleData()" style="margin-top: 8%; margin-left: 50%;"
+                                                        type="submit" class="btn btn-primary">Submit</button>
+                                                </div> -->
+                            <div align="center" class="form-group" class="col-md-6 mb-4">
+                                <!-- <button (click)="toggleData()" -->
+                                <button  class="a1"   style="width: 90px;margin-top: 16px;"       (click)="toggleData()" mat-raised-button>Submit</button>
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <br>
+            <div *ngIf="toDisplay" class="balance">
+                <table class="table table-hoverable"  id="ftbalanceTable">
+                    <tr height="50px">
+                        <th class="text-center" style="color: #000183; font-weight: 650;
+                                                                      ">Balance</th>
+                    </tr>
+                    <!-- <tbody> -->
+                    <tr height="50px" *ngFor="let balance of balanceList.slice(0,1); let i = index">
+    
+                        <td class="text-center" style="color: #000183;">
+                            <span style="margin-left: -35px;">&nbsp; &nbsp;
+                                &#8377;</span>
+                            {{this.balanceResponse.responseContent.Data.FundsAvailableResult.BalanceAmount}} 
+                        </td>
+                        <!-- </tbody> -->
+                    </tr>
+                </table>
+                
+            </div>
+    
+    
+            <br>
+    
+            <!-- </form>
+                            
+                        </div> -->
+        </div>
+    </div>
+    
+    <!-- </div> -->

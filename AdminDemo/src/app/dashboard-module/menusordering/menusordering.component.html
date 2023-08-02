@@ -1,0 +1,138 @@
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+  <div class="mdc-card p-0"><br><br>
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" color="#000183" type="ball-clip-rotate">
+    </ngx-spinner>
+    <form [formGroup]="menuOrderingForm" (ngSubmit)=" onSubmit()">
+      <div class="row">
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+
+
+            <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+              <mat-label class="asterix--before">Group</mat-label>
+              <mat-select   ondragstart="return false;"  disableOptionCentering required="{{groupValue}}" (selectionChange)="groupSelect($event.value)"
+                id="roleGroupId" name="roleGroupId" [formControl]="groupId">
+
+                <mat-option>
+                  <lib-mat-select-search  (keypress)="letterOnly($event)" id="search"   [list]="groupnamelist1" [searchProperties]="['roleGroupName']"
+                      [fixOnTop]="true" [clearSearchInput]="true" (filtered)="groupnamelist2 = $event">
+                  </lib-mat-select-search>
+              </mat-option>
+
+              <mat-option *ngIf="groupnamelist2.length==0">Record not found</mat-option>
+                
+                
+                
+                <mat-option *ngFor="let group of groupnamelist2" value="{{group.roleGroupId}}">
+                  {{group.roleGroupName}}</mat-option>
+              </mat-select>
+              <!-- <mat-error *ngIf="groupId.errors?.required">Group Name is Required!</mat-error> -->
+            </mat-form-field>
+            <span class="mat-error"  style="margin-left:70px;  margin-top:-20px ;  " *ngIf="groupValue">
+              Group is required
+            </span>
+          </div>
+        </div>
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+            <div class="text-center">
+              <br>
+              <button mat-raised-button color="primary" style="width:90px ;    background-color:#000183 ;"
+                id="btn">Submit</button>
+            </div>
+          </div>
+        </div>
+
+        <br>
+
+
+      </div>
+
+
+    </form>
+    <br>
+<div *ngIf="toDisplay">
+    <form >
+      <!-- <div>
+        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" style="color:rgb(30, 29, 29) ;"></mat-paginator>
+
+      </div> -->
+      <div class="table-responsive">
+
+
+        <table mat-table [dataSource]="dataSource" (matSortChange)="changeSort($event)" matSort class="mat-elevation-z8">
+          <ng-container matColumnDef="slNo">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header> S.No </th>
+            <td class="p-3" mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
+            <!-- <td class="p-3" mat-cell *matCellDef="let element; let i = index;"> {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td> -->
+
+          </ng-container>
+          <ng-container matColumnDef="groupName">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="roleGroupName"> Group </th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.roleGroup.roleGroupName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="parentMenuName">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="parentMenuName"> Parent Menu Name </th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.parentMenu.parentMenuName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="menuName">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="masterMenuName">Menu Name </th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.masterMenuName}} </td>
+          </ng-container>
+          
+          
+          <ng-container matColumnDef="currentOrderId">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="orderId">Current Order ID</th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.orderId}} </td>
+          </ng-container>
+          <ng-container matColumnDef="neworderId">
+            <th class="p-3" mat-header-cell *matHeaderCellDef>New Order ID</th>
+
+            <td class="p-3" mat-cell *matCellDef="let element;let i=index">
+              <form>
+
+                <mat-form-field appearance="outline">
+                  <mat-label  name ="orderID" style="color: #000183;font-size:14px; font-weight:500">Select Order ID
+                  </mat-label>
+
+                  <mat-select #orderSelection  (selectionChange)="selected(orderSelection.value,element)"
+                    disableOptionCentering >
+                  
+                    <ng-container *ngFor="let menu of menuOrderingRespContent" >
+                      <mat-option  *ngIf="orderSelection.value === menu.orderId || !isSelected(menu.orderId)"
+                        [value]="menu.orderId">
+                        {{menu.orderId}}</mat-option>
+                    </ng-container>
+                  </mat-select>
+
+                </mat-form-field>
+              </form>
+
+            </td>
+          </ng-container>
+       
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+          </tr>
+        </table>
+      </div>
+      <br>
+      <div class="example-header">
+        <div class="text-center">
+          <button mat-raised-button type="submit" style="width:90px;" (click)="orderidchange()">Submit</button>
+        </div>
+      </div>
+
+
+
+
+    </form>
+  </div>
+    <br>
+
+
+
+    <br><br>
+
+  </div>
+</div>
