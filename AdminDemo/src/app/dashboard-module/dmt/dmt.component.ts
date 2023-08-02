@@ -27,6 +27,8 @@ const ELEMENT_DATA: dmt[] = [
 ]
 
 // displayedColumns1: string[] = ['Date','ReferenceID', 'Amount','CCF','TransactionStatus'];
+/// durai ////
+
 
 @Component({
   selector: 'app-dmt',
