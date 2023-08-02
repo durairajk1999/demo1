@@ -1,0 +1,101 @@
+
+
+@media screen and (min-width: 1180px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    //  min-width: 350px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    //  min-width: 250px;
+  }
+}
+
+//   .container > * {
+//     width: 70%;
+//   }
+
+.form {
+  display: flex;
+ width: 250px;
+  padding-top: 6px;
+}
+
+.mat-form-field {
+  margin-left: -5px;
+  font-size: 16px;
+  width: 250px;
+  flex-grow: 1;
+}
+
+.form input.mat-input-element {
+  color: #000183;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  -webkit-text-fill-color: #000183;
+
+}
+
+
+
+
+
+@media screen and (min-width: 1280px) {
+  .a1 {
+    margin-left: 20px;
+    width: 90px;
+  }
+
+  .b1 {
+    margin-left: 50px;
+    width: 90px;
+  }
+}
+
+
+@media screen and (max-width: 400px) {
+  .a1 {
+    margin-left: 5px;
+    width: 90px;
+  }
+
+  .b1 {
+    margin-left: 5px;
+    width: 90px;
+  }
+
+  .form {
+    display: flex;
+    width: 220px;
+    padding-top: 6px;
+  }
+}
+
+
+.mat-form-field mat-label {
+  font-size: 17px;
+  font-weight: 500;
+}
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 460px;
+}
+
+::ng-deep .mat-dialog-container {
+  padding: 20px;
+  overflow: hidden !important;
+}

@@ -1,0 +1,120 @@
+<body>
+    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+        <div class="mdc-card p-0"><br><br>
+            <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate"
+                color="#000183"></ngx-spinner>
+
+            <form class="form" #groupform="ngForm" (ngSubmit)="submit()">
+                <div *ngIf="isShow" class="row">
+                    <div class="form-group" class="col-md-6 mb-4 ">
+                        <div class="example-header">
+
+                            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker"
+                                class="customColor">
+
+                                <mat-label class="asterix--before">Group</mat-label>
+                                <input autocomplete="off" autocorrect="off" ondragstart="return false;"
+                                      (blur)='onBlur()' minlength="3"
+                                    [(ngModel)]="groupNameEnterValue" id="groupname" name="groupname" style="text-transform: capitalize;"
+                                    (ngModelChange)="groupnameEnter()" [formControl]="groupName" required={{groupname}}
+                                    matInput placeholder="" #input minlength="3" maxlength="30"
+                                    singleSpace>
+                                <mat-error *ngIf="groupname">
+                                    Group name is required
+                                </mat-error>
+
+                                <mat-error *ngIf="groupName.errors?.minlength">
+                                    Should have minimum 3 characters
+                                </mat-error>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="form-group" class="col-md-6 mb-4">
+
+                        <button mat-raised-button type="submit" style="margin-bottom:40px;margin-left: 110px; margin-top:10px;width:90px; 
+                            ">Submit</button>
+
+                    </div>
+                </div>
+            </form>
+            <div>
+                <button *ngIf="newbutton" mat-raised-button (click)="addnew()" style="width:100px ; float: right; margin-right: 20px; margin-bottom: 10px; 
+                    ">Add New
+                    <!-- <mat-icon style="margin-left: -5px;">add_circle_outline</mat-icon> Add New -->
+                </button>
+            </div>
+            <br>
+
+            <div *ngIf="search">
+                <div class="form-group" class="col-md-6 mb-4 ">
+
+                    <div class="example">
+
+                        <mat-form-field appearance="outline">
+                            <mat-label> Search</mat-label>
+                            <mat-icon matPrefix>search</mat-icon>
+                            <input matInput (keyup)="applyFilter($event)" placeholder="" #input
+                                [formControl]="groupNameSearch" singleSpace maxlength="30" autocomplete="off" autocorrect="off">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            </div>
+
+            <div *ngIf="table">
+                <div>
+                    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]">
+                    </mat-paginator>
+
+                </div>
+
+
+                <div class="table-responsive">
+
+
+                    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header="roleGroupId">S.No</th>
+                            <!-- <td  mat-cell *matCellDef="let element"> {{element.roleGroupId}} </td> -->
+                            <td class="p-3" mat-cell *matCellDef="let element; let i = index;"> {{ (i+1) +
+                                (paginator.pageIndex * paginator.pageSize) }} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="groupname">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header="roleGroupName">Group</th>
+                            <td mat-cell *matCellDef="let element"> {{element.roleGroupName}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef>Edit / Delete</th>
+                            <td mat-cell *matCellDef="let element">
+
+                                <mat-icon matTooltip="Edit" style="margin-right: 10px;"
+                                    (click)="edit(i,element.roleGroupId,element.roleGroupName)">edit </mat-icon>
+                                <mat-icon matTooltip="Delete" style="margin-left: 10px;" class="icon"
+                                    (click)="deleteItem(i,element.roleGroupId,element.roleGroupName )">delete
+
+
+                                </mat-icon>
+
+                                <br>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                        </tr>
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" class="search" colspan="6">
+                                <br>
+                                Record not found
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>

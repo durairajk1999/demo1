@@ -1,0 +1,393 @@
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+  <div class="mdc-card p-0"><br><br>
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate" color="#000183"></ngx-spinner>
+
+
+    <form class="form" #unmapform="ngForm" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+              <mat-label class="asterix--before">State</mat-label>
+
+              <mat-select ondragstart="return false;"  disableOptionCentering
+                [(ngModel)]="stateobject.state_name" id="state_name" name="state_name"
+                (selectionChange)="stateSelected($event.value)" required={{stateRequired}} [formControl]="stateForm">
+
+
+                <mat-option>
+                  <lib-mat-select-search (keypress)="letterOnly($event)" id="search" [list]="statelist1"
+                    [searchProperties]="['state_name']" [fixOnTop]="true" [clearSearchInput]="true"
+                    (filtered)="statelist2 = $event">
+                  </lib-mat-select-search>
+                </mat-option>
+                <mat-option *ngIf="statelist2.length==0">Record not found</mat-option>
+
+
+                <mat-option value={{stateName.state_name}} *ngFor="let stateName of statelist2">
+                  {{stateName.state_name}}
+                </mat-option>
+
+              </mat-select>
+
+            </mat-form-field>
+
+
+            <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="stateRequired">
+              State is required
+            </span>
+          </div>
+        </div>
+
+
+
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker" class="yes"
+              (click)="districtTouch()">
+              <mat-label class="asterix--before">District</mat-label>
+              <mat-select ondragstart="return false;"  required={{districtRequired}}
+                disableOptionCentering [(ngModel)]="stateobject.district_name" id="district_name" name="district_name"
+                (selectionChange)="districtSelected($event.value)" [formControl]="districtForm">
+
+
+                <mat-option>
+                  <lib-mat-select-search (keypress)="letterOnly($event)" id="search" [list]="districtlist1"
+                    [searchProperties]="['district_name']" [fixOnTop]="true" [clearSearchInput]="true"
+                    (filtered)="districtlist2 = $event">
+                  </lib-mat-select-search>
+                </mat-option>
+                <mat-option *ngIf="districtlist2.length==0">Record not found</mat-option>
+
+
+                <mat-option value={{districtname.district_name}} *ngFor="let districtname of districtlist2">
+                  {{districtname.district_name}}
+                </mat-option>
+
+              </mat-select>
+
+            </mat-form-field>
+
+            <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="districtRequired">
+              District is required
+            </span>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="row">
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker" (click)="iaListTouch()">
+              <mat-label class="asterix--before">IA Name</mat-label>
+              <mat-select ondragstart="return false;"  required={{iaRequired}}
+                disableOptionCentering [(ngModel)]="stateobject.name_of_SHPI" id="name_of_SHPI" name="name_of_SHPI"
+                (selectionChange)="iaselected($event.value)" [formControl]="iaForm">
+
+
+                <mat-option>
+                  <lib-mat-select-search (keypress)="letterOnly($event)" id="search" [list]="ialist1"
+                    [searchProperties]="['name_of_SHPI']" [fixOnTop]="true" [clearSearchInput]="true"
+                    (filtered)="ialist2 = $event">
+                  </lib-mat-select-search>
+                </mat-option>
+                <mat-option *ngIf="ialist2.length==0">Record not found</mat-option>
+
+
+
+                <mat-option class="options" value={{ianame.id}} *ngFor="let ianame of ialist2">
+                  <!-- <span class="bar_content" *ngIf="ianame.name_of_SHPI.length >=25">
+                    
+                  </span>
+
+                  <span *ngIf="ianame.name_of_SHPI.length <25">
+                    {{ianame.name_of_SHPI}}
+                  </span> -->
+                  {{ianame.name_of_SHPI}}
+                </mat-option>
+
+              </mat-select>
+
+            </mat-form-field>
+            <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="iaRequired">
+              IA name is required
+            </span>
+          </div>
+        </div>
+
+
+
+
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker" (click)="animatorTouch()">
+              <mat-label class="asterix--before">Merchant Name</mat-label>
+              <mat-select ondragstart="return false;"  required={{merchantRequired}}
+                disableOptionCentering [(ngModel)]="stateobject.merchantID" id="merchantID" name="merchantID"
+                (selectionChange)="selectedMerchantId($event.value)" [formControl]="merchantForm">
+
+
+                <mat-option>
+                  <lib-mat-select-search (keypress)="letterOnly($event)" id="search" [list]="merchantlist1"
+                    [searchProperties]="['trainers_Name']" [fixOnTop]="true" [clearSearchInput]="true"
+                    (filtered)="merchantlist2 = $event">
+                  </lib-mat-select-search>
+                </mat-option>
+
+                <mat-option *ngIf="merchantlist2.length==0">Record not found</mat-option>
+
+
+
+                <mat-option value={{merchantName.merchantID}} *ngFor="let merchantName of merchantlist2">
+                  {{merchantName.trainers_Name}}
+                </mat-option>
+
+              </mat-select>
+
+            </mat-form-field>
+            <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="merchantRequired">
+              Merchant name is required
+            </span>
+          </div>
+        </div>
+
+
+      </div>
+      <h4 style="text-align: center;">-- OR --</h4>
+
+      <div class="row">
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+            <mat-form-field appearance="outline">
+              <mat-label>Merchant Code
+              </mat-label>
+              <input autocomplete="off" autocorrect="off" onlyAlphanumeric ondragstart="return false;"
+                 ondragstart="return false;"  [(ngModel)]="merchantCodeValue"
+                id="merchantIDValue" name="merchantIDValue" [formControl]="merchantCodeValueForm" matInput
+                placeholder="" (input)="merchantCodeEnter(merchantCodeValue)" pattern="^[A-Z_a-z]{2,3}[0-9]{6,9}$"
+                toUppercase maxlength="11" minlength="9"  noSpace>
+              <!-- <mat-error *ngIf="merchantID.errors && merchantID.invalid && merchantID.touched">
+                        Merchant Code is Required!
+                    </mat-error> -->
+              <mat-error *ngIf="merchantCodeValueForm.errors?.pattern">{{passwordChange()}}</mat-error>
+
+
+              <!-- <mat-error *ngIf="merchantCodeValueForm.errors?.minlength">
+                      Should have minimum 10 characters
+                  </mat-error> -->
+
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+
+            <button type="submit" mat-raised-button
+              style="width:90px; margin-top: 20px;margin-left: 130px;">Submit</button>
+
+          </div>
+        </div>
+
+      </div>
+
+    </form>
+    <br>
+    <br>
+
+
+    <!-- <div>
+      <mat-paginator #paginator1 [pageSizeOptions]="[5, 10, 25, 100]" *ngIf="pagination1" ></mat-paginator>
+
+    </div> -->
+
+
+
+
+    <div class="table-responsive" *ngIf="table1">
+      <table #secondTable #secondTableSort="matSort" mat-table [dataSource]="dataSource2" matSort
+        class="mat-elevation-z8">
+
+        <ng-container matColumnDef="state_Name">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.state_Name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="district_Name">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>District</th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.district_Name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name_of_SHPI">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>IA</th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.name_of_SHPI}} </td>
+        </ng-container>
+
+
+
+
+
+
+
+
+
+
+        <ng-container matColumnDef="merchantCode">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header> Merchant Code </th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.merchantID}} </td>
+        </ng-container>
+        <ng-container matColumnDef="merchantName">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header> Merchant Name </th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.trainers_Name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="serialNumber">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header> Serial Number </th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.serialId}} </td>
+        </ng-container>
+        <!-- <ng-container matColumnDef="merchantCode">
+          <th class="p-3" mat-header-cell *matHeaderCellDef > Merchant Code </th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.merchantCode}} </td>
+        </ng-container> -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns2;">
+        </tr>
+      </table>
+    </div>
+    <br>
+ <br>   
+
+    <div class="row" *ngIf="unmaprequest">
+      <div>
+        <div class="example-header">
+
+          <!-- <button mat-raised-button id="unmaprequest"  *ngIf="requestCheck"
+             (click)="requestedToUnmap()">Unmap</button> -->
+
+
+
+          <button mat-raised-button style="width:120px ; float: right; margin-right: 20px; margin-bottom: 10px;"
+            (click)="unmappingRequest()">
+            <!-- <mat-icon style="margin-left: -12px;">add_circle_outline</mat-icon> </button> -->
+
+            {{requestmsg}}
+          </button>
+
+        </div>
+      </div>
+      <!-- <div>
+
+              <button (click)="toggleData()" mat-raised-button color="primary"
+                  style="width:120px ; float: right; margin-right: 20px; margin-bottom: 10px;">
+                  <mat-icon style="margin-left: -12px;">add_circle_outline</mat-icon> New Request
+              </button>
+
+          </div> -->
+    </div>
+
+    <br>
+    <br>
+
+    <!-- <div>
+      <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" *ngIf="pagination2"></mat-paginator>
+
+    </div> -->
+    <div class="table-responsive" *ngIf="table2">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="state">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header> State </th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.state}} </td>
+        </ng-container>
+        <ng-container matColumnDef="district">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header> District </th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.district}} </td>
+        </ng-container>
+        <!-- <ng-container matColumnDef="ia">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header> IA ID </th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.ngo_id}} </td>
+        </ng-container> -->
+        <!-- <ng-container matColumnDef="merchantCode">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header> Merchant Code </th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.merchantId}} </td>
+        </ng-container> -->
+        <!-- <ng-container matColumnDef="merchantName">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header> Merchant Name </th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.merchantName}} </td>
+        </ng-container> -->
+        <!-- <ng-container matColumnDef="serialNumber">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header> Serial Number</th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.serailId
+          }} </td>
+        </ng-container> -->
+
+        <ng-container matColumnDef="requestedBy">
+          <th style="padding-left: 5px;" mat-header-cell *matHeaderCellDef mat-sort-header> Requested By</th>
+          <td style="padding-left: 10px;" mat-cell *matCellDef="let element"> {{unmapRequestBy}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="requestedDate">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header> Requested Date & Time</th>
+          <td style="padding-left: 50px;" mat-cell *matCellDef="let element"> {{element.requestedDate}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="updatedBy">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header> Updated By</th>
+          <td style="padding-left: 50px;" mat-cell *matCellDef="let element"> {{unmapApprovedBy}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="updatedDate">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header> Updated Date & Time</th>
+          <td style="padding-left: 50px;" mat-cell *matCellDef="let element"> {{element.updatedDate}} </td>
+        </ng-container>
+
+
+
+
+
+        <ng-container matColumnDef="status">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Approve/Reject </th>
+          <td mat-cell *matCellDef="let element">
+
+
+
+            <span
+              *ngIf="this.signInNavResponse.responseContent.roles[0]  == 'Super Admin' || this.signInNavResponse.responseContent.roles[0] == 'Admin'  ">
+
+              <span *ngIf="element.status =='Pending' || element.status =='' ">
+                <mat-icon matTooltip="Approve" style="margin-left: 30%;" (click)="approved()">task_alt</mat-icon>
+                <mat-icon matTooltip="Reject" style="margin-left:15px ;" (click)="reject()">cancel</mat-icon>
+              </span>
+              <span *ngIf="element.status =='Rejected' || element.status =='Unmapped' ">
+                <mat-icon style="margin-left: 30%; cursor: not-allowed;color: #8c8c8f;">task_alt</mat-icon>
+                <mat-icon style="margin-left: 15px; cursor: not-allowed;color: #8c8c8f;">cancel</mat-icon>
+              </span>
+
+            </span>
+            <span
+              *ngIf="this.signInNavResponse.responseContent.roles[0] != 'Super Admin' && this.signInNavResponse.responseContent.roles[0] != 'Admin' ">
+              <mat-icon style="margin-left: 30%; cursor: not-allowed;color: #8c8c8f;">task_alt</mat-icon>
+              <mat-icon style="margin-left:15px ;cursor: not-allowed;color: #8c8c8f;">cancel</mat-icon>
+            </span>
+
+          </td>
+
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+      </table>
+
+    </div><br>
+  </div>
+</div>

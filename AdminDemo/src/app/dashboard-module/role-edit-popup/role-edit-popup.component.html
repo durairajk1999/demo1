@@ -1,0 +1,45 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate" color="#000183"> </ngx-spinner>
+
+<form #formControl="ngForm">
+
+    <!-- <h2 mat-dialog-title>IA Edit</h2> -->
+
+    <div mat-dialog-content>
+        <div class="form">
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                <mat-label class="asterix--before">Group ID</mat-label>
+                <input autocomplete="off" autocorrect="off" ondragstart="return false;"  matInput [disabled]="true"
+                    #input placeholder="" [(ngModel)]="data.roleGroupId" name="position" />
+            </mat-form-field>
+        </div>
+        <div class="form">
+
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                <mat-label class="asterix--before">Role ID</mat-label>
+                <input autocomplete="off" autocorrect="off" ondragstart="return false;"  matInput [disabled]="true"
+                    #input placeholder="" [(ngModel)]="data.roleId" name="name">
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                <mat-label class="asterix--before">Role</mat-label>
+                <input autocomplete="off" autocorrect="off" OnlyCharacter ondragstart="return false;" 
+                    required={{roleNameValid}} matInput #input placeholder="" [(ngModel)]="data.oldRoleName" name="ceo"
+                    (ngModelChange)="roleNameEnter(data.oldRoleName)" singleSpace style="text-transform: capitalize;" minlength="3" maxlength="30" [formControl]="ceo" />
+
+
+                <mat-error *ngIf="ceo.errors?.minlength ">Should have minimum 3 characters </mat-error>
+                <mat-error *ngIf="roleNameValid">
+                    Role is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <mat-dialog-actions align="center">
+        <button class="a1" mat-raised-button (click)="submit()"> Save</button>
+        <button class="b1" mat-raised-button (click)="cancel()" tabindex="-1">Cancel</button>
+    </mat-dialog-actions>
+
+</form>

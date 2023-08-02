@@ -1,0 +1,188 @@
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card p-0">
+        <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" color="#000183" type="ball-clip-rotate">
+        </ngx-spinner>
+
+        <form class="form" #villageForm="ngForm" (ngSubmit)="
+  onSubmit()">
+            <br>
+            <br>
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+
+
+                        <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+                            <mat-label class="asterix--before">State</mat-label>
+                            <mat-select ondragstart="return false;"  required={{statestatus}}
+                                disableOptionCentering (selectionChange)="onSelect($event.value)"
+                                [(ngModel)]="village.state_name" id="state_name" name="state_name"
+                                [formControl]="stateForm">
+
+
+                                <mat-option>
+                                    <lib-mat-select-search (keypress)="letterOnly($event)" id="search"
+                                        [list]="statelist1" [searchProperties]="['state_name']" [fixOnTop]="true"
+                                        [clearSearchInput]="true" (filtered)="statelist2 = $event">
+                                    </lib-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngIf="statelist2.length==0">Record not found</mat-option>
+
+                                <mat-option *ngFor="let state of statelist2" value="{{state.state_name}}">
+                                    {{state.state_name}}</mat-option>
+                            </mat-select>
+                            <!-- <mat-error *ngIf="state_name.errors && state_name.invalid && state_name.touched">
+                                State is Required!
+                            </mat-error> -->
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="statestatus">
+                            State is required
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline"
+                            (click)="districtTouch()">
+                            <mat-label class="asterix--before">District</mat-label>
+
+                            <mat-select ondragstart="return false;"  required={{districtstatus}}
+                                disableOptionCentering (selectionChange)="onChange($event.value)"
+                                [(ngModel)]="village.district_name" id="district_name" name="district_name"
+                                [formControl]="districtForm">
+
+
+                                <mat-option>
+                                    <lib-mat-select-search id="search" (keypress)="letterOnly($event)"
+                                        [list]="districtlist1" [searchProperties]="['district_name']" [fixOnTop]="true"
+                                        [clearSearchInput]="true" (filtered)="districtlist2 = $event">
+                                    </lib-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngIf="districtlist2.length==0">Record not found</mat-option>
+
+
+                                <mat-option *ngFor="let district of districtlist2" value="{{district.district_name}}">
+                                    {{district.district_name}}</mat-option>
+                            </mat-select>
+                            <!-- <mat-error *ngIf="district_name.errors && district_name.invalid && district_name.touched">
+                                District is Required!
+                            </mat-error> -->
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="districtstatus">
+                            District is required
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline"
+                            (click)="blockTouch()">
+                            <mat-label class="asterix--before">Block</mat-label>
+
+                            <mat-select ondragstart="return false;"  required={{blockstatus}}
+                                disableOptionCentering (selectionChange)="getPanchayat($event.value)"
+                                [(ngModel)]="village.block_name" id="block_name" name="block_name"
+                                [formControl]="blockForm">
+
+
+                                <mat-option>
+                                    <lib-mat-select-search id="search" (keypress)="letterOnly($event)"
+                                        [list]="blocklist1" [searchProperties]="['block_name']" [fixOnTop]="true"
+                                        [clearSearchInput]="true" (filtered)="blocklist2 = $event">
+                                    </lib-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngIf="blocklist2.length==0">Record not found</mat-option>
+
+
+                                <mat-option *ngFor="let block of blocklist2" value="{{block.block_name}}">
+                                    {{block.block_name}}</mat-option>
+                            </mat-select>
+                            <!-- <mat-error *ngIf="block_name.errors && block_name.invalid && block_name.touched">
+                                Block is Required!
+                            </mat-error> -->
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="blockstatus">
+                            Block is required
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline"
+                            (click)="panchayatTouch()">
+                            <mat-label class="asterix--before">Panchayat Name</mat-label>
+                            <mat-select ondragstart="return false;"  required={{panchayatstatus}}
+                                disableOptionCentering [(ngModel)]="village.village_panchayat_name"
+                                id="village_panchayat_name" name="village_panchayat_name" [formControl]="panchayatForm"
+                                (selectionChange)="selectpanchayat($event.value)">
+
+
+                                <mat-option>
+                                    <lib-mat-select-search id="search" (keypress)="letterOnly($event)"
+                                        [list]="panchayatnamelist1" [searchProperties]="['village_panchayat_name']"
+                                        [fixOnTop]="true" [clearSearchInput]="true"
+                                        (filtered)="panchayatnamelist2 = $event">
+                                    </lib-mat-select-search>
+                                </mat-option>
+                                <mat-option *ngIf="panchayatnamelist2.length==0">Record not found</mat-option>
+
+
+                                <mat-option *ngFor="let panchayat of panchayatnamelist2"
+                                    value="{{panchayat.village_panchayat_name}}">
+                                    {{panchayat.village_panchayat_name}}</mat-option>
+
+
+                            </mat-select>
+                            <!-- <mat-error *ngIf="village_panchayat_name.errors && village_panchayat_name.invalid && village_panchayat_name.touched">
+                                Panchayat is Required!
+                            </mat-error> -->
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="panchayatstatus">
+                            Panchayat name is required
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+
+                        <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+                            <mat-label class="asterix--before">Village Name</mat-label>
+                            <input minlength="3" maxlength="30" OnlyCharacter ondragstart="return false;" singleSpace
+                                 [(ngModel)]="village.village_name" id="village_name"
+                                required={{villagestatus}} matInput placeholder="" [formControl]="villageControl"
+                                autocomplete="off" autocorrect="off" #input (ngModelChange)="villageName()" toUppercase>
+                            <mat-error *ngIf="villageControl.errors?.minlength">
+                                Should have minimum 3 characters
+                            </mat-error>
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="villagestatus">
+                            Village name is required
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group" class="col-md-6 mb-4 ">
+
+                    <div class="example-header">
+                        <div class="text-center">
+                            <button mat-raised-button style="width:90px; margin-top: 25px">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+        <br>
+        <br>
+    </div>
+</div>

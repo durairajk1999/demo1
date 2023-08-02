@@ -1,0 +1,565 @@
+
+
+// gokul
+// .dot-flashing {
+//   margin-top: 23px;
+//   margin-left: 75px;
+//   position: relative;
+//   width: 15px;
+//   height: 15px;
+//   border-radius: 20px;
+//   background-color: #000183;
+//   color: #000183;
+//   animation: dot-flashing 1s infinite linear alternate;
+//   animation-delay: 0.5s;
+// }
+
+// .dot-flashing::before,
+// .dot-flashing::after {
+//   content: "";
+//   display: inline-block;
+//   position: absolute;
+//   top: 0;
+// }
+
+// .dot-flashing::before {
+//   left: -28px;
+//   width: 15px;
+//   height: 15px;
+//   border-radius: 20px;
+//   background-color: #000183;
+//   color: #000183;
+//   animation: dot-flashing 1s infinite alternate;
+//   animation-delay: 0s;
+// }
+
+// .dot-flashing::after {
+//   left: 31px;
+//   width: 15px;
+//   height: 15px;
+//   border-radius: 20px;
+//   background-color: #000183;
+//   color: #000183;
+//   animation: dot-flashing 1s infinite alternate;
+//   animation-delay: 1s;
+// }
+
+// @keyframes dot-flashing {
+//   0% {
+//       background-color: #000183;
+//   }
+
+//   50%,
+//   100% {
+//       background-color: rgba(48, 20, 175, 0.2);
+//   }
+// }
+
+
+
+
+
+
+// @media screen and (min-width: 1180px) {
+//   .container {
+//       display: flex;
+//       flex-direction: column;
+
+//   }
+//   #image
+//   {
+//     width: 225px;
+//     margin-left: 663px;
+//     margin-top: 209px;
+
+   
+
+// }
+
+//   #dot
+//   {
+//     margin-top: 20px;
+    
+//     margin-left: 691px;
+
+    
+//   }
+// }
+
+
+
+// @media screen and (max-width: 500px) {
+//   .container {
+//       display: flex;
+//       flex-direction: column;
+//   }
+
+//   #image
+//   {
+//     width: 174px;
+//     margin-left: 97px;
+//     margin-top: 184px;
+// }
+
+//   #dot
+//   {
+//     margin-top: 15px;
+    
+//     margin-left: 93px;
+//   }
+ 
+
+
+// }
+
+
+// .container {
+//   display: flex;
+//   flex-direction: column;
+//   overflow-y: auto;
+//   height: 480px;
+// }
+
+// ::ng-deep .mat-dialog-container {
+//   padding: 20px;
+//   overflow: hidden !important;
+
+// }
+
+
+// gokul end 
+
+
+
+
+// durai s
+
+
+// new 
+
+
+// .parent img {
+//   width: 1495px;
+//     margin-left: 10px;
+//     // margin-top: 26px;
+// }
+// .parent .value {
+//   width: 220px;
+//     height: 143px;
+//     margin-left: 45.5px;
+//     margin-top: 74px;
+// }
+// .parent p {
+//   width: 306px;
+//     height: 295px;
+//   background-color:white;
+//   border-radius: 50%;
+//   margin-top: -526px;
+//   margin-left: 610px;
+//   box-shadow: 0px 0px 20px 0px  lightgrey;
+//   border: solid;
+//   border-color: darkgrey;
+// }
+
+
+// .parent::after {
+
+//   content: "";
+//   clear: both;
+//   display: table;
+  
+// }
+
+// .dot-flashing {
+//   margin-top: -271px;
+//   margin-left: 756px;
+//   position: relative;
+//   width: 15px;
+//   height: 15px;
+//   border-radius: 20px;
+//   background-color: #000183;
+//   color: #000183;
+//   animation: dot-flashing 1s infinite linear alternate;
+//   animation-delay: 0.5s;
+// }
+
+// .dot-flashing::before,
+// .dot-flashing::after {
+//   content: "";
+//   display: inline-block;
+//   position: absolute;
+//   top: 0;
+// }
+
+// .dot-flashing::before {
+//   left: -28px;
+//   width: 15px;
+//   height: 15px;
+//   border-radius: 20px;
+//   background-color: #000183;
+//   color: #000183;
+//   animation: dot-flashing 1s infinite alternate;
+//   animation-delay: 0s;
+// }
+
+// .dot-flashing::after {
+//   left: 31px;
+//   width: 15px;
+//   height: 15px;
+//   border-radius: 20px;
+//   background-color: #000183;
+//   color: #000183;
+//   animation: dot-flashing 1s infinite alternate;
+//   animation-delay: 1s;
+// }
+
+// @keyframes dot-flashing {
+//   0% {
+//       background-color: #000183;
+//   }
+
+//   50%,
+//   100% {
+//       background-color: rgba(48, 20, 175, 0.2);
+//   }
+// }
+
+// @media screen and (max-width:500px) {
+
+//   .parent img {
+//     width: 379px;
+//     height: 739px;
+//     margin-left: -10px;
+// }
+  
+  
+//   .parent p {
+//     width: 245px;
+//     height: 245px;
+//     background-color: white;
+//     border-radius: 50%;
+//     margin-top: -559px;
+//     margin-left: 62px;
+//     box-shadow: 0px 0px 20px 0px lightgrey;
+//     border: solid;
+//     border-color: darkgrey;
+//   }
+//   .parent .value {
+//     width: 166px;
+//     height: 117px;
+//     margin-left: 39px;
+//     margin-top: 60px;
+//   }
+  
+//   .parent::after {
+  
+//     content: "";
+//     clear: both;
+//     display: table;
+    
+//   }
+
+//   .dot-flashing {
+//     margin-top: -352px;
+//     margin-left: 176px;
+//     position: relative;
+//     width: 15px;
+//     height: 15px;
+//     border-radius: 20px;
+//     background-color: #000183;
+//     color: #000183;
+//     animation: dot-flashing 1s infinite linear alternate;
+//     animation-delay: 0.5s;
+//   }
+
+//   .dot-flashing::before,
+// .dot-flashing::after {
+//   content: "";
+//   display: inline-block;
+//   position: absolute;
+//   top: 0;
+// }
+
+// .dot-flashing::before {
+//   left: -28px;
+//   width: 15px;
+//   height: 15px;
+//   border-radius: 20px;
+//   background-color: #000183;
+//   color: #000183;
+//   animation: dot-flashing 1s infinite alternate;
+//   animation-delay: 0s;
+// }
+
+// .dot-flashing::after {
+//   left: 31px;
+//   width: 15px;
+//   height: 15px;
+//   border-radius: 20px;
+//   background-color: #000183;
+//   color: #000183;
+//   animation: dot-flashing 1s infinite alternate;
+//   animation-delay: 1s;
+// }
+
+// @keyframes dot-flashing {
+//   0% {
+//       background-color: #000183;
+//   }
+
+//   50%,
+//   100% {
+//       background-color: rgba(48, 20, 175, 0.2);
+//   }
+// }
+
+// @media screen and (min-width :500px) 
+// {
+
+//   .parent img {
+//     width: 492px;
+//     height: 599px;
+//     margin-left: -12px;
+//   }
+//   .parent p {
+//     width: 320px;
+//     height: 320px;
+//     background-color: white;
+//     border-radius: 50%;
+//     margin-top: -447px;
+//     margin-left: 80px;
+//     box-shadow: 0px 0px 20px 0px lightgrey;
+//     border: solid;
+//     border-color: darkgrey;
+//   }
+//   .parent .value {
+//     width: 224px;
+//     height: 162px;
+//     margin-left: 46px;
+//     margin-top: 71px;
+//   }
+  
+//   .parent::after {
+  
+//     content: "";
+//     clear: both;
+//     display: table;
+    
+//   }
+
+//   .dot-flashing {
+//     margin-top: -183px;
+//     margin-left: 226px;
+//     position: relative;
+//     width: 15px;
+//     height: 15px;
+//     border-radius: 20px;
+//     background-color: #000183;
+//     color: #000183;
+//     animation: dot-flashing 1s infinite linear alternate;
+//     animation-delay: 0.5s;
+//   }
+
+//   .dot-flashing::before,
+// .dot-flashing::after {
+//   content: "";
+//   display: inline-block;
+//   position: absolute;
+//   top: 0;
+// }
+
+// .dot-flashing::before {
+//   left: -28px;
+//   width: 15px;
+//   height: 15px;
+//   border-radius: 20px;
+//   background-color: #000183;
+//   color: #000183;
+//   animation: dot-flashing 1s infinite alternate;
+//   animation-delay: 0s;
+// }
+
+// .dot-flashing::after {
+//   left: 31px;
+//   width: 15px;
+//   height: 15px;
+//   border-radius: 20px;
+//   background-color: #000183;
+//   color: #000183;
+//   animation: dot-flashing 1s infinite alternate;
+//   animation-delay: 1s;
+// }
+
+// @keyframes dot-flashing {
+//   0% {
+//       background-color: #000183;
+//   }
+
+//   50%,
+//   100% {
+//       background-color: rgba(48, 20, 175, 0.2);
+//   }
+// }
+
+// }
+
+
+
+  
+
+// }
+
+// durai end 
+
+
+
+
+
+
+
+
+@keyframes dot-flashing {
+  0% {
+    background-color: #000183;
+  }
+
+  50%,
+  100% {
+    background-color: rgba(48, 20, 175, 0.2);
+  }
+}
+
+//Old
+// @media screen and (min-width:500px) {
+//   ::ng-deep  .dialog-responsive .mat-dialog-container {
+//     width: 300px !important;
+//     height: 300px !important;
+//     border-radius: 50% !important;
+//     border-color: darkgrey;
+// }
+// }
+
+
+// @media screen and (min-width:500px) {
+
+
+@media screen and (min-width:500px) {
+  img {
+    width: 185px;
+    margin-left: 10px;
+    margin-top: 46px;
+  }
+  .dot-flashing {
+    margin-top: 23px;
+    margin-left: 75px;
+    position: relative;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #000183;
+    color: #000183;
+    animation: dot-flashing 1s infinite linear alternate;
+    animation-delay: 0.5s;
+  }
+  
+  .dot-flashing::before,
+  .dot-flashing::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+  }
+  
+  .dot-flashing::before {
+    left: -28px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #000183;
+    color: #000183;
+    animation: dot-flashing 1s infinite alternate;
+    animation-delay: 0s;
+  }
+  
+  .dot-flashing::after {
+    left: 31px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #000183;
+    color: #000183;
+    animation: dot-flashing 1s infinite alternate;
+    animation-delay: 1s;
+  }
+
+  @keyframes dot-flashing {
+    0% {
+      background-color: #000183;
+    }
+  
+    50%,
+    100% {
+      background-color: rgba(48, 20, 175, 0.2);
+    }
+  }
+
+}
+
+
+// ::ng-deep .cdk-overlay-dark-backdrop {
+//   background-image: url("/assets/images/Welcome_background.png");
+//   background-size: 1600px 750px;
+//   background-repeat: no-repeat;
+// }
+
+
+
+
+
+@media screen and (min-width: 1180px) {
+  .containerFirst {
+    display: flex;
+    flex-direction: column;
+
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .containerFirst {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 480px;
+}
+
+::ng-deep .mat-dialog-container {
+  padding: 20px;
+  border-radius: 50%;
+  overflow: hidden !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  -webkit-text-fill-color: #000183;
+
+}
+
+
+
+
+
+
+
+
+
+

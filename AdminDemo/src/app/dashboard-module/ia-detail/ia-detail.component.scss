@@ -1,0 +1,37 @@
+#s{
+    margin-top: 2px;
+}
+::ng-deep lib-mat-select-search *{
+    color: #000183;
+    }
+    ::ng-deep marquee *{
+        color: #000183;
+        }
+    marquee{
+        // margin-top: 10%;
+        vertical-align: middle;
+        // color: #17178e
+        // !important;
+        // width: fit-content;
+
+        animation-delay: 550s;
+    }
+
+
+    .moving-text:hover{
+        animation-play-state: running;
+    }
+    
+    
+    @keyframes marquee{
+        0%{transform: translateX(100%);}
+        100%{transform: translateX(-100%);}
+    }
+    
+    
+    @media (prefers-reduced-motion: no-preference) {
+        .moving-text{
+            font-size: 14px;
+            animation: marquee 5s linear infinite;
+        }
+    }

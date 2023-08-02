@@ -1,0 +1,84 @@
+::ng-deep lib-mat-select-search * {
+    color: #000183;
+}
+
+// @media screen and (min-width:500px) {
+//     ::ng-deep .mat-sort-header-container {
+//         display: flex;
+//         justify-content: center;
+//     }
+
+//     table td {
+//         text-align: center;
+//     }
+// }
+
+// @media screen and (max-width:500px) {
+//     ::ng-deep .mat-sort-header-container {
+//         display: flex;
+//         justify-content: center;
+
+//     }
+
+//     table td {
+//         text-align: center;
+
+//     }
+// }
+
+
+
+::ng-deep .mat-calendar-body-label {
+
+    visibility: hidden;
+  }
+
+  @media screen and (max-width:400px) {
+    .example mat-form-field {
+        margin-left: 52px;
+        width: 230px;
+        height: 100px;
+    }
+}
+
+
+@media screen and (max-width:500px) {
+
+  .search {
+
+    text-align: center;
+    //   padding-left: 180px !important;
+    font-weight: 500;
+    color: #000183;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .mat-row .search {
+    text-align: center;
+    //   transform:translate(55%);
+      padding-right: 35px !important;
+    font-weight: 500;
+    color: #000183;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .design {
+    color: #000183;
+    padding-left: 20px;
+    // margin-bottom: -25%;
+    margin-top: 16px;
+
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  .design {
+    color: #000183;
+    padding-left: 20px;
+    margin-top: 16px;
+
+    // margin-bottom: -5%;
+  }
+}

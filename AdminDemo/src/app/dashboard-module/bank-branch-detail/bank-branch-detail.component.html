@@ -1,0 +1,229 @@
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+  <div class="mdc-card p-0"><br><br>
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate" color="#000183"></ngx-spinner>
+
+    <form #bankBranchDetailsForm="ngForm">
+      <div class="row">
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+
+            <!-- <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+              <mat-label class="asterix--before">User Name
+              </mat-label>
+              <input OnlyCharacter    ondragstart="return false;"  (blur)='onBlur()' matInput required [(ngModel)]="credential.Username" id="username" name="username"
+                [formControl]="username" placeholder="" #input>
+              <mat-error *ngIf="username.errors?.required">
+                User Name is required
+              </mat-error>
+            </mat-form-field> -->
+
+            <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+              <mat-label class="asterix--before">Username</mat-label>
+              <input required={{userNameValue}} onlyAlphanumeric    ondragstart="return false;"  (blur)='onBlur()' matInput  [(ngModel)]="credential.Username" id="username" name="username"
+                [formControl]="username" placeholder="" #input  (input)="userNameEnter(credential.Username)"  noSpace  autocomplete="off" autocorrect="off" maxlength="11"  minlength="11" toUppercase   >
+            
+                <!-- <mat-error *ngIf="username.errors?.minlength">User name is invalid </mat-error> -->
+                <mat-error *ngIf="username.invalid">{{getIFSCError()}}</mat-error>
+              </mat-form-field>
+            <!-- <span class="mat-error"  style="margin-left:70px;  margin-top:-20px ;" *ngIf="userNameValue">
+              Username is required
+            </span> -->
+          </div>
+        </div>
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+            <div>
+              <button mat-raised-button (click)="searchDetail(credential.Username)"
+                style="margin-left: 130px;margin-top:3%;width: 90px;">Search
+                <!-- <mat-icon style="margin-left: -8px;">search</mat-icon>Search -->
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+
+
+      
+      <div class="parent"  *ngIf="usertype">
+        <div class="column" style="margin-left: 60px; font-weight: 500;font-size: 17px;  color: #000183; ">User Type &nbsp;&nbsp; :</div>
+        <div class="column" style="margin-left: 20px;font-weight: 400;font-size: 17px;  color: #000183;" *ngFor="let name of userNameList">{{name.user_Type}}</div>
+   
+    </div>
+<br>
+    <div class="parent" *ngIf="userlevel">
+      <div class="column" style="margin-left: 60px; font-weight: 500;font-size: 17px;  color: #000183; ">User Level &nbsp;&nbsp;&nbsp;:</div>
+      <div class="column" style="margin-left: 20px;font-weight: 400;font-size: 17px;  color: #000183;" *ngFor="let name of userNameList"> {{name.userLevel}}</div>
+    
+    </div>
+ 
+
+    
+    </form>
+  </div>
+</div>
+<h4 class="text-center" style="margin-top: 40px;">-- OR --</h4>
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+  <div class="mdc-card p-0"><br><br>
+    <form #bankBranchDetailsForm1="ngForm">
+      <div class="row">
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+            <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+              <mat-label class="asterix--before"> User Type</mat-label>
+              <!-- Stakeholder Name -->
+              <mat-select disableOptionCentering required="{{stackeHolderValue}}"
+                [(ngModel)]="credential.user_Type" id="stakeholderName" name="stakeholderName"
+                [formControl]="stakeholderName" (selectionChange)="selectUserType($event.value)">
+
+                <!-- <mat-option value={{userType.user_Type}} *ngFor="let userType of userNameList">
+                  {{userType.user_Type}}
+                </mat-option> -->
+
+                <mat-option>
+                  <lib-mat-select-search id="search"  (keypress)="letterOnly($event)"   [list]="userTypelist1" [searchProperties]="['user_Type']"
+                      [fixOnTop]="true" [clearSearchInput]="true" (filtered)="userTypelist2 = $event">
+                  </lib-mat-select-search>
+              </mat-option>
+
+              <mat-option *ngIf="userTypelist2.length==0">Record not found</mat-option>
+              <mat-option value={{userType.user_Type}} *ngFor="let userType of userTypelist2">
+                {{userType.user_Type}}
+              </mat-option>
+
+
+              </mat-select>
+              
+            
+            </mat-form-field>
+            <span class="mat-error"  style="margin-left:70px;  margin-top:-20px ;" *ngIf="stackeHolderValue">
+              <!-- Stakeholder Name is required -->
+              User type is required
+            </span>
+          </div>
+        </div>
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+            <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline" class="yes" (click)="userLevelTouch()">
+            <mat-label class="asterix--before">User Level</mat-label>
+              <mat-select  disableOptionCentering required="{{userLevelValue}}"
+                [(ngModel)]="credential.userLevel" id="userLevel" name="userLevel" [formControl]="userLevel"
+                (selectionChange)="selectUserLevel($event.value)">
+                
+                <mat-option>
+                  <lib-mat-select-search id="search"   (keypress)="letterOnly($event)"  [list]="userlevellist1" [searchProperties]="['userLevel']"
+                      [fixOnTop]="true" [clearSearchInput]="true" (filtered)="userlevellist2 = $event">
+                  </lib-mat-select-search>
+              </mat-option>
+
+              <mat-option *ngIf="userlevellist2.length==0">Record not found</mat-option>
+
+                
+                <mat-option value={{userLevel.userLevel}} *ngFor="let userLevel of userlevellist2">
+                  {{userLevel.userLevel}}
+                </mat-option>
+              </mat-select>
+              
+           
+            </mat-form-field>
+            <span class="mat-error"  style="margin-left:70px;  margin-top:-20px ;" *ngIf="userLevelValue">
+              User level is required
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+
+            <mat-form-field appearance="outline">
+              <mat-label>State
+              </mat-label>
+              <mat-select disableOptionCentering [(ngModel)]="userSelectState" id="state" name="state"
+                 (selectionChange)=stateName($event.value) [formControl]="statelevelselect">
+               
+               
+                <mat-option>
+                  <lib-mat-select-search id="search"  (keypress)="letterOnly($event)"    [list]="statelist1" [searchProperties]="['state_name']"
+                      [fixOnTop]="true" [clearSearchInput]="true" (filtered)="statelist2 = $event" >
+                  </lib-mat-select-search>
+              </mat-option>
+
+              <mat-option *ngIf="statelist2.length == 0">Record not found</mat-option>
+
+               
+                <mat-option value={{state.state_name}} *ngFor="let state of statelist2">
+                  {{state.state_name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+            <button mat-raised-button style="margin-left: 130px;
+          width: 90px;
+          margin-top: 3%;" (click)="submit()">Submit</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <br>
+
+
+
+    <div *ngIf="toDisplay">
+      <div class="form-group" class="col-md-6 mb-4 ">
+
+        <div class="example">
+
+          <mat-form-field appearance="outline">
+            <mat-label> Search</mat-label>
+            <mat-icon matPrefix>search</mat-icon>
+            <input matInput (keyup)="applyFilter($event)" placeholder=" " #input autocomplete="off" autocorrect="off"
+              [formControl]="filter" singleSpace maxlength="30">
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" *ngIf="pagination"></mat-paginator>
+      </div>
+    </div>
+    <div  class="table-responsive"  *ngIf="table">
+      <table mat-table #firstTableSort="matSort" [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="state">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header> State </th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.state}} </td>
+        </ng-container>
+        <ng-container matColumnDef="district">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>District</th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.district}} </td>
+        </ng-container>
+        <ng-container matColumnDef="username">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header> Username</th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.username}} </td>
+        </ng-container>
+        <ng-container matColumnDef="password">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header> Password </th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.password}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+
+        <tr class="mat-row" *matNoDataRow >
+          <td class="mat-cell" class="search"  colspan="6">
+             <br>
+             Record not found
+           </td>
+        </tr>
+      </table>
+    </div>
+
+
+
+
+
+  </div>
+</div>

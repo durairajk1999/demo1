@@ -1,0 +1,93 @@
+
+<!-- <button type="button" class="close" aria-label="Close" data-dismiss="modal" [mat-dialog-close]="true">
+
+</button> -->
+<br>
+<form class="form">
+    <div >
+
+      <h2 style="text-align: center;color: #000183;font-size: 25px;font-weight: 500;">Merchant Details</h2>
+
+          <h4 class="demo">
+            <mat-label style="font-weight: 500; line-height: 30px;">
+                Merchant Code   :
+
+
+            </mat-label>{{data.merchantinfo.merchantID}}
+            
+
+            <br>
+            <mat-label style="font-weight: 500; line-height: 30px;">
+                Amount   :
+
+
+            </mat-label>{{" ₹ "+" "+this.amt}}
+            <br>
+            
+            <mat-label style="font-weight: 500; line-height: 30px;">
+                UTR Number   :
+
+                
+            </mat-label>{{data.merchantinfo.utr}}
+            <br>
+            <!-- <mat-label style="font-weight: 500; line-height: 30px;">
+              Transfer Type  :
+            </mat-label>{{request.transferType}} -->
+            
+            <!-- <br> -->
+            <!-- <mat-label style="font-weight: 500; line-height: 30px;">
+              Max.limit :
+            </mat-label>{{" ₹ "+" "+request.maxlimit+" "+amount}}
+            
+            <br> -->
+            <!-- <mat-label style="font-weight: 500; line-height: 30px;">
+              Nick Name :
+            </mat-label>{{request.shortName}}
+            
+            
+            <br> -->
+            
+          </h4>
+          <!-- <div class="row">
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker"  class="field">
+                <mat-label class="asterix--before">OTP</mat-label>
+                <input     onlyNumber  (blur) = 'onBlur()' ondragstart="return false;"   matInput placeholder=""     #input   (keydown)="$event.keyCode != 32 ? $event:$event.preventDefault()"  
+                [(ngModel)]="optenterValue"  id="rechargeNumber" name="rechargeNumber"  
+                            autocomplete="off"  maxlength="6" (ngModelChange)="otpEnter(optenterValue)" [disabled]="otpvalid"/>
+                       
+   </mat-form-field>
+   
+   <button type="button"  mat-raised-button class="btn1"  style="width:90px; height: 35px; margin-top: 10px; color: white;background-color: #000183; display: inline;" (click)="resetOTP()">
+    <mat-icon style="margin-left: -12px;">
+    cached
+    </mat-icon>&nbsp;Resend</button>   
+            
+    </div> -->
+
+    
+  <!-- <div class="row">
+   
+
+      <mat-dialog-actions align="center">
+       
+        <button type="button" mat-raised-button  style="width:90px; color: white;background-color: #000183;" (click)="cancel()">Close</button>
+      </mat-dialog-actions>
+
+   
+    
+</div> -->
+<mat-dialog-actions align="center">
+    <button class="a1" (click)="submit()" mat-raised-button> Proceed</button>
+    <button class="b1" mat-raised-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+  </mat-dialog-actions>
+  </div>
+
+  
+  
+ 
+  </form>
+
+
+
+
+
