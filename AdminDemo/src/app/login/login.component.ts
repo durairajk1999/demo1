@@ -56,6 +56,8 @@ export class LoginComponent implements OnInit {
 
   /// durai///// j////fknvnfnvjf////////////vknjvnfd
 
+response for durai
+
   keyValue1!: string;
   finalkeyValue1!: string;
 
