@@ -1,0 +1,73 @@
+
+
+<html>
+  <body>
+<div class="body-wrapper" spellcheck="false">
+  <div class="main-wrapper">
+    <div class="page-wrapper full-page-wrapper d-flex align-items-center ">
+      <main class="auth-page">
+        <div class="mdc-layout-grid" style="margin-top:-10%;">
+          <div class="mdc-layout-grid__inner">
+            <div class="stretch-card mdc-layout-grid__cell--span-4-desktop mdc-layout-grid__cell--span-1-tablet"></div>
+            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-4-desktop mdc-layout-grid__cell--span-6-tablet">
+              <div class="mdc-card" >
+                <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="line-scale-party" color="#000183"></ngx-spinner>
+                <form>
+                  <div class="example-header">
+                   
+                   <div class="text-center">
+                    
+                     <mat-label> Please check your email
+                       </mat-label>
+                       <br>
+                       
+                       <mat-label>
+                           we've sent to verification code  {{email}}
+                       </mat-label>
+                       
+                  </div>
+               
+                  </div>
+                  <br>
+                    
+                 
+                      <div class="example-header text-center">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                          <mat-label class="asterix--before"> Verification Code  </mat-label>
+                          
+                          <input matInput required={{verify}} placeholder="" #input  name="username" [(ngModel)]="otp" required #code="ngModel">
+                          <!-- <mat-error *ngIf="code.errors && code.invalid && code.touched">
+                           Verification Code is Required!
+                        </mat-error> -->
+                        <mat-error *ngIf="verify">
+                          Verification Code is Required!
+                        </mat-error>
+                        </mat-form-field>
+                      </div>
+                        <br>
+                      <div class="example-header">
+
+                        <div class="text-center">
+        
+                            <button mat-raised-button style="margin-right:20px ; width: 90px; " (click)="getVerification()">Submit</button>
+                            <button mat-raised-button style="margin-left: 30px;width: 90px; " (click)="resendOTP()" >Resend</button>
+        
+                        </div><br><br>
+                    </div>
+
+                      
+
+                     
+                      </form>
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+                      </main>
+                      </div>
+                      </div>
+                      </div>
+                      </body>
+                      </html>
+
+                     

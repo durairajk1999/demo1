@@ -1,0 +1,509 @@
+<body>
+  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card p-0">
+      <div>
+        <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" color="#000183" type="ball-clip-rotate">
+        </ngx-spinner>
+    </div>
+      <form class="form" #shgForm="ngForm">
+
+        <br>
+        <br>
+
+        <div class="row">
+          <div class="form-group" class="col-md-6 mb-4 ">
+            <div class="example-header">
+
+
+              <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+                <mat-label class="asterix--before">State</mat-label>
+                <mat-select    ondragstart="return false;" 
+                 required={{statevalue}} disableOptionCentering [(ngModel)]="stateName" id="state" name="state"
+                  [formControl]="state" (selectionChange)="onSelect($event.value)">
+                 
+                  <mat-option>
+                    <lib-mat-select-search  (keypress)="letterOnly($event)"         id="search"   [list]="statelist1" [searchProperties]="['state_name']"
+                        [fixOnTop]="true" [clearSearchInput]="true" (filtered)="statelist2 = $event">
+                    </lib-mat-select-search>
+                </mat-option>
+
+                <mat-option *ngIf="statelist2.length==0">Record not found</mat-option>
+                 
+                 
+                 
+                  <mat-option *ngFor="let state of statelist2" value={{state.state_name}}>
+                    {{state.state_name}}
+                  </mat-option>
+                </mat-select>
+                <!-- <mat-error *ngIf="state.errors?.required">
+                  State is required!
+                </mat-error> -->
+              </mat-form-field>
+              <span class="mat-error"  style="margin-left:70px;  margin-top:-20px ;  " *ngIf="statevalue">
+                State is required
+              </span>
+            </div>
+          </div>
+          <div class="form-group" class="col-md-6 mb-4 ">
+            <div class="example-header">
+
+              <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline" (click)="districtTouch()">
+                <mat-label class="asterix--before">District</mat-label>
+                <mat-select  ondragstart="return false;" 
+                 required={{districtvalue}} disableOptionCentering [(ngModel)]="districtName" id="district" name="district"
+                  [formControl]="district" (selectionChange)="onChange($event.value)">
+                 
+                  <mat-option>
+                    <lib-mat-select-search  (keypress)="letterOnly($event)"         id="search"   [list]="districtlist1" [searchProperties]="['district_name']"
+                        [fixOnTop]="true" [clearSearchInput]="true" (filtered)="districtlist2 = $event">
+                    </lib-mat-select-search>
+                </mat-option>
+
+                <mat-option *ngIf="districtlist2.length==0">Record not found</mat-option>
+                 
+                 
+                 
+                  <mat-option *ngFor="let district of districtlist2" value={{district.district_name}}>
+                    {{district.district_name}}
+                  </mat-option>
+                </mat-select>
+                <!-- <mat-error *ngIf="district.errors?.required">
+                  District is required!
+                </mat-error> -->
+              </mat-form-field>
+              <span class="mat-error"  style="margin-left:70px;  margin-top:-20px ;  " *ngIf="districtvalue">
+                District is required
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group" class="col-md-6 mb-4 ">
+            <div class="example-header">
+
+
+              <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline" (click)="iaTouch()">
+                <mat-label class="asterix--before">IA Name</mat-label>
+                <mat-select  ondragstart="return false;" 
+                 disableOptionCentering [(ngModel)]="shpiId" id="shpi" name="shpi" required={{iavalue}} [formControl]="ia"
+                  (selectionChange)="getAnimaterNames($event.value)">
+                 
+                  <mat-option>
+                    <lib-mat-select-search  (keypress)="letterOnly($event)"  id="search"   [list]="ialist1" [searchProperties]="['name_of_SHPI']"
+                        [fixOnTop]="true" [clearSearchInput]="true" (filtered)="ialist2 = $event">
+                    </lib-mat-select-search>
+                </mat-option>
+
+                <mat-option *ngIf="ialist2.length==0">Record not found</mat-option>
+                 
+                 
+                 
+                <mat-option  class="options"          *ngFor="let ia of ialist2" value={{ia.id}}>
+                  <!-- <span class="bar_content" *ngIf="ia.name_of_SHPI.length >=25">
+                    
+                  </span>
+
+                  <span *ngIf="ia.name_of_SHPI.length <25">
+                    {{ia.name_of_SHPI}}
+                  </span> -->
+
+                  {{ia.name_of_SHPI}}
+                
+                </mat-option>
+                </mat-select>
+                <!-- <mat-error *ngIf="ia.errors?.required">
+                  IA name is required!
+                </mat-error> -->
+              </mat-form-field>
+              <span class="mat-error"  style="margin-left:70px;  margin-top:-20px ;  " *ngIf="iavalue">
+                IA name is required
+              </span>
+            </div>
+          </div>
+
+
+          
+          <div class="form-group" class="col-md-6 mb-4 ">
+            <div class="example-header">
+
+              <mat-form-field appearance="outline" (click)="animatorTouch()">
+                <mat-label>Animator Name</mat-label>
+                <mat-select  disableOptionCentering ondragstart="return false;" 
+                 [(ngModel)]="animatorId" id="animatorname" name="animatorname" [formControl]="animator"  (selectionChange)="animatorNameEnter()">
+                 
+                 <mat-option>
+                  <lib-mat-select-search  (keypress)="letterOnly($event)"  id="search"   [list]="animatorlist1" [searchProperties]="['animatorName']"
+                      [fixOnTop]="true" [clearSearchInput]="true" (filtered)="animatorlist2 = $event">
+                  </lib-mat-select-search>
+              </mat-option>
+              
+              <mat-option *ngIf="animatorlist2.length==0">Record not found</mat-option>
+
+                 <mat-option value={{animator.animatorId}} *ngFor=" let animator of animatorlist2">
+                  {{animator.animatorName}} </mat-option>
+                </mat-select>
+
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="row">
+          <div class="form-group" class="col-md-6 mb-4 ">
+            <div class="example-header">
+
+              <mat-form-field appearance="outline">
+                <mat-label>SHG/JLG Code</mat-label>
+                <input autocomplete="off"  onlyAlphanumeric   ondragstart="return false;" 
+                 matInput [(ngModel)]="shgDetailsRequest.shgCode" id="shgCode" name="shgCode"
+                  [formControl]="shgcode" placeholder="" #input (ngModelChange)="shgCodeReset()"  toUppercase maxlength="15">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="form-group" class="col-md-6 mb-4 ">
+            <div class="example-header">
+
+              <mat-form-field appearance="outline">
+                <mat-label>SHG/JLG Name </mat-label>
+                <input singleSpace autocomplete="off"  OnlyCharacter  ondragstart="return false;" 
+                 matInput [(ngModel)]="shgDetailsRequest.shgName" id="shgName" name="shgName"
+                  [formControl]="shgName" placeholder="" #input  toUppercase  maxlength="30">
+              </mat-form-field>
+            </div>
+          </div>
+          <br>
+          <div class="example-header">
+
+            <div class="text-center">
+              <!-- <button mat-raised-button color="warn" style="margin-right:10px ;">Cancel</button> -->
+              <button mat-raised-button style="margin-bottom:40px ;margin-top:-40px ;width:90px;"
+                (click)="shgDetails()">Submit</button>
+            </div>
+          </div>
+
+
+
+
+        </div>
+      </form>
+      <div *ngIf="toDisplay">
+        <div class="form-group" class="col-md-6 mb-4 ">
+
+          <div class="example">
+  
+            <mat-form-field appearance="outline">
+              <mat-label> Search</mat-label>
+              <mat-icon matPrefix>search</mat-icon>
+              <input matInput singleSpace maxlength="30" (keyup)="applyFilter($event)" placeholder="" #input autocomplete="off" autocorrect="off"   [formControl] = "filters">
+            </mat-form-field>
+          </div>
+        </div>
+        <div>
+          <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  
+        </div>
+        <div>
+          <h3 style="margin-bottom:5px; color: #000183;font-weight: 600;margin-left: 10px;">
+            Group Details Table</h3>
+        </div>
+        <div class='table-responsive'>
+
+          <table mat-table #firstTableSort="matSort" [dataSource]="dataSource" matSort class="mat-elevation-z8">
+            <!-- Checkbox Column -->
+
+            <ng-container matColumnDef="select">
+              <th width="-10%" mat-header-cell *matHeaderCellDef>
+                <!-- <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+              </mat-checkbox> -->
+              </th>
+              <td width="-10%" mat-cell *matCellDef="let row">
+                <mat-checkbox (change)="isAllSelectedCheckBox($event.checked,row)" [checked]="row.isSelected"
+                  [aria-label]="checkboxLabel(row)">
+                </mat-checkbox>
+              </td>              
+            </ng-container>
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="shgCode">
+              <!-- <th mat-header-cell *matHeaderCellDef style=" font-weight: 500; color: #757575">SHG Code</th> -->
+
+              <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="shgCode">SHG/JLG Code</th>
+              <!-- <td mat-cell *matCellDef="let element"> {{element.shgcode}} </td> -->
+              <td class="p-3" style="text-align: left;" mat-cell *matCellDef="let element"> {{element.shgCode}} </td> -->
+
+            </ng-container>
+
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="nameOfTheSHG">
+              <!-- <th mat-header-cell *matHeaderCellDef> nameOfTheSHG </th> -->
+              <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="shgName"> Name of the SHG/JLG
+              </th>
+
+              <td class="p-3" style="text-align: justify;" mat-cell *matCellDef="let element"> {{element.shgName}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="animatorName">
+              <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="animatorName"> Animator Name
+              </th>
+              <td class="p-3" style="text-align: left;" mat-cell *matCellDef="let element"> {{element.animatorName}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="userName">
+              <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="animatorUsername"> Username </th>
+              <td class="p-3" style="text-align: left;" mat-cell *matCellDef="let element"> {{element.animatorUsername}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+            </tr>
+            <tr class="mat-row" *matNoDataRow >
+              <td class="mat-cell" class="search"  colspan="6">
+                  Record not found
+              </td>
+          </tr>
+      </table> 
+
+
+        </div>
+
+        <br>
+
+
+        <div class="example-header">
+
+          <div class="text-center">
+            <!-- <button mat-raised-button color="warn" style="margin-right:10px ;">Cancel</button> -->
+            <button mat-raised-button style="width:90px;margin-top:-40px" (click)="getGroupMembers()">Select</button>
+          </div>
+        </div>
+      </div>
+
+
+
+      <br>
+      <div *ngIf="toShow">
+
+        <div class="form-group" class="col-md-6 mb-4 ">
+
+          <div class="example">
+  
+            <mat-form-field appearance="outline">
+              <mat-label> Search</mat-label>
+              <mat-icon matPrefix>search</mat-icon>
+              <input matInput (keyup)="applyFilters($event)" placeholder="" #input autocomplete="off" autocorrect="off" [formControl] = "filter">
+            </mat-form-field>
+          </div>
+        </div>
+        <div>
+          <mat-paginator #paginatorNew [pageSizeOptions]="[5, 10, 25, 100]" >
+          </mat-paginator>
+
+        </div>
+        <div>
+          <h3 style="margin-bottom:5px; color: #000183;font-weight: 600;margin-left: 10px;">
+            Member Details Table</h3>
+        </div>
+
+
+        <div class='table-responsive'>
+
+          <table mat-table #secondTableSort="matSort" [dataSource]="shgdataSource" matSort class="mat-elevation-z8">
+            <ng-container matColumnDef="header-row-zero-group">
+            <th class="p-3 parent-row"  mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+              <mat-checkbox (change)="$event ? toggleAllShgRows() : null"
+                [checked]="shgselection.hasValue() &&   isAllShgSelected()"
+                [indeterminate]="shgselection.hasValue() && !  isAllShgSelected()" [aria-label]=" shgcheckboxLabel()">
+              </mat-checkbox>
+            </th>
+            <td class="p-3" mat-cell *matCellDef="let shgrow">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? shgselection.toggle(shgrow) : null"
+                [checked]="shgselection.isSelected(shgrow)" [aria-label]="shgcheckboxLabel(shgrow)">
+              </mat-checkbox>
+            </td>
+            </ng-container>
+            <ng-container matColumnDef="select">
+              <th mat-header-cell class="parent-row" *matHeaderCellDef [ngStyle]="{'display': 'none'}">
+                <mat-checkbox (change)="$event ? toggleAllShgRows() : null"
+                  [checked]="shgselection.hasValue() &&   isAllShgSelected()"
+                  [indeterminate]="shgselection.hasValue() && !  isAllShgSelected()" [aria-label]=" shgcheckboxLabel()">
+                </mat-checkbox>
+              </th>
+              <td mat-cell *matCellDef="let shgrow">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? shgselection.toggle(shgrow) : null"
+                  [checked]="shgselection.isSelected(shgrow)" [aria-label]="shgcheckboxLabel(shgrow)">
+                </mat-checkbox>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="header-row-first-group">
+              <th class="p-3 parent-row" mat-header-cell *matHeaderCellDef mat-sort-header="member_name" [attr.rowspan]="2"> Member Name</th>
+              <td class="p-3" mat-cell *matCellDef="let shgMembers"> {{shgMembers.member_name}} </td>
+            </ng-container>
+           
+    
+            <ng-container matColumnDef="memberName">
+              <th class="p-3 parent-row" mat-header-cell *matHeaderCellDef [ngStyle]="{'display': 'none'}"> Service </th>
+              <td style="text-align: left;" mat-cell *matCellDef="let shgMembers"> {{shgMembers.member_name}} </td>
+            </ng-container>
+
+           
+
+
+            <ng-container matColumnDef="header-row-second-group">
+              <th class="p-3 parent-row" mat-header-cell *matHeaderCellDef mat-sort-header="husband_Father_Name" [attr.rowspan]="2"> Husband/Father
+                Name</th>
+              <td class="p-3" mat-cell *matCellDef="let shgMembers"> {{shgMembers.husband_Father_Name}} </td>
+            </ng-container>
+           
+    
+            <ng-container matColumnDef="husbandOrFatherName">
+              <th class="p-3 parent-row" mat-header-cell *matHeaderCellDef [ngStyle]="{'display': 'none'}"> Husband/Father
+                Name </th>
+              <td style="text-align: left;" mat-cell *matCellDef="let shgMembers"> {{shgMembers.husband_Father_Name}} </td>
+            </ng-container>
+
+            
+
+            <ng-container matColumnDef="header-row-third-group">
+              <th class="p-3 parent-row" mat-header-cell *matHeaderCellDef mat-sort-header="designation" [attr.rowspan]="2"> Designation</th>
+              <td class="p-3" mat-cell *matCellDef="let shgMembers"> {{shgMembers.designation}} </td>
+            </ng-container>
+           
+    
+            <ng-container matColumnDef="designation">
+              <th class="p-3 parent-row" mat-header-cell *matHeaderCellDef [ngStyle]="{'display': 'none'}">Designation </th>
+              <td style="text-align: left;" mat-cell *matCellDef="let shgMembers"> {{shgMembers.designation}} </td>
+            </ng-container>
+
+
+
+            <!-- Symbol Column -->
+            
+
+            <ng-container matColumnDef="header-row-fourth-group">
+              <th class="p-3 parent-row" mat-header-cell *matHeaderCellDef mat-sort-header="savings" [attr.rowspan]="2"> Savings<br>(&#8377;) </th>
+              <td class="p-3" mat-cell *matCellDef="let shgMembers"> {{shgMembers.savings}} </td>
+            </ng-container>
+           
+    
+            <ng-container matColumnDef="savings">
+              <th class="p-3 parent-row" mat-header-cell *matHeaderCellDef [ngStyle]="{'display': 'none'}">Savings </th>
+              <td  style="text-align: right;" mat-cell *matCellDef="let shgMembers"> {{shgMembers.savings}} &nbsp; </td>
+            </ng-container>
+
+
+            <!-- <ng-container matColumnDef="savingsDisbursement">
+              <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="savings_Disburse">
+                Savings
+                Disbursement
+              </th>
+              <td style="padding-left: 13%;" mat-cell *matCellDef="let shgMembers"> {{shgMembers.savings_Disburse}}
+              </td>
+            </ng-container> -->
+
+            <ng-container matColumnDef="header-row-fifth-group">
+              <th class="p-3 parent-row" mat-header-cell *matHeaderCellDef  mat-sort-header="savings_Disburse" [attr.rowspan]="2">    Savings
+                Disbursement<br>(&#8377;) </th>
+              <td mat-cell *matCellDef="let shgMembers"> {{shgMembers.savings_Disburse}} </td>
+            </ng-container>
+           
+    
+            <ng-container matColumnDef="savingsDisbursement">
+              <th class="p-3 parent-row" mat-header-cell *matHeaderCellDef [ngStyle]="{'display': 'none'}">   Savings
+                Disbursement </th>
+              <td style="text-align: right;" mat-cell *matCellDef="let shgMembers"> {{shgMembers.savings_Disburse}} &nbsp;</td>
+            </ng-container>
+
+            <!-- class="pl-sm-5" -->
+
+            <ng-container matColumnDef="header-row-sixth-group">
+              <th class="p-3 parent-row" align="center" mat-header-cell *matHeaderCellDef  mat-sort-header="loanDetails" [attr.colspan]="5">    Loan Details
+              </th>
+              <!-- <td class="p-3" mat-cell *matCellDef="let shgMembers"> {{shgMembers.loanDetails}} </td> -->
+            </ng-container>
+            <ng-container matColumnDef="loanDetails">
+              <th class="p-3 parent-row" mat-header-cell *matHeaderCellDef  [ngStyle]="{'display': 'none'}">Loan Details </th>
+              <td class="p-3" mat-cell *matCellDef="let shgMembers"> {{shgMembers.loanDetails}} </td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="internalLoan">
+              <th class="p-3 child-row" mat-header-cell *matHeaderCellDef  mat-sort-header="internalLoan" > Internal Loan (&#8377;)
+                </th>
+              <td style="text-align: right;" mat-cell *matCellDef="let shgMembers"> {{shgMembers.internal_Loan}} &nbsp; </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cashCredit">
+              <th class="p-3 child-row" mat-header-cell *matHeaderCellDef  mat-sort-header="cashCredit" > Cash Credit (&#8377;)
+                </th>
+              <td style="text-align: right;" mat-cell *matCellDef="let shgMembers"> {{shgMembers.cash_Credit}} </td>
+            </ng-container>
+
+            
+            <ng-container matColumnDef="termLoan">
+              <th class="p-3 child-row" mat-header-cell *matHeaderCellDef  mat-sort-header="termLoan" > Term Loan (&#8377;)
+                </th>
+              <td style="text-align: right;" mat-cell *matCellDef="let shgMembers"> {{shgMembers.term_Loan}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="mfiLoan">
+              <th class="p-3 child-row" mat-header-cell *matHeaderCellDef  mat-sort-header="mfiLoan" > MFI Loan <br> (&#8377;)
+                </th>
+              <td style="text-align: right;" mat-cell *matCellDef="let shgMembers"> {{shgMembers.mfI_LOAN}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="bulkLoan">
+              <th class="p-3 child-row" mat-header-cell *matHeaderCellDef  mat-sort-header="bulkLoan" > Bulk Loan <br> (&#8377;)
+                </th>
+              <td style="text-align: right;" mat-cell *matCellDef="let shgMembers"> {{shgMembers.bulK_LOAN}} </td>
+            </ng-container>
+
+            <!-- <ng-container matColumnDef="header-row-second-group">
+              <th mat-header-cell *matHeaderCellDef [attr.colspan]="2"> Loan Details</th>
+            </ng-container> -->
+            <tr mat-header-row
+            *matHeaderRowDef="['header-row-zero-group','header-row-first-group','header-row-second-group','header-row-third-group','header-row-fourth-group','header-row-fifth-group','header-row-sixth-group']">
+          </tr>
+            <tr mat-header-row *matHeaderRowDef="shgdisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let shgrow; columns: shgdisplayedColumns;" (click)="shgselection.toggle(shgrow)">
+            </tr>
+
+            <tr class="mat-row" *matNoDataRow >
+              <td class="mat-cell" class="search"  colspan="15">
+                <br>
+                  Record not found
+              </td>
+          </tr>
+      </table> 
+
+        </div>
+        <div>
+
+        </div>
+        <br>
+        <div class="example-header">
+
+          <div class="text-center">
+            <!-- <button mat-raised-button color="warn" style="margin-right:10px ;">Cancel</button> -->
+            <button mat-raised-button style="margin-top:-80px;width:90px;margin-bottom: 10px;"
+              (click)="deleteShgMembers()">Submit</button>
+
+            <br>
+            <br>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <br>
+    <br>

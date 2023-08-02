@@ -1,0 +1,29 @@
+::ng-deep lib-mat-select-search *{
+    color: #000183;
+    }
+
+    .bar_content {
+        display: block;
+      
+        width: 100%;
+        transform: translateX(100%); 
+      
+        animation: move 10s linear infinite;
+      }
+      
+      @keyframes move {
+        to { transform: translateX(-100%); }
+      }
+      
+      @keyframes my-animation {
+        from {
+          -moz-transform: translateX(100%);
+          -webkit-transform: translateX(100%);
+          transform: translateX(100%);
+        }
+        to {
+          -moz-transform: translateX(-100%);
+          -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+        }
+      }

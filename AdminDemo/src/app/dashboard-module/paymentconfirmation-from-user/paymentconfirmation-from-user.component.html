@@ -1,0 +1,121 @@
+<div class="container">
+    <form class="mat-dialog-content">
+
+
+        <div class="form">
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+             <mat-label class="asterix--before" >First name</mat-label>
+              <input autocomplete="off" OnlyCharacter  ondragstart="return false;" 
+               required={{fname}} [(ngModel)]="data.beneficiaryAccountNumber" name="FirstName"
+                               (ngModelChange)="firstNameEnter(data.firstName)" matInput placeholder=""  (keydown)="handleInput($event)"
+                               (keydown)="isAlfa($event)"    minlength="3" maxlength="30"   [formControl] = "userNameform" (blur)='onBlur()'>
+                       <mat-error *ngIf="userNameform.errors?.minlength ">Should have minimum 3 characters </mat-error>
+                              <!-- <mat-error *ngIf="fname">
+                                 First name is required
+                               </mat-error> -->
+            </mat-form-field>
+                           
+                   </div>
+
+ <div class="form">
+                    <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                     <mat-label class="asterix--before" >Last name</mat-label>
+                      <input autocomplete="off" OnlyCharacter ondragstart="return false;" 
+                         required={{lname}}  [(ngModel)]="data.beneficiaryIFSC" name="FirstName"
+                                       (ngModelChange)="lastNameEnter(data.lastName)" matInput placeholder="" (keydown)="handleInput($event)"
+                                       (keydown)="isAlfa($event)"    minlength="1" maxlength="30"   [formControl] = "lastnameform"  (blur)='onBlur1()' />
+                               
+                                       <mat-error *ngIf="lastnameform.errors?.minlength ">Should have minimum 3 characters </mat-error>
+                   <mat-error *ngIf="lname">
+                      Last name is required
+                        </mat-error>
+                               </mat-form-field>
+                   </div>
+
+
+
+
+
+        <div class="form">
+            <mat-form-field appearance="outline">
+                <mat-label>Username</mat-label>
+                <input         autocomplete="off" matInput  ondragstart="return false;" #input
+                    placeholder="" [(ngModel)]="data.beneficiaryName" name="position"
+                    (ngModelChange)="usernameEnter(data.userName)" (keydown)="handleInput($event)"
+                    (keydown)="isAlfa($event)"   [disabled]="true"  />
+            </mat-form-field>
+        </div>
+       
+
+        <div class="form">
+            <mat-form-field appearance="outline">
+                <mat-label>Username</mat-label>
+                <input         autocomplete="off" matInput  ondragstart="return false;" #input
+                    placeholder="" [(ngModel)]="data.remarks" name="position"
+                    (ngModelChange)="usernameEnter(data.userName)" (keydown)="handleInput($event)"
+                    (keydown)="isAlfa($event)"   [disabled]="true"  />
+            </mat-form-field>
+        </div>
+
+
+
+        <div class="form">
+            <mat-form-field appearance="outline">
+                <mat-label>Username</mat-label>
+                <input         autocomplete="off" matInput  ondragstart="return false;" #input
+                    placeholder="" [(ngModel)]="data.transferAmount" name="position"
+                    (ngModelChange)="usernameEnter(data.userName)" (keydown)="handleInput($event)"
+                    (keydown)="isAlfa($event)"   [disabled]="true"  />
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+            <mat-form-field appearance="outline">
+                <mat-label>Username</mat-label>
+                <input         autocomplete="off" matInput  ondragstart="return false;" #input
+                    placeholder="" [(ngModel)]="data.transferType" name="position"
+                    (ngModelChange)="usernameEnter(data.userName)" (keydown)="handleInput($event)"
+                    (keydown)="isAlfa($event)"   [disabled]="true"  />
+            </mat-form-field>
+        </div>
+
+
+
+
+        
+
+       
+
+       
+
+
+
+
+        
+
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="mat-dialog-actions">
+            <button class="a1"  mat-raised-button [mat-dialog-close]="1" (click)="save()"> Save</button>
+            <button class="b1" mat-raised-button [mat-dialog-close]="0">Cancel</button>
+        </div>
+    </form>
+</div>

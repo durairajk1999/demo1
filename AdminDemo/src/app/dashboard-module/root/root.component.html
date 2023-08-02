@@ -1,0 +1,391 @@
+<html>
+
+<body>
+  <script src="../assets/js/preloader.js"></script>
+  <script src="../src/app/nav.js"></script>
+    <div class="body-wrapper" ondragstart="return false;"   spellcheck="false">
+     
+      
+
+      <aside oncontextmenu="return false"      class="mdc-drawer mdc-drawer--dismissible mdc-drawer--open">
+        <div class="mdc-drawer__header">
+          <a  class="brand-logo">
+            <img draggable="false"     oncontextmenu="return false"    style="width: 53%; margin-left: 37px;" src="assets/images/MoneyPurse_Logo2.svg" alt="logo" >
+          </a>
+          </div>
+        <div class="mdc-drawer__content">
+          <div class="user-info">
+            <p class="name"></p>
+            <p class="email"></p>
+          </div>
+          <div class="mdc-list-group">
+            <nav class="mdc-list mdc-drawer-menu">
+
+<!-- dynamic menu function  -->
+
+<div class="mdc-list-item mdc-drawer-item" *ngFor="let parentmenu of userMenulist"> 
+  <a class="mdc-expansion-panel-link" id="{{parentmenu.menuName}}" *ngIf="parentmenu.url!=null"
+  (click)="urlGet(parentmenu.url,parentmenu.menuName,parentmenu.iconName,parentmenu.alternateIcon)" (click)="colur(parentmenu.menuName)"
+  style="background: none ;">
+
+  <!-- <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon"   aria-hidden="true"   >{{parentmenu.iconName}}</i>
+    -->
+    <img draggable="false" id="{{parentmenu.iconName}}" style="display: block;" src="../assets/images/faces/{{parentmenu.iconName}}" width="20px" height="20px">
+    <img draggable="false" id="{{parentmenu.alternateIcon}}" style="display: none;" src="../assets/images/faces/{{parentmenu.alternateIcon}}" width="20px" height="20px">
+  <!-- <img draggable="false" src="../assets/images/faces/{{parentmenu.iconName}}" width="20px" height="20px"    > -->
+  <span id="h" style="font-size: 16px;">{{parentmenu.menuName}} </span>
+  
+  <!-- {{parentmenu.menuName}}  -->
+
+  </a>
+
+  <a class="mdc-expansion-panel-link"    *ngIf="parentmenu.url==null" (click)="colur3(parentmenu.parentMenuId,parentmenu.iconName)">
+    <!-- <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon"     aria-hidden="true">{{parentmenu.iconName}}</i>
+    {{parentmenu.menuName}} -->
+    <img draggable="false" id="{{parentmenu.iconName}}" style="display: block;" src="../assets/images/faces/{{parentmenu.iconName}}"  width="20px" height="20px">
+    <img draggable="false" id="{{parentmenu.alternateIcon}}" style="display: none;" src="../assets/images/faces/{{parentmenu.alternateIcon}}" width="20px" height="20px">
+
+     <!-- <img  draggable="false" src="../assets/images/faces/{{parentmenu.iconName}}" width="20px" height="20px"    >  -->
+    <span id="h" style="font-size: 16px;">{{parentmenu.menuName}} </span>
+   
+    <i class="mdc-drawer-arrow material-icons"  id="{{parentmenu.iconName}}_transform" style="transform:none;" >chevron_right</i>
+  </a>
+
+
+<div class="mdc-expansion-panel "    id="{{parentmenu.parentMenuId}}" *ngIf="parentmenu.url==null" style="display: none; font-size: 16px;margin-left: 20px;">
+  <!-- <nav class="mdc-list mdc-drawer-submenu">
+    <div class="mdc-list-item mdc-drawer-item" *ngFor="let submenu of parentmenu.userMenuDtos">
+      <a class="mdc-drawer-link"  id="{{submenu.masterSubMenuName}}"  (click)="urlGet1(submenu.url , submenu.masterSubMenuName,parentmenu.parentMenuId,parentmenu.iconName)" (click)="colur1(submenu.masterSubMenuName)"  style="background: none; font-size: 16px;">
+        {{submenu.menuName}}
+      </a>
+    </div>
+   
+  </nav> -->
+  <nav class="mdc-list mdc-drawer-submenu">
+    <div class="mdc-list-item mdc-drawer-item" *ngFor="let submenu of parentmenu.userMenuDtos">
+      <a class="mdc-drawer-link" id="{{parentmenu.menuName+' >> '+submenu.menuName}}"
+        (click)="urlGet1(submenu.url , submenu.menuName,parentmenu.parentMenuId,parentmenu.iconName)"
+        (click)="colur1(submenu.menuName)" style="background: none; font-size: 16px;">
+        {{submenu.menuName}}
+      </a>
+    </div>
+
+  </nav>
+</div>
+</div> 
+
+
+ </nav>
+          </div><br><br>
+         
+
+          <div >
+           
+              <img draggable="false"           src="../assets/images/345 X 250Artboard 2 copy2x.png" alt="theme" style=" width:230px; margin-bottom: 3%; margin-top: -11%; margin-left:5.5%;">
+            
+          </div>
+        </div>
+      </aside>
+      
+
+
+      <div class="main-wrapper mdc-drawer-app-content">
+        
+        <header class="mdc-top-app-bar">
+          <div class="mdc-top-app-bar__row">
+            <div class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+              <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button sidebar-toggler" style="color: #000183;"        onclick=" var drawer = mdc.drawer.MDCDrawer.attachTo(document.querySelector('.mdc-drawer')); document.querySelector('.sidebar-toggler').addEventListener('click', function () {
+                drawer.open = !drawer.open;
+              });" 
+              >menu</button>
+              <span class="mdc-top-app-bar__title" style="font-size:5px color=black width=2px">
+              <small  id="title"       style="color: #000183;" >{{Anniyam}}</small>
+              </span>
+              
+
+
+            </div>
+            <div class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end mdc-top-app-bar__section-right">
+              <!-- <div class="menu-button-container" style="width: 20px;"  >
+                <button style="background: none; border: none;color: none;width: 100%; height: 100%;"  mat-icon-button [matMenuTriggerFor]="menus"  >
+                
+                
+                  
+                  <mat-icon  style="color: #000183; margin-left: -85px; margin-top: 5px;" >
+
+                 
+                   
+                   notifications
+                   <div *ngIf="hideMatBadge">
+<span class="mat-badge-content" matBadgeOverlap=false matBadgeSize="small"> </span>
+                  </div>
+
+                  </mat-icon>
+                  
+                </button> 
+    
+                <mat-menu style="background: none; height: 20px;"  id="pmenu" #menus="matMenu" >
+                 
+                  
+
+                  <h1 style="color:#000183;text-align: center;font-weight: 500;font-size: 17px;border-bottom: 2px solid #e9eaef;"> <mat-icon class="mdi mdi-bell-outline mr-2 tx-16 "style="margin-left:-5px;margin-top: 2px;"> notifications</mat-icon>Notifications</h1>
+
+
+                  <button mat-menu-item   [disabled]="approvedUserOnly"   >
+                    <mat-icon >
+                     
+                      <a  >
+                      <img draggable="false"      oncontextmenu="return false"   src="../assets/images/faces/new reqArtboard 18 copy 4@2x.png" alt="theme" style=" width:100%;margin-top: -13px;color:#000183;">
+                      </a>
+
+                      
+                    </mat-icon> 
+                    
+
+                    
+                    <span style="width:100% "  id="newrequestforApproved"  style="color:#000183; font-size: 17px; font-weight: 500;"
+                      matBadge={{notifyValue}} matBadgeOverlap=false matBadgeSize="small" (click)="openNotify()">New Request </span>
+                  </button>
+                  <button id="customBut">
+  
+                    Account Status
+  
+                  </button>
+
+               
+                  </mat-menu>
+                  </div> -->
+
+            
+     
+              <div class="menu-button-container">
+
+               
+
+                
+                <button id="profileIcon"   (click)="profileIcon()"  mat-icon-button [matMenuTriggerFor]="notificationMenuBtn" (menuOpened)="profileIcon()" (menuClosed)="profileIcon2()">
+                
+                 
+                 
+                  <span id="personname">
+                    {{userprofile}}&nbsp;&nbsp;
+                    <img draggable="false" id="iconsArtboard 2@2x.png profile" style="display: inline-block;"  src="../assets/images/faces/iconsArtboard 2@2x.png" width="20px" height="20px">
+                    <img draggable="false" id="iconsArtboard 20@2x.png profile" style="display:none ;" src="../assets/images/faces/iconsArtboard 20@2x.png" width="20px" height="20px">
+
+                    
+                    
+                  </span>
+                  
+              </button>
+              <mat-menu id="pmenu" #notificationMenuBtn="matMenu" style="background: none;">
+                
+                <!-- <span style="background: none;" mat-menu-item >
+                  <mat-icon  id="po" style="color: #000183;">info
+                  </mat-icon>
+                  <span style="width:1px ;" style="color: #000183; font-size:100%; font-weight:300;"  >{{userprofileinside}}</span>
+                </span> -->
+                
+                <button style="background: none;" mat-menu-item (click)="edit(signInNavResponse.responseContent.firstName,signInNavResponse.responseContent.lastName,signInNavResponse.responseContent.username,signInNavResponse.responseContent.mobileNo,signInNavResponse.responseContent.email)">
+                      <mat-icon  id="po" style="color: #000183;">switch_account
+                      </mat-icon>
+                      <span style="width:1px ;" style="color: #000183; font-size: 17px; font-weight: 500;"  >Edit Profile</span>
+                  </button>
+
+                  <button mat-menu-item (click)="changePassword()">
+                    <mat-icon id="po" style="color: #000183;">lock</mat-icon>
+                    <span style="color: #000183; font-size: 17px; font-weight: 500;">Change Password</span>
+                    
+                </button>
+                  
+                  <button mat-menu-item (click)="openConfirmDialog()">
+                      <mat-icon id="po" style="color: #000183; ">logout</mat-icon>
+                      <span style="color: #000183; font-size: 17px; font-weight: 500;" >Logout</span>
+                      
+                  </button>
+
+                  
+                 
+
+
+
+
+                  
+              </mat-menu>
+
+
+              <!-- <button (click)="profileIcon()" style="margin-right:60px ; background: none;" mat-icon-button [matMenuTriggerFor]="notificationMenuBtn1" (menuOpened)="profileIcon()" (menuClosed)="profileIcon2()">
+                
+               
+                 
+                <span id="personname" style="display: block;padding-right:3px; padding-top: 3px;">
+                  <img draggable="false" id="MP ICONArtboard 2@2x.png profile" style="display: inline-block;"  src="../assets/images/faces/MP ICONArtboard 2@2x.png" width="20px" height="20px">
+                  <img draggable="false" id="MP ICONArtboard 20@2x.png profile" style="display:none ;" src="../assets/images/faces/MP ICONArtboard 20@2x.png" width="20px" height="20px">
+
+                  {{userprofile}}</span>
+                
+            </button> -->
+
+            <!-- <mat-menu id="pmenu" #notificationMenuBtn1="matMenu" style="background: none;">
+              <button style="background: none;" mat-menu-item (click)="edit(signInNavResponse.responseContent.firstName,signInNavResponse.responseContent.lastName,signInNavResponse.responseContent.username,signInNavResponse.responseContent.mobileNo,signInNavResponse.responseContent.email)">
+                  <mat-icon  id="po" style="color: #000183;">switch_account
+                  </mat-icon>
+                  <span style="width:1px ;" style="color: #000183; font-size: 17px; font-weight: 500;"  >Edit Profile</span>
+              </button>
+              
+              <button mat-menu-item (click)="openConfirmDialog()">
+                  <mat-icon id="po" style="color: #000183; ">logout</mat-icon>
+                  <span style="color: #000183; font-size: 17px; font-weight: 500;" >Logout</span>
+                  
+              </button>
+
+              
+              <button mat-menu-item (click)="changePassword()">
+                <mat-icon id="po" style="color: #000183;">lock</mat-icon>
+                <span style="color: #000183; font-size: 17px; font-weight: 500;">Change Password</span>
+                
+            </button>
+              
+          </mat-menu> -->
+
+
+
+<!-- 
+              <div class="menu-button-container">
+                <button class="mdc-button mdc-menu-button"   (click)="sur()">
+                  <i class="mdi mdi-bell"></i>
+                </button>
+                <div class="mdc-menu mdc-menu-surface"  id="surfa" style="display: block;"       tabindex="-1">
+                  <h6 class="title"> <i class="mdi mdi-bell-outline mr-2 tx-16"></i> Notifications</h6>
+                  <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
+                    <li class="mdc-list-item" role="menuitem">
+                      <div class="item-thumbnail item-thumbnail-icon">
+                        <i class="mdi mdi-email-outline"></i>
+                      </div>
+                      <div class="item-content d-flex align-items-start flex-column justify-content-center">
+                        <h6 class="item-subject font-weight-normal">You received a new message</h6>
+                        <small class="text-muted"> 6 min ago </small>
+                      </div>
+                    </li>
+                    <li class="mdc-list-item" role="menuitem">
+                      <div class="item-thumbnail item-thumbnail-icon">
+                        <i class="mdi mdi-account-outline"></i>                      
+                      </div>
+                      <div class="item-content d-flex align-items-start flex-column justify-content-center">
+                        <h6 class="item-subject font-weight-normal">New user registered</h6>
+                        <small class="text-muted"> 15 min ago </small>
+                      </div>
+                    </li>
+                    <li class="mdc-list-item" role="menuitem">
+                      <div class="item-thumbnail item-thumbnail-icon">
+                        <i class="mdi mdi-alert-circle-outline"></i>
+                      </div>
+                      <div class="item-content d-flex align-items-start flex-column justify-content-center">
+                        <h6 class="item-subject font-weight-normal">System Alert</h6>
+                        <small class="text-muted"> 2 days ago </small>
+                      </div>
+                    </li> 
+                    <li class="mdc-list-item" role="menuitem">
+                      <div class="item-thumbnail item-thumbnail-icon">
+                        <i class="mdi mdi-update"></i>
+                      </div>
+                      <div class="item-content d-flex align-items-start flex-column justify-content-center">
+                        <h6 class="item-subject font-weight-normal">You have a new update</h6>
+                        <small class="text-muted"> 3 days ago </small>
+                      </div>
+                    </li> 
+                  </ul>
+                </div>
+              </div> -->
+
+
+
+              </div>
+
+
+            
+            </div>
+          </div>
+        </header>
+      
+
+        <div class="page-wrapper mdc-toolbar-fixed-adjust">
+          <main class="content-wrapper">
+
+
+            
+
+ <!-- <button mat-menu-item (click)="userLogedIn()">
+                    <mat-icon id="po" style="color: #000183;">lock</mat-icon>
+                    <span style="color: #000183; font-size: 17px; font-weight: 500;">Change Password</span>
+                    
+                </button> -->
+
+
+            <router-outlet></router-outlet>
+
+            
+          </main>
+          
+          <footer>
+            
+            <div class="mdc-layout-grid">
+              <div class="mdc-layout-grid__inner">
+                <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
+                  <span class="text-center text-sm-left d-block d-sm-inline-block tx-14"> <span style="color: #000183; font-size: 17px; font-weight: 400;"   id="anniyamwebsite" >©  </span><a href="https://anniyam.com" target="_blank" style="color: #000183; font-size: 17px; font-weight: 500;">ANNIYAM</a></span>
+                </div>
+                <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop d-flex justify-content-end">
+                  <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center tx-14"> <a routerLink="https://www.bootstrapdash.com/material-design-dashboard/" target="_blank">  </a> </span>
+                </div>
+              </div>
+            </div>
+
+            
+          </footer>
+         
+        </div>
+      </div>
+    </div>
+   
+    <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
+  
+    <script src="../assets/vendors/chartjs/Chart.min.js"></script>
+    <script src="../assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
+    <script src="../assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+   
+    <script src="../assets/js/dashboard.js"></script>
+    <script>
+      
+    </script>
+   
+  </body>
+
+  </html>
+
+  <div class="modal" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <!-- <div class="modal-header">
+          <h2 class="modal-title">Session Timeout</h2>
+          <button type="button" class="close" (click)='hideSessionModal()' aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div> -->
+  
+        <div class="modal-body">
+          <div>
+            <mat-icon>warning</mat-icon>
+          </div>
+          <div>
+            <span class="time-in-mins">Your session is about to expire.</span>
+            <br>
+            <span class="time-in-mins">{{ idleState }}</span>
+          </div>
+  
+        </div>
+        <div class="modal-footer">
+          <button type="button" mat-raised-button (click)='hideSessionModal()'>Stay</button>
+          <button type="button" mat-raised-button (click)="ProfileLogOut()">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,58 @@
+
+::ng-deep lib-mat-select-search *{
+    color: #000183;
+    }
+
+@media only screen and (max-width: 500px) 
+{
+    #newrequestbutton
+    {
+    
+        
+         margin-left: 67%;
+         margin-bottom: 10px;
+        width: 33%;
+        
+         
+     
+    
+    }
+
+}
+
+@media only screen and (max-width: 500px) 
+{
+    #unmaprequest
+    {
+ margin-left: 37%;
+        margin-bottom: 10px;
+        width: 20%;
+        font-size: 12px;
+        font-weight: 100;
+     
+    
+    }
+
+}
+
+
+
+
+
+
+@media only screen and (min-width: 500px) 
+{
+    #newrequestbutton
+    {
+    
+      
+        
+        margin-left: 90%;
+        margin-bottom: 10px;
+        width: 9%;
+      
+        font-weight: 300;
+    
+    }
+
+}

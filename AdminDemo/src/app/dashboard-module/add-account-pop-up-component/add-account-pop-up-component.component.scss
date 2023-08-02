@@ -1,0 +1,86 @@
+
+  
+  .asterix--before:after {
+    content: "*";
+    color: #ff0f0f;
+    margin-left: 5px;
+  }
+  
+  
+  .row .field {
+    // display: block;
+    // position: relative;
+    // flex: content;
+    max-width: 180px;
+    margin-left: 20px;
+  
+  }
+  
+  .mat-error {
+    color: #ff0f0f;
+    font-weight: 500;
+    font-size: 12px;
+  }
+  
+  
+  
+  ::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid .mat-form-field-outline {
+    color: red !important;
+  }
+  
+  
+  
+  @media screen and (min-width: 1280px) {
+    .a1 {
+      margin-left: -8px;
+      width: 80px;
+    }
+  
+    .b1 {
+      margin-left: 10px;
+      width: 80px;
+    }
+  
+    .btn1 {
+      margin-left: 30px;
+      width: 80px;
+    }
+  }
+  
+  @media screen and (max-width: 400px) {
+    .a1 {
+      margin-left: 5px;
+      width: 80px;
+    }
+  
+    .b1 {
+      margin-left: 40px;
+      width: 80px;
+    }
+  
+    .btn1 {
+      // margin-left: 5px;
+      width: 80px;
+    }
+  
+    .row .field {
+      // display: block;
+      position: relative;
+      flex: content;
+      max-width: 160px;
+      margin-left: 3px;
+    
+    }
+  }
+  
+  // @media screen and (max-width: 500px) {
+  //   .container {
+  //     display: flex;
+  //     flex-direction: column;
+  //      min-width: 250px;
+  //   }
+  // }
+
+  ::ng-deep mat-dialog-container {
+    border-radius: 30px !important;
+}

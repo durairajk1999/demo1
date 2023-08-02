@@ -1,0 +1,163 @@
+<body>
+    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+        <div class="mdc-card p-0"><br><br>
+            <!-- <div class="container"> -->
+            <div>
+                <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" color="#000183" type="ball-clip-rotate">
+                </ngx-spinner>
+            </div>
+
+            <form class="form" (ngSubmit)="walletIncentive()">
+
+                <div class="row">
+                    <div class="form-group" class="col-md-6 mb-4">
+                        <div class="example-header">
+                            <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline"
+                                (click)="picker1.open()">
+                                <mat-label class="asterix--before">From Date</mat-label>
+                                <input readonly  [max]="startToday" ondragstart="return false;"
+                                    (dateChange)="orgValueChange()" matInput [matDatepicker]="picker1" name="fromdate"
+                                    [formControl]="startDate" [max]="today" required="{{startdatevalue}}"
+                                    (ngModelChange)="txndate()">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1>
+                                </mat-datepicker>
+                            </mat-form-field>
+                            <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;"
+                                *ngIf="startdatevalue">
+                                From date is required
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" class="col-md-6 mb-4">
+                        <div class="example-header">
+                            <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline"
+                                (click)="picker.open()" (click)="clickEndDate()">
+                                <mat-label class="asterix--before">To Date</mat-label>
+                                <input readonly  [max]="today" ondragstart="return false;"
+                                    (dateChange)="orgValueChange()" matInput [min]="startDate.value" name="today"
+                                    [matDatepicker]="picker" [max]="today" [formControl]="endDate"
+                                    (ngModelChange)="todateselect(incentiveRequest.toDate)" required={{toDateValue}}>
+
+                                <mat-datepicker-toggle matSuffix [for]="picker">
+
+                                    <mat-icon matDatepickerToggleIcon>today</mat-icon>
+                                </mat-datepicker-toggle>
+
+
+                                <mat-datepicker #picker [disabled]="disToDate"></mat-datepicker>
+                            </mat-form-field>
+
+
+
+                            <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="toDateValue">
+                                {{todate}}
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="example-header">
+                    <div class="text-center">
+                        <button mat-raised-button type="submit" style="width:90px;">Submit</button>
+                    </div>
+                </div>
+
+
+
+            </form>
+
+            <br>
+
+            <div class="design"  *ngIf="notes">
+                <h3> Note : The transaction period must be within 3 months. </h3>
+              </div>
+
+           
+              <br>
+            <div class="row" *ngIf="table1">
+                <div class="form-group" class="col-md-6 mb-4 ">
+
+                    <div class="example">
+
+                        <mat-form-field appearance="outline">
+                            <mat-label> Search</mat-label>
+                            <mat-icon matPrefix>search</mat-icon>
+                            <input autocomplete="off" autocorrect="off" matInput (keyup)="applyFilter($event)"
+                                placeholder=" " #input [formControl] = "filter"
+                                (keydown)="handleInput($event)" (keydown)="isAlfa($event)"
+                                maxlength="30">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div *ngIf="show">
+                <div>
+                    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]">
+                    </mat-paginator>
+                </div>
+                <div class="table-responsive">.
+
+                    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" matTableExporter
+                        #exporter="matTableExporter">
+
+
+
+                      
+
+                        <ng-container matColumnDef="id">
+                            <th  mat-header-cell *matHeaderCellDef mat-sort-header="roleGroupId">S.No</th>
+                            <!-- <td  mat-cell *matCellDef="let element"> {{element.roleGroupId}} </td> -->
+                            <td class="p-3" mat-cell *matCellDef="let element; let i = index;"> {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="serviceType">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp;&nbsp; Service Type</th>
+                            <td mat-cell style="text-align: center;" *matCellDef="let element; let i = index;">
+                                &nbsp;&nbsp;{{element.serviceType}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="incentive">
+                            <th style="text-align: center;" mat-header-cell *matHeaderCellDef mat-sort-header>&nbsp; &nbsp;Incentive&nbsp; (&#8377;)</th>
+                            <td style="text-align: right;" mat-cell *matCellDef="let element; let i = index;">
+                                {{element.incentive}}</td>
+
+                        </ng-container>
+
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                        </tr>
+
+
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" class="search" colspan="4">
+                                Record not found
+                            </td>
+                        </tr>
+                    </table>
+
+
+
+
+
+                    <!-- </div> -->
+                    <div *ngIf="dataSource.filteredData.length > 0">
+                        <br>
+                        <button mat-raised-button  style="width:130px ; float: right; margin-right: 20px; margin-bottom: 10px;" (click)="exportExcel()">
+                            <!-- <img src="assets/images/icons8-export-excel-22.png" style="margin-left: -25px;"> -->
+                            Export to excel</button>
+                    
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </div>
+</body>
+
+<!-- style="justify-content: right; text-align: right;padding-left: 150px;" -->

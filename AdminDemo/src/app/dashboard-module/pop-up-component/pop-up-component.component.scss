@@ -1,0 +1,51 @@
+
+
+mat-dialog-content{
+  width: 250px;
+  
+}
+.asterix--before:after {
+  content: "*";
+  color: #ff0f0f;
+  margin-left: 5px;
+}
+//  .mat-form-field mat-label {
+//     font-size: 17px;
+//     font-weight: 500;
+//     color: #000183;
+//   }
+.mat-form-field {
+  display: block;
+  position: relative;
+  flex: content;
+  min-width: 0;
+  width: 100%;
+}
+.mat-error {
+color: #ff0f0f;
+font-weight: 500;
+font-size: 12px;
+}
+
+
+
+// .mat-form-field textarea.mat-input-element {
+//   color: #000183;
+// }
+
+
+// .mat-textarea-invalid  mat-label {
+//   color: red;
+// }
+
+
+
+
+// ::ng-deep .mat-form-field-invalid.mat-form-field-label {
+//   border: 1px solid red;
+// }
+
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid .mat-form-field-outline {
+color: red!important;
+}

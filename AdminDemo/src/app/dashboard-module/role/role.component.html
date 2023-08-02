@@ -1,0 +1,193 @@
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+  <div class="mdc-card p-0"><br><br>
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" color="#000183" type="ball-clip-rotate"></ngx-spinner>
+
+    <form class="form" #roleform="ngForm" (ngSubmit)="submit()">
+
+      <div class="row">
+        <div class="form-group" class="col-md-6 mb-4 "  *ngIf="groupNotRequuired">
+          <div class="example-header">
+            <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+              <mat-label class={{important}}>Group</mat-label>
+              <mat-select ondragstart="return false;"  disableOptionCentering
+                required={{rolenamevalue}} [(ngModel)]="userRole.groupname" id="groupname" name="groupname"
+                (selectionChange)="selectedGroupName($event.value)" [formControl]="gro">
+                <mat-option>
+                  <lib-mat-select-search (keypress)="letterOnly($event)" id="search" [list]="groupnamelist1"
+                    [searchProperties]="['roleGroupName']" [fixOnTop]="true" [clearSearchInput]="true"
+                    (filtered)="groupnamelist2 = $event">
+                  </lib-mat-select-search>
+                </mat-option>
+                <mat-option *ngIf="groupnamelist2.length==0">Record not found</mat-option>
+                <mat-option value={{groupnames.roleGroupId}} *ngFor="let groupnames of groupnamelist2">
+                  {{groupnames.roleGroupName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="rolenamevalue">
+              Group is required
+            </span>
+          </div>
+        </div>
+
+
+        <div class="form-group" class="col-md-6 mb-4 "  *ngIf="groupRequired">
+          <div class="example-header">
+            <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+              <mat-label class="asterix--before">Group</mat-label>
+              <mat-select ondragstart="return false;"  disableOptionCentering
+                required={{rolenamevalue}} [(ngModel)]="userRole.groupname" id="groupname" name="groupname"
+                (selectionChange)="selectedGroupName($event.value)" [formControl]="gro">
+                <mat-option>
+                  <lib-mat-select-search (keypress)="letterOnly($event)" id="search" [list]="groupnamelist1"
+                    [searchProperties]="['roleGroupName']" [fixOnTop]="true" [clearSearchInput]="true"
+                    (filtered)="groupnamelist2 = $event">
+                  </lib-mat-select-search>
+                </mat-option>
+                <mat-option *ngIf="groupnamelist2.length==0">Record not found</mat-option>
+                <mat-option value={{groupnames.roleGroupId}} *ngFor="let groupnames of groupnamelist2">
+                  {{groupnames.roleGroupName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="rolenamevalue">
+              Group is required
+            </span>
+          </div>
+        </div>
+        
+
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+            <mat-form-field *ngIf="isShow" [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+              <mat-label class="asterix--before">Role</mat-label>
+
+              <input autocomplete="off" autocorrect="off" style="text-transform: capitalize;" 
+                ondragstart="return false;" OnlyCharacter matInput required={{userrolevalue}} disableOptionCentering
+                [(ngModel)]="userRole.rolename" id="rolename" name="rolename" [formControl]="roleName" placeholder=""
+                #input placeholder="" (ngModelChange)="selectedrole()" singleSpace minlength="3" maxlength="30">
+              <!-- <mat-error *ngIf="rolename.errors && rolename.invalid && rolename.touched">Role Name is Required!
+              </mat-error> -->
+
+
+              <mat-error *ngIf="roleName.errors?.minlength">
+                Should have minimum 3 characters
+              </mat-error>
+
+            </mat-form-field>
+            <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="userrolevalue">
+              Role is required
+            </span>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="example-header">
+
+        <div class="text-center">
+          <button type="submit" mat-raised-button style="width:90px ;">Submit</button>
+        </div>
+      </div>
+
+    </form>
+    <br>
+
+    <div>
+      <button *ngIf="newbutton" mat-raised-button (click)="addnew()"
+        style="width:100px ; float: right; margin-right: 20px; margin-bottom: 10px;">
+        Add New <!-- <mat-icon style="margin-left: -5px;">add_circle_outline</mat-icon>  -->
+      </button>
+    </div>
+    <br>
+    <div>
+      <!-- <div class="form-group" class="col-md-6 mb-4 ">
+
+          <div class="example">
+
+              <mat-form-field appearance="outline">
+                  <mat-label> Search</mat-label>
+                  <mat-icon matPrefix>search</mat-icon>
+                  <input maxlength="30" matInput (keyup)="applyFilter($event)" placeholder="" #input
+                       autocomplete="off" autocorrect="off">
+              </mat-form-field>
+          </div>
+      </div> -->
+
+    </div>
+    <div *ngIf="pagination">
+      <div class="form-group" class="col-md-6 mb-4 ">
+        <div class="example">
+          <mat-form-field appearance="outline">
+            <mat-label> Search</mat-label>
+            <mat-icon matPrefix>search</mat-icon>
+            <input maxlength="30" matInput (keyup)="applyFilter($event)" placeholder="Search role" #input
+              [formControl]="roleNameSearch" autocomplete="off" autocorrect="off" singleSpace>
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+      </div>
+      <div class='table-responsive'>
+
+        <table mat-table [dataSource]="dataSource" (matSortChange)="changeSort($event)" matSort
+          class="mat-elevation-z8">
+
+
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="siNo">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="element.roleGroup.roleGroupId">S.No</th>
+            <td class="p-3" mat-cell *matCellDef="let element; let i = index;"> {{ (i+1) + (paginator.pageIndex *
+              paginator.pageSize) }} </td>
+
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="groupName">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header> Group
+            </th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.roleGroup.roleGroupName
+              }} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="rolename">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="roleName"> Role </th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.roleName}} </td>
+          </ng-container>
+
+
+
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Edit / Delete </th>
+            <td class="p-1" mat-cell *matCellDef="let element">
+              <mat-icon matTooltip="Edit" style="margin-left: 0px;"
+                (click)="edit(i,element.roleGroup.roleGroupId,element.roleId,element.roleName)">edit</mat-icon>
+
+
+              <mat-icon matTooltip="Delete" style="margin-left: 10px;"
+                (click)="Delete(i,element.roleGroup.roleGroupId,element.roleId,element.roleName)">delete</mat-icon>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+          </tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" class="search" colspan="6">
+              <br>
+              Record not found
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div>
+
+    </div>
+    <br>

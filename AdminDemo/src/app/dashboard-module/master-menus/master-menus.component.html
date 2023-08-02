@@ -1,0 +1,352 @@
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+  <div class="mdc-card p-0"><br><br>
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate" color="#000183"></ngx-spinner>
+
+
+
+
+    <form class="form" #masterMenusForm="ngForm" (ngSubmit)="submit()">
+
+      <div class="row">
+
+
+        <div class="form-group" class="col-md-6 mb-4 " *ngIf="groupNotRequired">
+          <div class="example-header">
+            <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+              <mat-label>Group</mat-label>
+              <mat-select ondragstart="return false;"  disableOptionCentering
+                required={{groupnamevalue}} [(ngModel)]="response.roleGroupName" id="roleGroupName" name="roleGroupName"
+                (selectionChange)="selectGroupName($event.value)" [formControl]="group">
+                <mat-option>
+                  <lib-mat-select-search (keypress)="letterOnly($event)" id="search" [list]="groupnamelist1"
+                    [searchProperties]="['roleGroupName']" [fixOnTop]="true" [clearSearchInput]="true"
+                    (filtered)="groupnamelist2 = $event">
+                  </lib-mat-select-search>
+                </mat-option>
+                <mat-option *ngIf="groupnamelist2.length==0">Record not found</mat-option>
+                <mat-option value={{groupnames.roleGroupId}} *ngFor=" let groupnames of groupnamelist2">
+                  {{groupnames.roleGroupName}}
+                </mat-option>
+              </mat-select>
+              <!-- <mat-error *ngIf="roleGroupName.errors && roleGroupName.invalid && roleGroupName.touched">Group Name is Required!
+              </mat-error> -->
+            </mat-form-field>
+            <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="groupnamevalue">
+              Group is required
+            </span>
+          </div>
+        </div>
+
+
+
+        <div class="form-group" class="col-md-6 mb-4 " *ngIf="groupRequired">
+          <div class="example-header">
+            <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+              <mat-label class="asterix--before">Group</mat-label>
+              <mat-select ondragstart="return false;"  disableOptionCentering
+                required={{groupnamevalue}} [(ngModel)]="response.roleGroupName" id="roleGroupName" name="roleGroupName"
+                (selectionChange)="selectGroupName($event.value)" [formControl]="group">
+                <mat-option>
+                  <lib-mat-select-search (keypress)="letterOnly($event)" id="search" [list]="groupnamelist1"
+                    [searchProperties]="['roleGroupName']" [fixOnTop]="true" [clearSearchInput]="true"
+                    (filtered)="groupnamelist2 = $event">
+                  </lib-mat-select-search>
+                </mat-option>
+                <mat-option *ngIf="groupnamelist2.length==0">Record not found</mat-option>
+                <mat-option value={{groupnames.roleGroupId}} *ngFor=" let groupnames of groupnamelist2">
+                  {{groupnames.roleGroupName}}
+                </mat-option>
+              </mat-select>
+              <!-- <mat-error *ngIf="roleGroupName.errors && roleGroupName.invalid && roleGroupName.touched">Group Name is Required!
+              </mat-error> -->
+            </mat-form-field>
+            <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="groupnamevalue">
+              Group is required
+            </span>
+          </div>
+        </div>
+
+
+
+
+
+        <div class="form-group" class="col-md-6 mb-4 " *ngIf="parentmenuNotRequired">
+          <div class="example-header">
+            <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline" (click)="parentTouch()">
+              <mat-label>Parent Menu</mat-label>
+              <mat-select ondragstart="return false;"  disableOptionCentering
+                required={{parentmenunamevalue}} [(ngModel)]="response.parentMenuName" id="parentMenuName"
+                name="parentMenuName" (selectionChange)="parentmenuId($event.value)" [formControl]="parentmenu">
+
+                <mat-option>
+                  <lib-mat-select-search (keypress)="letterOnly($event)" id="search" [list]="parentmenulist1"
+                    [searchProperties]="['parentMenuName']" [fixOnTop]="true" [clearSearchInput]="true"
+                    (filtered)="parentmenulist2 = $event">
+                  </lib-mat-select-search>
+                </mat-option>
+                <mat-option *ngIf="parentmenulist2.length==0">Record not found</mat-option>
+
+
+
+
+                <mat-option value={{parentname.parentMenuId}} *ngFor="let parentname of parentmenulist2">
+                  {{parentname.parentMenuName}}
+                </mat-option>
+
+
+              </mat-select>
+              <!-- <mat-error *ngIf="parentMenuName.errors && parentMenuName.invalid && parentMenuName.touched">Parent Menu is Required!
+              </mat-error> -->
+            </mat-form-field>
+            <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="parentmenunamevalue">
+              Parent menu is required
+            </span>
+          </div>
+
+        </div>
+
+
+        <div class="form-group" class="col-md-6 mb-4 " *ngIf="parentMenuRequired">
+          <div class="example-header">
+            <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline" (click)="parentTouch()">
+              <mat-label class="asterix--before">Parent Menu</mat-label>
+              <mat-select ondragstart="return false;"  disableOptionCentering
+                required={{parentmenunamevalue}} [(ngModel)]="response.parentMenuName" id="parentMenuName"
+                name="parentMenuName" (selectionChange)="parentmenuId($event.value)" [formControl]="parentmenu">
+
+                <mat-option>
+                  <lib-mat-select-search (keypress)="letterOnly($event)" id="search" [list]="parentmenulist1"
+                    [searchProperties]="['parentMenuName']" [fixOnTop]="true" [clearSearchInput]="true"
+                    (filtered)="parentmenulist2 = $event">
+                  </lib-mat-select-search>
+                </mat-option>
+                <mat-option *ngIf="parentmenulist2.length==0">Record not found</mat-option>
+
+
+
+
+                <mat-option value={{parentname.parentMenuId}} *ngFor="let parentname of parentmenulist2">
+                  {{parentname.parentMenuName}}
+                </mat-option>
+
+
+              </mat-select>
+              <!-- <mat-error *ngIf="parentMenuName.errors && parentMenuName.invalid && parentMenuName.touched">Parent Menu is Required!
+              </mat-error> -->
+            </mat-form-field>
+            <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="parentmenunamevalue">
+              Parent menu is required
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div *ngIf="isShow" class="row">
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+            <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+              <mat-label class="asterix--before">Menu Name</mat-label>
+              <input autocomplete="off" autocorrect="off" OnlyCharacter style="text-transform: capitalize;"
+                ondragstart="return false;"  ondragstart="return false;" matInput
+                required={{menunamevalue}} [(ngModel)]="response.masterMenuName" id="masterMenuName"
+                name="masterMenuName" placeholder="" #input (ngModelChange)="menunameEnter()" maxlength="32"
+                minlength="3" [formControl]="menuname" singleSpace>
+              <!-- <mat-error *ngIf="masterMenuName.errors && masterMenuName.invalid && masterMenuName.touched">Menu Name is Required!
+              </mat-error> -->
+
+              <mat-error *ngIf="menuname.errors?.minlength">
+                Should have minimum 3 characters
+              </mat-error>
+
+            </mat-form-field>
+            <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="menunamevalue">
+              Menu name is required
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+            <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+              <mat-label class="asterix--before">Navigation URL</mat-label>
+
+              <input autocomplete="off" autocorrect="off" ondragstart="return false;" 
+                ondragstart="return false;" matInput required={{navigationurlname}} [(ngModel)]="response.navigateUrl"
+                id="navigationUrl" name="navigationUrl" placeholder="" #input (ngModelChange)="navigationUrlEnter()"
+                maxlength="32" minlength="3" [formControl]="urlname" singleSpace>
+
+              <!-- <mat-error *ngIf="navigationUrl.errors && navigationUrl.invalid && navigationUrl.touched">Navigation URL
+                is Required!</mat-error> -->
+
+              <mat-error *ngIf="urlname.errors?.minlength">
+                Should have minimum 3 characters
+              </mat-error>
+
+            </mat-form-field>
+            <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="navigationurlname">
+              Navigation URL is required
+            </span>
+          </div>
+
+
+
+        </div>
+      </div>
+
+      <div class="row">
+
+
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+            <div>
+              <mat-form-field *ngIf="isShow" [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+                <mat-label class="asterix--before">Icon Name</mat-label>
+                <mat-select autocomplete="off" autocorrect="off" disableOptionCentering ondragstart="return false;"
+                   required={{iconnamevalue}} [(ngModel)]="response.iconName" id="iconName"
+                  name="iconName" placeholder="" #input (ngModelChange)="iconNameEnter()" maxlength="32" minlength="3"
+                  [formControl]="iconuname" singleSpace>
+                  <!-- <mat-option>
+                  <lib-mat-select-search (keypress)="letterOnly($event)" id="search"  [fixOnTop]="true" [clearSearchInput]="true" [list]="iconName2" [searchProperties]="['iconName']" (filtered)="iconName3=$event">
+                  </lib-mat-select-search>
+                </mat-option> -->
+                  <mat-option value={{icon.iconName}} *ngFor="let icon of iconName1">
+                    <img draggable="false" src="../assets/images/faces/{{icon.iconName}}" width="20px" height="20px">
+                    {{icon.iconName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <span class="mat-error" style="margin-left:70px;margin-top:-20px;" *ngIf="iconnamevalue">
+                Icon name is required
+              </span>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="example-header">
+          <div class="text-center" style="padding-right: 10%; margin-top:-2% ;">
+            <button type="submit" mat-raised-button style="width:90px ; margin-bottom: 5%; ">Submit</button>
+          </div>
+        </div>
+      </div>
+      <br>
+
+      <!-- <div class="example-header">
+        <div class="text-center">
+          <button mat-raised-button color="primary" style="width:90px ; background-color: #000183;">Submit</button>
+        </div>
+      </div> -->
+
+    </form>
+    <div>
+      <button *ngIf="newbutton" mat-raised-button
+        style="width:100px ; float: right; margin-right: 20px; margin-bottom: 10px;" (click)="addnew()">
+        Add New <!-- <mat-icon style="margin-left: -5px;">add_circle_outline</mat-icon>  -->
+      </button>
+    </div>
+
+    <div *ngIf="pagination">
+
+      <div class="form-group" class="col-md-6 mb-4 ">
+        <div class="example">
+          <mat-form-field appearance="outline">
+            <mat-label> Search</mat-label>
+            <mat-icon matPrefix>search</mat-icon>
+            <input maxlength="30" matInput (keyup)="applyFilter($event)" #input [formControl]="menuNameSearch"
+              autocomplete="off" autocorrect="off" singleSpace placeholder="Search menu">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div>
+        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+      <div class="table-responsive">
+
+
+        <table mat-table [dataSource]="dataSource" (matSortChange)="changeSort($event)" matSort class="mat-elevation-z8"
+          style="width: 110% ;">
+
+          <ng-container matColumnDef="SlNo">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>S.No</th>
+            <!-- <td class="p-3" mat-cell *matCellDef="let element"> {{element.roleGroup.roleGroupId}} </td> -->
+            <td class="p-3" mat-cell *matCellDef="let element; let i = index;"> {{ (i+1) + (paginator.pageIndex *
+              paginator.pageSize) }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="GroupName">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>Group</th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.roleGroup.roleGroupName
+              }} </td>
+          </ng-container>
+          <ng-container matColumnDef="ParentName">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>Parent Name</th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.parentMenu.parentMenuName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="MenuName">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="masterMenuName">Menu Name</th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.masterMenuName
+              }} </td>
+          </ng-container>
+          <ng-container matColumnDef="NavigationURL">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="navigationUrl">Navigation URL</th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.navigationUrl}} </td>
+          </ng-container>
+          <ng-container matColumnDef="IconName">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="iconName">Icon Name</th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.iconName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="OrderID">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="orderId">Order ID</th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.orderId}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="activeorinactive">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="active">Status</th>
+            <td class="p-3" mat-cell *matCellDef="let element">
+              {{element.active}}
+            </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="action">
+            <th class="p-3" mat-header-cell *matHeaderCellDef> Edit / Delete</th>
+            <td class="p-3" mat-cell *matCellDef="let element">
+
+
+
+
+
+
+              <mat-icon matTooltip="Edit" style="margin-left: 8px;"
+                (click)="edit(i,element.roleGroup.roleGroupId, element.parentMenu.parentMenuId, element.masterMenuId,element.masterMenuName,element.navigationUrl,element.iconName,element.orderId,element.modifiedBy)">edit</mat-icon>
+              <mat-icon matTooltip="Delete" style="margin-left: 10px;"
+                (click)="deleteItem(i,element.roleGroup.roleGroupId, element.parentMenu.parentMenuId, element.masterMenuId,element.masterMenuName,element.navigationUrl,element.iconName,element.orderId ,element.modifiedBy)">delete</mat-icon>
+
+
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+          </tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" class="search" colspan="9">
+              <br>
+              Record not found
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <br>
+    <br><br>
+
+  </div>
+</div>

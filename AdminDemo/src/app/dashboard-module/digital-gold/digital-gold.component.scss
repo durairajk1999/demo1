@@ -1,0 +1,75 @@
+::ng-deep .mat-calendar-body-label {
+
+    visibility: hidden;
+  }
+  @media screen and (max-width:500px) {
+
+    .search {
+  
+      text-align:center;
+    //   padding-left: 180px !important;
+      font-weight: 500;
+      color: #000183;
+    }
+  }
+  
+  @media screen and (min-width: 500px){
+  
+   .mat-row .search {
+      text-align: center;
+    //   transform:translate(55%);
+      padding-right: 35px !important;
+      font-weight: 500;
+      color: #000183;
+    }
+  }
+  
+
+
+     
+  @media screen and (max-width:400px) {
+    .example mat-form-field {
+      margin-left: 54px;
+      width: 230px;
+      height: 100px;
+    }
+  }
+
+  
+@media only screen and (max-width: 500px) {
+  #notes {
+color: #000183;
+   //color: rgb(232, 240, 254);
+   padding-left: 20px;
+    //font-size: 1px;
+  }}
+@media only screen and (min-width: 500px) {
+  #notes {
+      color: #000183;
+ 
+      //color: rgb(232, 240, 254);
+    padding-left: 64px;
+    margin-bottom: -20%;
+  }
+
+}
+
+
+@media only screen and (max-width: 500px) {
+  .design {
+    color: #000183;
+    padding-left: 20px;
+    // margin-bottom: -25%;
+    margin-top: 16px;
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  .design {
+    color: #000183;
+    padding-left: 20px;
+    margin-top: 16px;
+
+    // margin-bottom: -5%;
+  }
+}

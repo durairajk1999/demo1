@@ -1,0 +1,233 @@
+<body>
+  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card p-0"><br><br>
+
+      <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate" color="#000183"></ngx-spinner>
+
+      <form #pennyDropForm="ngForm">
+
+        <div class="row">
+
+          <div class="form-group" class="col-md-6 mb-4 ">
+            <div class="example-header">
+              <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+
+                <mat-label class="asterix--before">Choose Account</mat-label>
+                <mat-select    required={{accountnumbervalue}} disableOptionCentering [(ngModel)]="penny.accountNumber"
+                  id="accountNumber" name="accountNumber" #accountNumber="ngModel"   [(value)]="selectedVariable"
+                  (openedChange)="accNumberSelected($event)" >
+                  <mat-option>
+
+
+                    <lib-mat-select-search id="search" [list]="accountnumberlist1"
+                      [searchProperties]="['beneficiaryAccountNumber','shortName']" [fixOnTop]="true"
+                      [clearSearchInput]="true" (filtered)="accountnumberlist2 = $event">
+                    </lib-mat-select-search>
+                  </mat-option>
+                  <mat-option *ngIf="accountnumberlist2.length == 0">No records found</mat-option>
+                  <mat-option value={{accNumber.beneficiaryAccountNumber}} *ngFor="let accNumber of accountnumberlist2">
+                    {{accNumber.shortName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="accountnumbervalue">
+                Account number is required
+              </span>
+            </div>
+
+          </div>
+
+          <div class="form-group" class="col-md-6 mb-4 ">
+            <div class="example-header">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                <mat-label class="asterix--before">Amount
+                  <span>(₹)</span>  
+                </mat-label>
+                
+                <input  numberAndDot (blur)='onBlur()' ondragstart="return false;"  matInput
+                  placeholder="" required #input  noSpace
+                  (keydown)="$event.keyCode != 32 ? $event:$event.preventDefault()" [(ngModel)]="enteramount"
+                  id="rechargeNumber" name="rechargeNumber" [formControl]="commentFC" autocomplete="off" maxlength="9"
+                  (input)="myMethod(enteramount)" />
+                <mat-error *ngIf="commentFC.invalid">{{getMobileError()}}</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+
+
+        </div>
+
+
+
+
+
+        <!-- <div class="row">
+          <div class="parent" *ngIf="beneName">
+            <div class="column" style="margin-left: 60px; font-weight: 500;font-size: 17px;  color: #000183;">
+
+              <p class="para">
+                Beneficiary
+                Name
+
+                <span class="span">:</span>
+              </p>
+            </div>
+            <div class="ans1" style="margin-left: 20px;font-weight: 400;font-size: 17px;  color: #000183;">
+              {{BeneficiaryName}}</div>
+          </div>
+          <br>
+          <div class="parent" *ngIf="bank">
+            <div class="column" style="margin-left: 60px; font-weight: 500;font-size: 17px;  color: #000183; ">
+
+              <p class="para">
+                Bank
+                <span class="span1">:</span>
+
+              </p>
+            </div>
+            <div class="column" style="margin-left: 20px;font-weight: 400;font-size: 17px;  color: #000183;">
+              {{Bank}}
+            </div>
+          </div>
+          <div class="parent" *ngIf="branchValid">
+            <div class="column" style="margin-left: 60px; font-weight: 500;font-size: 17px;  color: #000183; ">
+              <p class="para">
+                Branch
+                <span class="span2">:</span>
+              </p>
+            </div>
+            <div class="column" style="margin-left: 20px;font-weight: 400;font-size: 17px;  color: #000183;">
+              {{branch}}
+            </div>
+          </div>
+
+          <div class="parent" *ngIf="ifsc">
+            <div class="column" style="margin-left: 60px; font-weight: 500;font-size: 17px;  color: #000183; ">
+              <p class="para">
+                IFSC
+                <span class="span3">
+                  :
+                </span>
+              </p>
+
+            </div>
+            <div class="column" style="margin-left: 20px;font-weight: 400;font-size: 17px;  color: #000183;">
+              {{IFSC}}
+            </div>
+          </div>
+          <div class="parent" *ngIf="accNum">
+            <div class="ans2" style="margin-left: 60px; font-weight: 500;font-size: 17px;  color: #000183; ">
+              <p class="para">Account Number
+
+                <span class="span4">
+                  :
+                </span>
+              </p>
+            </div>
+            <div class="column" style="margin-left: 20px;font-weight: 400;font-size: 17px;  color: #000183;">
+              {{AccountNumber}}</div>
+          </div>
+        </div>
+        <br>
+        <br> -->
+
+
+        <div class="row">
+
+          <div class="form-group" class="col-md-6 mb-4 ">
+            <div class="example-header">
+              <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+
+                <mat-label class="asterix--before">Debit A/c No.</mat-label>
+                <mat-select required={{debitaccnum}} disableOptionCentering [(ngModel)]="penny.debitAccountNumber"
+                  id="debitAccnumber" name="debitAccnumber" #accountNumber="ngModel"
+                  (selectionChange)="debitAccountNumberSelect($event.value)">
+                  <mat-option>
+
+
+                    <lib-mat-select-search id="search" [list]="debitaccountnumberlist1"  (keypress)="onlyNumberKey($event)"
+                      [searchProperties]="['accNo']" [fixOnTop]="true"
+                      [clearSearchInput]="true" (filtered)="debitaccountnumberlist2 = $event">
+                    </lib-mat-select-search>
+                  </mat-option>
+                  <mat-option *ngIf="debitaccountnumberlist2.length == 0">No records found</mat-option>
+                  <mat-option value={{accNumber.accNo}} *ngFor="let accNumber of debitaccountnumberlist2">
+                    {{accNumber.accNo}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="debitaccnum">
+                Debit A/c No. is required
+              </span>
+            </div>
+
+          </div>
+
+          <div class="form-group" class="col-md-6 mb-4 ">
+            <div class="example-header">
+              <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+
+                <mat-label class="asterix--before">Transfer Mode</mat-label>
+                <mat-select required={{transferTypeValue}} disableOptionCentering [(ngModel)]="penny.transferMode"
+                  id="transferType" name="transferType" #accountNumber="ngModel"
+                  (selectionChange)="transferModeSelected($event.value)">
+                 
+                  
+                  <mat-option value="IMPS">IMPS</mat-option>
+                  <mat-option value="NEFT">NEFT</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="transferTypeValue">
+                Transfer mode is required
+              </span>
+            </div>
+
+          </div>
+
+
+
+
+        </div>
+
+        <div class="row">
+          <div class="form-group" class="col-md-6 mb-4 ">
+            <div class="example-header">
+              <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                <mat-label class="asterix--before">Remarks</mat-label>
+                <textarea  remarks matInput [formControl]="remarks" (blur)='onBlur()'  id="remarks" name="remarks"
+                  [(ngModel)]="remarksvalue" matInput minlength="5" maxlength="100" autocomplete="off"  singleSpace    autocorrect="off" 
+                  ></textarea>
+                <mat-error *ngIf="remarks.hasError('required')">
+                  Remarks is required
+                </mat-error>
+                <mat-error *ngIf="remarks.hasError('minlength')">
+                  Should have maximum 5 characters
+                </mat-error>
+                <!-- <mat-error *ngIf="village_name.errors && village_name.invalid && village_name.touched">
+                              Village Name is Required!
+                          </mat-error> -->
+              </mat-form-field>
+            </div>
+          </div>
+          
+          
+
+          <div class="form-group" class="col-md-6 mb-4" id="paybutton">
+            <button mat-raised-button style="margin-bottom:40px;margin-left: 110px; margin-top:24px;width:90px;"
+              (click)="makePay()">Pay
+              <span class="material-icons"></span>
+            </button>
+          </div>
+
+
+        </div>
+
+      </form>
+    </div>
+  </div>
+</body>
+<br>
+<br>
+
+<!-- openAddFileDialog -->

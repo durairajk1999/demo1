@@ -1,0 +1,122 @@
+<!-- <div class="confirm-container">
+  <h1 ondragstart="return false;"   mat-dialog-title class="text-center" style="color:#000183 ; font-size: 25px;font-weight: 500;">View Details</h1>
+  <mat-dialog-content  ondragstart="return false;"   style="color:#000183">
+    <h4>
+      
+      
+      <mat-label style="font-weight: 500; line-height: 30px;">
+        IA Name :
+      </mat-label>{{data.name_of_SHPI}}
+
+      <br>
+      <mat-label style="font-weight: 500; line-height: 30px;">
+        State :
+      </mat-label>{{data.state_Name}}
+      <br>
+      <mat-label style="font-weight: 500; line-height: 30px;">
+        District :
+      </mat-label>{{data.district_Name}}
+      <br>
+      <mat-label style="font-weight: 500; line-height: 30px;">
+        CEO Name :
+      </mat-label>{{data.name_of_CEO}}
+      <br>
+      <mat-label style="font-weight: 500; line-height: 30px;">
+        Contact Number :
+      </mat-label>{{data.conNo_CEO}}
+    </h4>
+  </mat-dialog-content>
+
+  
+    <div align="center">
+    <button style="width: 90px;" mat-raised-button [mat-dialog-close]="{ clicked: 'Cancel' }">
+      Close
+    </button>
+</div>
+  
+</div> -->
+
+<button type="button" class="close" aria-label="Close" data-dismiss="modal" [mat-dialog-close]="true">
+
+</button>
+<br>
+<div class="confirm-container">
+  <h1 ondragstart="return false;"   mat-dialog-title class="text-center" style="color:#000183 ; font-size: 25px;font-weight: 500; padding-left: 23px;">IA Details</h1>
+  <mat-dialog-content  ondragstart="return false;"   style="color:#000183">
+    <h4>
+      <!-- <mat-label style="font-weight: 500; line-height: 30px;">
+        ID:
+      </mat-label>{{data.id}} -->
+      
+      <mat-label style="font-weight: 500; line-height: 30px;">
+        Category :
+      </mat-label>{{data.category}}
+
+      <br>
+      <!-- <mat-label style="font-weight: 500; line-height: 30px;">
+        Registration No. :
+      </mat-label>{{data.reg_No}}
+      <br>
+      <mat-label style="font-weight: 500; line-height: 30px;">
+        Registration Date :
+      </mat-label>{{data.reg_Date}}
+      <br> -->
+      <mat-label style="font-weight: 500; line-height: 30px;">
+        Address :
+      </mat-label>{{data.address}}
+      <br>
+      <mat-label style="font-weight: 500; line-height: 30px;">
+        Secretary Name :
+      </mat-label>{{data.name_of_Secretary}}
+      <br>
+      <mat-label style="font-weight: 500; line-height: 30px;">
+        MIS Operator Name :
+      </mat-label>{{data.name_of_MIS_Operator}}
+      <br>
+      <mat-label style="font-weight: 500; line-height: 30px;">
+        MIS Operator Contact No.:
+      </mat-label>{{data.conNo_MIS_Operator}}
+      <br>
+      <mat-label style="font-weight: 500; line-height: 30px;">
+        IA Email ID1 :
+      </mat-label>{{data.email_ID1_SHPI}}
+      <br>
+      <mat-label style="font-weight: 500; line-height: 30px;">
+        IA Email ID2 :
+      </mat-label>{{data.email_ID2_SHPI}}
+      <br>
+      <mat-label style="font-weight: 500; line-height: 30px;">
+        Payout Provision :
+      </mat-label>{{data.ngO_Payout_Flag}}
+      <br>
+      <mat-label style="font-weight: 500; line-height: 30px;">
+        SHG Txn Commission :
+      </mat-label>{{data.shG_Trans_Com}}
+      <br>
+      <mat-label style="font-weight: 500; line-height: 30px;">
+        NGO Name :
+      </mat-label>{{data.ngO_Name_Flag}}
+      <br>
+      
+      <mat-label style="font-weight: 500; line-height: 30px;">
+        NGO Logo :
+      </mat-label>{{data.ngO_Logo_Flag}}
+      <br>
+      <mat-label style="font-weight: 500; line-height: 30px;">
+        Member Name :
+      </mat-label>{{data.ngO_Member_Flag}}
+    </h4>
+  </mat-dialog-content>
+
+  <!-- <div mat-dialog-actions style="float:right;margin:20px; "> -->
+    
+    <!-- <button mat-button [mat-dialog-close]="{ clicked: 'Ok' }">Delete</button> -->
+    <!-- <div align="center">
+    <button style="width: 90px;" mat-raised-button [mat-dialog-close]="{ clicked: 'Cancel' }">
+      Close
+    </button>
+</div> -->
+  <!-- </div> -->
+</div>
+
+

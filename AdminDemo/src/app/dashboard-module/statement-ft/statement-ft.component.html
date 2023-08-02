@@ -1,0 +1,292 @@
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card p-0"><br><br>
+        <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate" color="#000183"> </ngx-spinner>
+
+
+        <form class="form" #merchantdetailsform="ngForm" (ngSubmit)="getStatementList()">
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4">
+                    <div class="example-header">
+                        <mat-form-field id="acc" appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Account Number</mat-label>
+                            <mat-select required={{accountnumbervalue}} disableOptionCentering id="accountnumber"
+                                name="accountnumber" [formControl]="accountNum"
+                                (selectionChange)="accNumberSelected($event.value)">
+                                <mat-option>
+                                    <lib-mat-select-search id="search" (keypress)="onlyNumberKey($event)"
+                                        [list]="accountnumberlist1" [searchProperties]="['accNo']" [fixOnTop]="true"
+                                        [clearSearchInput]="true" (filtered)="accountnumberlist2 = $event">
+                                    </lib-mat-select-search>
+                                </mat-option>
+
+                                <mat-option *ngIf="accountnumberlist2.length==0">Record not found</mat-option>
+
+
+                                <mat-option value={{accNumber.customerId}} *ngFor="let accNumber of accountnumberlist2">
+
+
+                                    {{accNumber.accNo}}
+                                </mat-option>
+
+                            </mat-select>
+
+                            <!-- <mat-error *ngIf="accountnumber.errors && accountnumber.invalid && accountnumber.touched">
+                                Account Number is Required!
+                            </mat-error> -->
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;"
+                            *ngIf="accountnumbervalue">
+                            Account number is required
+                        </span>
+
+                    </div>
+                </div>
+
+
+                <div class="form-group" class="col-md-6 mb-4">
+                    <div class="example-header">
+
+                        <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline"
+                            (click)="picker1.open()">
+                            <mat-label class="asterix--before">Transaction Start Date</mat-label>
+                            <input readonly  ondragstart="return false;"
+                                (dateChange)="orgValueChange()" matInput required={{transactionstartdatevalue}}
+                                [formControl]="startDate" [matDatepicker]="picker1" [max]="startToday"
+                                name="transstartdate" [(ngModel)]="ftstatement.transactionStartDate"
+                                (ngModelChange)="transactionstartdateselect(ftstatement.transactionStartDate)">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;"
+                            *ngIf="transactionstartdatevalue">
+                            Transaction start date is required
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4">
+                    <div class="example-header">
+
+                        <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline"
+                            (click)="picker.open()" (click)="clickEndDate()">
+                            <mat-label class="asterix--before">Transaction End Date</mat-label>
+                            <input readonly  ondragstart="return false;" matInput
+                                required={{transactionenddatavalue}} [formControl]="endDate" [min]="startDate.value"
+                                name="transenddate" [matDatepicker]="picker"
+                                [(ngModel)]="ftstatement.transactionEndDate"
+                                (ngModelChange)="transactionenddateselect(ftstatement.transactionEndDate)"
+                                [max]="today">
+                            <mat-datepicker-toggle matSuffix [for]="picker">
+                                <mat-icon matDatepickerToggleIcon>today</mat-icon>
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #picker [disabled]="disToDate"></mat-datepicker>
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  "
+                            *ngIf="transactionenddatavalue">
+                            {{transactionenddate}}
+                        </span>
+
+                    </div>
+                </div>
+                <div align="center" class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+
+                        <button mat-raised-button class="a1" style="width: 90px;margin-top: 16px">Submit</button>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+
+        <div *ngIf="notes" id="notes">
+            <h3> Note : The transaction period must be within 3 months. </h3>
+        </div>
+        <br>
+        <br>
+        <!-- <mat-paginator #paginator1 [pageSizeOptions]="[5, 10, 25, 100]" disableOptionCentering="true" *ngIf="table">
+        </mat-paginator> -->
+        <div class="table-responsive" *ngIf="table">
+
+            <table mat-table #secondTableSort="matSort" [dataSource]="mySecondTableData" matSort
+                class="mat-elevation-z8">
+
+                <!-- <table #secondTable mat-table [dataSource]="mySecondTableData" > -->
+
+                <ng-container matColumnDef="CustomerId">
+                    <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Customer ID
+                    </th>
+                    <td class="p-3" mat-cell *matCellDef="let statement"> {{statement.customer_id}} </td>
+                </ng-container>
+                <!-- Name Column -->
+                <ng-container matColumnDef="CodeAccountNo">
+                    <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Customer A/c No.
+                    </th>
+                    <td class="p-3" mat-cell *matCellDef="let statement"> {{statement.cod_acct_no}} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="CustomerName">
+                    <th class="pl-sm-1" mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Customer Name
+                    </th>
+                    <td class="pl-sm-1" mat-cell *matCellDef="let statement"> {{statement.cust_name}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="TxnStartDate">
+                    <th class="text-right" mat-header-cell *matHeaderCellDef mat-sort-header
+                        style="padding-left: 60px;">
+                        Txn Start Date
+                    </th>
+                    <td mat-cell *matCellDef="let statement" style="padding-left: 60px;"> {{statement.txn_start_date |
+                        date:'dd/MM/y'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="TxnEndDate">
+                    <th class="text-right" mat-header-cell *matHeaderCellDef mat-sort-header
+                        style="padding-left: 60px;">
+                        Txn End Date
+                    </th>
+                    <td mat-cell *matCellDef="let statement" style="padding-left: 60px;"> {{statement. txn_end_date |
+                        date:'dd/MM/y'}} </td>
+                </ng-container>
+                <ng-container matColumnDef="OpeningBalance">
+                    <th style="padding-left: 60px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Opening Balance &nbsp; (&#8377;)
+                    </th>
+                    <td mat-cell *matCellDef="let statement" style="padding-left: 110px;"> {{statement.
+                        opening_balance}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="ClosingBalance">
+                    <th style="padding-left: 50px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Closing Balance &nbsp; (&#8377;)
+                    </th>
+                    <td mat-cell *matCellDef="let statement" style="padding-left: 110px;"> {{statement.closing_balance}}
+                    </td>
+                </ng-container>
+                <!-- <ng-container matColumnDef="ErrorMsg">
+                    <th  mat-header-cell *matHeaderCellDef mat-sort-header
+                        sortActionDescription="Sort by ErrorMsg">
+                        Error Msg
+                    </th>
+                    <td mat-cell *matCellDef="let statement"> {{statement.ErrorMsg}} </td>
+                </ng-container>
+                <ng-container matColumnDef="ErrorReason">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header
+                        sortActionDescription="Sort by ErrorReason">
+                        Error Reason
+                    </th>
+                    <td mat-cell *matCellDef="let statement"> {{statement.ErrorReason}} </td>
+                </ng-container> -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+            </table>
+        </div>
+        <br><br>
+        <br><br>
+
+        <div class="row" *ngIf="table1">
+            <div class="form-group" class="col-md-6 mb-4 ">
+
+                <div class="example">
+
+                    <mat-form-field appearance="outline">
+                        <mat-label> Search</mat-label>
+                        <mat-icon matPrefix>search</mat-icon>
+                        <input matInput singleSpace (keyup)="applyFilter($event)" maxlength="30"
+                            [formControl]="groupNameSearch" placeholder="" #input autocomplete="off" autocorrect="off">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form-group" class="col-md-6 mb-4 " style="margin-top:5%">
+                <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
+            </div>
+
+        </div>
+        <div *ngIf="table2">
+            <div class="table-responsive">
+
+
+                <!-- <table #firstTable #firstTableSort="matSort" mat-table [dataSource]="myFirstTableData"   matSort> -->
+                <table matTableExporter #exporter="matTableExporter" mat-table #firstTableSort="matSort"
+                    [dataSource]="myFirstTableData" matSort class="mat-elevation-z8">
+
+                    <ng-container matColumnDef="Txndate">
+                        <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="txn_date">
+                            Txn Date & Time
+                        </th>
+                        <td class="p-3" mat-cell *matCellDef="let element"> {{element.txn_date
+                            }} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="Txndesc">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="txn_desc" style="padding-left: 20px;">
+                            Transaction Description
+                        </th>
+                        <td class="pl-sm-1" mat-cell *matCellDef="let element"> {{element.txn_desc}} </td>
+                    </ng-container>
+
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="Amtwithdrawal">
+                        <th class="text-right" mat-header-cell *matHeaderCellDef mat-sort-header="amt_withdrawal">
+                            Withdrawal &nbsp; (&#8377;)
+                        </th>
+                        <td mat-cell *matCellDef="let element"
+                            style="justify-content: right; text-align: right;padding-left: 80px;">
+                            {{element.amt_withdrawal}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Amtdeposite">
+                        <th class="text-right" mat-header-cell *matHeaderCellDef mat-sort-header="amt_deposit"
+                            style="padding-left:20px ;">
+                            Deposit &nbsp;(&#8377;)
+                        </th>
+                        <td mat-cell *matCellDef="let element"
+                            style="justify-content: right; text-align: right;padding-left: 90px;">
+                            {{element.amt_deposit}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Balance">
+                        <th style="padding-left: 60px;" mat-header-cell *matHeaderCellDef mat-sort-header="balance">
+                            Balance &nbsp; (&#8377;)
+                        </th>
+                        <td mat-cell *matCellDef="let element"
+                            style="justify-content: right; text-align: right;padding-left:100px;"> {{element.balance}}
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" class="search" colspan="5">
+                            <br>
+                            Record not found
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+
+
+            <div *ngIf="myFirstTableData.filteredData.length > 0">
+                <br>
+                <button mat-raised-button style="width:130px ; float: right; margin-right: 20px; margin-bottom: 10px;"
+                    (click)="exportExcel()">
+                    <!-- <img src="assets/images/icons8-export-excel-22.png" style="margin-left: -25px;"> -->
+                    Export to excel</button>
+
+            </div>
+            <!-- <mat-paginator #paginator [pageSizeOptions]="pageSizes" hidePageSize></mat-paginator> -->
+        </div>
+    </div>
+</div>

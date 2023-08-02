@@ -1,0 +1,20 @@
+
+
+  <div>
+    <!-- <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate" color="#000183"> </ngx-spinner> -->
+    <div class="material-icons">
+      <span>
+        <mat-icon style="margin-right: 20px;">info</mat-icon>
+      </span>
+    </div>
+    <div align="center">
+      <p ondragstart="return false;"   style="font-size: 17px;font-weight: 500 ;margin-right: 20px; color: #000183;">
+        {{data.unmappMessage}}
+      </p>
+    </div>
+    <mat-dialog-actions align="center">
+      <button mat-raised-button [mat-dialog-close]="1" class="a1"
+        (click)="confirmDelete()">YES</button>
+      <button mat-raised-button class="b1" (click)="onNoClick()" tabindex="-1">NO</button>
+    </mat-dialog-actions>
+  </div>

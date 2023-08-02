@@ -1,0 +1,45 @@
+button:focus,
+button:active:focus,
+button.active:focus {
+    outline: none !important;
+    outline-style: none !important;
+}
+
+
+
+
+
+
+// @media screen and (min-width: 1180px) {
+//     .confirm-container {
+//       display: flex;
+//       flex-direction: column;
+//        min-width: 300px;
+//     }
+//   }
+  
+//   @media screen and (max-width: 500px) {
+//     .confirm-container {
+//       display: flex;
+//       flex-direction: column;
+//        min-width: 200px;
+//     }
+//   }
+
+
+
+
+  // @media screen and (min-width: 1180px) {
+  //   .c1 {
+  //     margin-left: 110px;
+  //     width: 90px;
+  //   }
+  // }
+  
+  // @media screen and (max-width: 500px) {
+  //   .c1 {
+  //     margin-left: 75px;
+  //     width: 90px;
+  //   }
+  // }
+

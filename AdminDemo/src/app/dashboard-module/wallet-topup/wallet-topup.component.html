@@ -1,0 +1,166 @@
+<body>
+    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+        <div class="mdc-card p-0"><br><br>
+            <!-- <div class="container"> -->
+            <div>
+                <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" color="#000183" type="ball-clip-rotate">
+                </ngx-spinner>
+            </div>
+
+
+
+            <form class="form" (ngSubmit)="walletTopup()">
+
+                <div class="row">
+                    <div class="form-group" class="col-md-6 mb-4">
+                        <div class="example-header">
+                            <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline"
+                                (click)="picker1.open()">
+                                <mat-label class="asterix--before">From Date</mat-label>
+                                <input readonly  [max]="startToday" ondragstart="return false;"
+                                    name="fromdate" (dateChange)="orgValueChange()" matInput [matDatepicker]="picker1"
+                                    [formControl]="startDate" (ngModelChange)="txndate()" required={{startdatevalue}}>
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1>
+                                </mat-datepicker>
+                            </mat-form-field>
+                            <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;"
+                                *ngIf="startdatevalue">
+                                From date is required
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group" class="col-md-6 mb-4">
+                        <div class="example-header">
+                            <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline"
+                                (click)="picker2.open()" (click)="clickEndDate()">
+                                <mat-label class="asterix--before">To Date</mat-label>
+                                <input readonly  [max]="today" ondragstart="return false;"
+                                    (dateChange)="orgValueChange()" matInput [min]="startDate.value"
+                                    [matDatepicker]="picker2" [max]="today" [formControl]="endDate"
+                                    (ngModelChange)="todateselect(topupRequest.toDate)" required={{todateValue}}
+                                    name="today">
+                                <mat-datepicker-toggle matSuffix [for]="picker2">
+
+                                    <mat-icon matDatepickerToggleIcon (click)="clickEndDate()">today</mat-icon>
+                                </mat-datepicker-toggle>
+
+
+
+
+                                <mat-datepicker #picker2 [disabled]="disToDate"></mat-datepicker>
+                            </mat-form-field>
+                            <span class="mat-error" style="margin-left:70px;  margin-top:-20px ;  " *ngIf="todateValue">
+                                {{todate}}
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="example-header">
+                    <div class="text-center">
+                        <button mat-raised-button type="submit" style="width:90px;">Submit</button>
+                    </div>
+                </div>
+
+
+
+            </form>
+
+            <br>
+            <div class="design" *ngIf="notes">
+                <h3> Note : The transaction period must be within 3 months. </h3>
+            </div>
+
+            <br>
+            <div class="row" *ngIf="table1">
+                <div class="form-group" class="col-md-6 mb-4 ">
+
+                    <div class="example">
+
+                        <mat-form-field appearance="outline">
+                            <mat-label> Search</mat-label>
+                            <mat-icon matPrefix>search</mat-icon>
+                            <input autocomplete="off" autocorrect="off" matInput (keyup)="applyFilter($event)"
+                                placeholder=" " #input [formControl]="filter" (keydown)="handleInput($event)"
+                                (keydown)="isAlfa($event)" maxlength="30">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div>
+                    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" *ngIf="pagination">
+                    </mat-paginator>
+                </div>
+            </div>
+            <div *ngIf="show">
+                <div class="table-responsive">
+
+
+                    <table mat-table matTableExporter #exporter="matTableExporter" [dataSource]="dataSource" matSort
+                        class="mat-elevation-z8">
+                        <ng-container matColumnDef="date">
+                            <th style="padding-left:30px" mat-header-cell *matHeaderCellDef mat-sort-header>Date & Time
+                            </th>
+                            <td class="p-2" mat-cell *matCellDef="let element; let i = index;">
+                                &nbsp;{{parseDate(element.date)}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="merchantID">
+                            <th style="padding-left:10px" mat-header-cell *matHeaderCellDef mat-sort-header>Merchant
+                                Code </th>
+                            <td class="p-2" mat-cell *matCellDef="let element; let i = index;">
+                                &nbsp;{{element.merchantID}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="referenceId">
+                            <th style="padding-left: 30px;" mat-header-cell *matHeaderCellDef mat-sort-header>Reference
+                                ID</th>
+                            <td class="p-2" mat-cell *matCellDef="let element; let i = index;">{{element.referenceId}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="utr">
+                            <th style="padding-left: 30px;" mat-header-cell *matHeaderCellDef mat-sort-header>UTR Number
+                            </th>
+                            <td class="p-2" mat-cell *matCellDef="let element; let i = index;">{{element.utr}}
+                            
+                        </ng-container>
+
+                        <ng-container matColumnDef="amount">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount (&#8377;)</th>
+                            <td style="text-align: right;max-width: 110px;width: 110px;" mat-cell
+                                *matCellDef="let element; let i = index;">{{element.amount}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="transactionStatus">
+                            <th style="padding-left: 80px;" mat-header-cell *matHeaderCellDef mat-sort-header>
+                                Transaction Status</th>
+                            <td style=" justify-content: center;padding-left:40px;padding-left: 100px" mat-cell
+                                *matCellDef="let element; let i = index;">{{element.transactionStatus}}</td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                        </tr>
+
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" class="search" colspan="5">
+                                <br>
+                                Record not found
+                            </td>
+                        </tr>
+                    </table>
+
+
+
+                </div>
+                <div *ngIf="dataSource.filteredData.length > 0">
+                    <br>
+                    <button mat-raised-button
+                        style="width:130px ; float: right; margin-right: 20px; margin-bottom: 10px;"
+                        (click)="exportExcel()">
+                        <!-- <img src="assets/images/icons8-export-excel-22.png" style="margin-left: -25px;"> -->
+                        Export to excel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

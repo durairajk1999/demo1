@@ -1,0 +1,145 @@
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card p-0"><br><br>
+
+        <div>
+            <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" color="#000183" type="ball-clip-rotate">
+            </ngx-spinner>
+        </div>
+
+        <form class="form" #merchantTopup="ngForm" (ngSubmit)="merchantTopUp()">
+
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4">
+                    <div class="example-header">
+
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Merchant Code</mat-label>
+                            <input onlyAlphanumeric minlength="9" maxlength="11" noSpace
+                                required="{{merchantCodeValidate}}" 
+                                [(ngModel)]="viewTickets.merchantID" id="merchantCode" name="merchantCode"
+                                [formControl]="merchantCode" matInput placeholder="" #input
+                                pattern="^[A-Z_a-z]{2,3}[0-9]{6,9}$" autocomplete="off" autocorrect="off"
+                                (ngModelChange)="merchantCodeEnter()" toUppercase>
+
+                            <mat-error *ngIf="merchantCode.errors?.pattern">
+                                Enter valid merchant code
+                            </mat-error>
+                            <mat-error *ngIf="merchantCodeValidate">
+                                Merchant code is required
+                            </mat-error>
+
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-group" class="col-md-6 mb-4">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Amount
+                                <span>(₹)</span>
+                            </mat-label>
+                            <input onlyNumber  ondragstart="return false;" id="maxLimit"
+                                name="maxLimit" [(ngModel)]="this.viewTickets.amount" required={{amtValidate}} matInput
+                                placeholder="" #input autocomplete="off" [formControl]="maxLimitValue" noSpace
+                                (input)="amtEnter()" maxlength="8" minlength="1">
+                            <mat-error *ngIf="maxLimitValue.errors?.minlength ">Should have Amount 1 digit
+                            </mat-error>
+
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px ;margin-top: -20px;" *ngIf="amtValidate">
+                            Amount is required
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">UTR Number</mat-label>
+                            <input onlyAlphanumeric  noSpace id="beneficiaryAccountNumber"
+                                name="beneficiaryAccountNumber" toUppercase [(ngModel)]="this.viewTickets.utr"
+                                required={{utrValidate}} matInput placeholder="" #input autocomplete="off"
+                                [formControl]="utr" (ngModelChange)="utrEnter()" minlength="5">
+                            <mat-error *ngIf="utr.errors?.minlength ">Should have minimum 5 characters
+                            </mat-error>
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px ;margin-top: -20px;" *ngIf="utrValidate">
+                            UTR number is required
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group" class="col-md-6 mb-4 ">
+
+                    <div class="example-header">
+                            <button mat-raised-button type="submit" style="width:90px;margin-left: 130px;margin-top: 15px;">Submit</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+
+
+
+
+        <br>
+
+
+
+        <!-- <div *ngIf="isShow">
+            
+
+
+
+
+            
+
+
+            <div *ngIf="isShow" class="table-responsive">
+                <table mat-table [dataSource]="dataSource1" matSort class="mat-elevation-z8">
+                    <ng-container matColumnDef="state">
+                        <th class="p-2" mat-header-cell *matHeaderCellDef mat-sort-header="id">S.No</th>
+                        <td class="p-2" mat-cell *matCellDef="let element; let i = index;">1
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="district">
+                        <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="createdDate">Merchant Code
+                        </th>
+                        <td class="p-3" mat-cell *matCellDef="let element"> {{this.viewTickets.merchantID}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="ia">
+                        <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="ticketId">UTR Number </th>
+                        <td class="p-3" mat-cell *matCellDef="let element"> {{this.viewTickets.utr}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="merchantCode">
+                        <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="merchantCode">Amount
+                        </th>
+                        <td mat-cell *matCellDef="let element" style="padding-left: 40px;"> {{this.viewTickets.amount}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="merchantName">
+                        <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="description">Status
+                        </th>
+                        <td class="p-3" mat-cell *matCellDef="let element"> {{this.viewTickets.status}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="serviceType">
+                        <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header="serviceType">Message
+                        </th>
+                        <td class="p-3" mat-cell *matCellDef="let element"> {{this.viewTickets.message}} </td>
+                    </ng-container>
+
+
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr (click)="selectedRow(row)" mat-row *matRowDef="let row; columns: displayedColumns;">
+                    </tr>
+
+                </table>
+
+            </div>
+        </div> -->
+
+
+    </div>
+</div>

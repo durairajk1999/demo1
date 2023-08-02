@@ -1,0 +1,280 @@
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+  <div class="mdc-card p-0"><br><br>
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate" color="#000183"> </ngx-spinner>
+    <form class="form" #merchantdetailsform="ngForm" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+            <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline">
+              <mat-label class="asterix--before">State</mat-label>
+              <mat-select required={{merchantState}} disableOptionCentering [(ngModel)]="merchantobject.state"
+                id="state" name="state" [formControl]="sta" (selectionChange)="stateSelectedValue($event.value)">
+
+                <mat-option>
+                  <lib-mat-select-search id="search" (keypress)="letterOnly($event)" [list]="statelist1"
+                    [searchProperties]="['state_name']" [fixOnTop]="true" [clearSearchInput]="true"
+                    (filtered)="statelist2 = $event">
+                  </lib-mat-select-search>
+                </mat-option>
+                <mat-option *ngIf="statelist2.length==0">Record not found</mat-option>
+
+
+
+                <mat-option value={{stateName.state_name}} *ngFor="let stateName of statelist2">
+                  {{stateName.state_name }}
+                </mat-option>
+              </mat-select>
+              <!-- <mat-error *ngIf="merchantState">
+                State is Required!
+              </mat-error>  -->
+            </mat-form-field>
+            <span class="mat-error" style="margin-left:70px ; margin-top: -20px;" *ngIf="merchantState">
+              State is required
+            </span>
+          </div>
+        </div>
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+            <mat-form-field [hideRequiredMarker]="hideRequiredMarker" appearance="outline" class="yes"
+              (click)="districtTouch()">
+
+              <mat-label class="asterix--before">District</mat-label>
+              <mat-select required={{merchantDistrict}} disableOptionCentering [(ngModel)]="merchantobject.district"
+                id="district_name" name="district_name" [formControl]="dis"
+                (selectionChange)="selectedDistrict($event.value)">
+
+
+                <mat-option>
+                  <lib-mat-select-search id="search" (keypress)="letterOnly($event)" [list]="districtlist1"
+                    [searchProperties]="['district_name']" [fixOnTop]="true" [clearSearchInput]="true"
+                    (filtered)="districtlist2 = $event">
+                  </lib-mat-select-search>
+                </mat-option>
+
+                <mat-option *ngIf="districtlist2.length==0">Record not found</mat-option>
+
+
+                <mat-option value={{districtname.district_name}} *ngFor="let districtname of districtlist2">
+                  {{districtname.district_name}}
+                </mat-option>
+              </mat-select>
+              <!-- <mat-error *ngIf="merchantDistrict">
+                      District is Required!  
+                  </mat-error> -->
+            </mat-form-field>
+            <span class="mat-error" style="margin-left:70px ; margin-top: -20px;" *ngIf="merchantDistrict">
+              District is required
+            </span>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker" class="yes"
+              (click)="iaTouch()">
+              <mat-label class="asterix--before">IA Name</mat-label>
+              <mat-select disableOptionCentering [(ngModel)]="merchantobject.name_of_SHPI" id="ia" [formControl]="ia"
+                name="name_of_SHPI" [formControl]="ia" required={{merchantIa}}
+                (selectionChange)="iaSelect($event.value)">
+
+
+                <mat-option>
+                  <lib-mat-select-search id="search" (keypress)="letterOnly($event)" [list]="ialist1"
+                    [searchProperties]="['name_of_SHPI']" [fixOnTop]="true" [clearSearchInput]="true"
+                    (filtered)="ialist2 = $event">
+                  </lib-mat-select-search>
+                </mat-option>
+
+                <mat-option *ngIf="ialist2.length==0">Record not found</mat-option>
+
+
+
+                <mat-option  class="options"  value={{iaName.id}} *ngFor=" let iaName of ialist2">
+                  {{iaName.name_of_SHPI}}
+                  <!-- <span class="bar_content" *ngIf="iaName.name_of_SHPI.length >=25">
+                    
+                  </span>
+
+                  <span *ngIf="iaName.name_of_SHPI.length <25">
+                    {{iaName.name_of_SHPI}}
+                  </span> -->
+                </mat-option>
+              </mat-select>
+              <!-- <mat-error *ngIf="name_of_SHPI.errors && name_of_SHPI.invalid && name_of_SHPI.touched">
+                IA is Required!
+              </mat-error> -->
+            </mat-form-field>
+            <span class="mat-error" style="margin-left:70px ; margin-top: -20px;" *ngIf="merchantIa">
+              IA name is required
+            </span>
+          </div>
+        </div>
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker" class="yes"
+              (click)="merchantTouch()">
+              <mat-label class="asterix--before">Merchant Name</mat-label>
+              <mat-select disableOptionCentering id="merchantID" name="merchantID"
+                [(ngModel)]="merchantobject.merchantID" [formControl]="mer" required={{newMerchant}}
+                (selectionChange)="selectedMerchant($event.value)">
+
+                <mat-option>
+                  <lib-mat-select-search id="search" (keypress)="letterOnly($event)" [list]="merchantlist1"
+                    [searchProperties]="['trainers_Name']" [fixOnTop]="true" [clearSearchInput]="true"
+                    (filtered)="merchantlist2 = $event">
+                  </lib-mat-select-search>
+                </mat-option>
+
+                <mat-option *ngIf="merchantlist2.length==0">Record not found</mat-option>
+
+
+
+
+                <mat-option value={{merchantname.merchantID}} *ngFor="let merchantname of merchantlist2">
+                  {{merchantname.trainers_Name}}
+                </mat-option>
+              </mat-select>
+              <!-- <mat-error *ngIf="merchantID.errors && merchantID.invalid && merchantID.touched">
+                Merchant is Required!
+              </mat-error> -->
+            </mat-form-field>
+            <span class="mat-error" style="margin-left:70px ; margin-top: -20px;" *ngIf="newMerchant">
+              Merchant name is required
+            </span>
+          </div>
+        </div>
+      </div>
+      <h4 class="text-center">-- OR --</h4>
+      <br>
+      <div class="row">
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+            <mat-form-field appearance="outline">
+              <mat-label>Merchant Code / Mobile No.
+
+
+
+              </mat-label>
+              <input onlyAlphanumeric  ondragstart="return false;" [(ngModel)]="merchant"
+                id="merchantID" name="merchantID" matInput #input maxlength="11" (input)="change()" toUppercase
+                autocomplete="off" autocorrect="off" minlength="9" [formControl]="merchantCodeEnter"  noSpace>
+              <!-- <mat-error *ngIf="merchantID.errors && merchantID.invalid && merchantID.touched">
+                Merchant Code is Required!
+              </mat-error> -->
+              <mat-error *ngIf="merchantCodeEnter.errors?.minlength">
+               Enter valid merchant code / mobile no.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-group" class="col-md-6 mb-4 ">
+          <div class="example-header">
+            <button type="submit" mat-raised-button
+              style=" margin-left: 130px;width:90px; margin-top: 15px;">Submit</button>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="childbtn"> -->
+      <!-- </div> -->
+    </form>
+
+    <br>
+    <!-- <div>
+      <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" *ngIf="pagination"></mat-paginator>
+    </div> -->
+    <div class="table-responsive" *ngIf="table1">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="state_Name">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.state_Name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="district_Name">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>District</th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.district_Name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="IA">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>IA</th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.name_of_SHPI}} </td>
+        </ng-container>
+        
+        
+        <ng-container matColumnDef="merchantname">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>Merchant Name</th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.trainers_Name}} </td>
+
+          <ng-container matColumnDef="merchantID">
+            <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>Merchant Code</th>
+            <td class="p-3" mat-cell *matCellDef="let element"> {{element.merchantID}} </td>
+          </ng-container>
+
+        </ng-container>
+        <ng-container matColumnDef="pin">
+          <th class="p-3" mat-header-cell *matHeaderCellDef mat-sort-header>PIN</th>
+          <td class="p-3" mat-cell *matCellDef="let element"> {{element.pin}} </td>
+        </ng-container>
+        <ng-container matColumnDef="tpin">
+          <th class="p-3" style="padding-left: 90px;" mat-header-cell *matHeaderCellDef mat-sort-header>TPIN </th>
+          <td class="p-3" style="padding-left: 90px;" mat-cell *matCellDef="let element"> {{element.tpin}} </td>
+        </ng-container>
+        <ng-container matColumnDef="walletbalance">
+          <!-- <th style="padding-left: 40px;" mat-header-cell *matHeaderCellDef mat-sort-header>Wallet Balance 
+            
+              <mat-icon  style="color: #000183;">currency_rupee
+              </mat-icon>
+            
+            </th> -->
+
+          <th style="padding-left: 30px;" mat-header-cell *matHeaderCellDef mat-sort-header>Wallet
+            Balance&nbsp;(&#8377;)
+
+          </th>
+
+
+
+
+
+
+          <td style="padding-left: 110px;" mat-cell *matCellDef="let element"> {{element.masterwalletamount}} </td>
+
+        </ng-container>
+        <ng-container matColumnDef="incentiveearned">
+          <th style="padding-left: 30px;" mat-header-cell *matHeaderCellDef mat-sort-header>Incentive
+            Earned&nbsp;(&#8377;)
+
+
+          </th>
+          <td style="padding-left: 120px;" mat-cell *matCellDef="let element"> {{element.incentivewalletamount}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+      </table>
+    </div>
+    <!-- class="table table-hoverable " -->
+    <!-- <thead>
+                    <tr>
+                        <th class="text-left">Merchant Name</th>
+                        <th class="text-left">Pin</th>
+                        <th class="text-left">TPin</th>
+                        <th class="text-left" >Wallet Balance</th>
+                        <th class="text-left" >Incentive Earned</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-left" >Mithun</td>
+                        <td class="text-left" >AE67091</td>
+                   
+                        <td class="text-left" >AE67091</td>
+                  
+                        <td class="text-left">12000</td>
+                    
+                        <td class="text-left" >1450</td>
+                    </tr>
+                </tbody> -->
+  </div><br>
+</div>

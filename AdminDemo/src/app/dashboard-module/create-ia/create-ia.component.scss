@@ -1,0 +1,12 @@
+::ng-deep lib-mat-select-search * {
+    color: #000183;
+}
+
+::ng-deep .custom-tooltip {
+    font-size: 13px;
+}
+@media screen and (max-width:768.90px){
+    .toggle{
+     padding-top: 24px;
+   } 
+}

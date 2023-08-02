@@ -1,0 +1,315 @@
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card p-0"><br><br>
+        <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate" color="#000183"></ngx-spinner>
+
+        <form class="form" #transactionstatusform="ngForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Beneficiary Name</mat-label>
+                            <input OnlyCharacter  ondragstart="return false;" id="beneficiaryName"
+                                name="beneficiaryName" [(ngModel)]="request.beneficiaryName" required={{beneficiary}}
+                                matInput placeholder="" #input autocomplete="off" [formControl]="beneficiaryNameValue"
+                                (ngModelChange)="beneNameValueChange()" maxlength="30" minlength="3" singleSpace
+                                style="text-transform: capitalize;" (keydown)="handleInput($event)"
+                                (keydown)="isAlfa($event)">
+
+                            <mat-error *ngIf="beneficiaryNameValue.errors?.minlength ">Should have minimum 3 characters
+                            </mat-error>
+
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px ;margin-top: -20px;" *ngIf="beneficiary">
+                            Beneficiary name is required
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Nick Name</mat-label>
+                            <input OnlyCharacter  ondragstart="return false;" id="shortName"
+                                name="shortName" [(ngModel)]="request.shortName" required={{shortName}} matInput #input
+                                autocomplete="off" [formControl]="shortNameValue" singleSpace
+                                (ngModelChange)="shortNameValueChange()" maxlength="15" minlength="1"
+                                (keydown)="handleInput($event)" (keydown)="isAlfa($event)"
+                                style="text-transform: capitalize;">
+
+                            <mat-error *ngIf="shortNameValue.errors?.minlength ">Should have minumim 1 characters
+                            </mat-error>
+
+
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px ;margin-top: -20px;" *ngIf="shortName">
+                            Nick name is required
+                        </span>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="row">
+
+
+                <div class="form-group" class="col-md-6 mb-4">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Bank Name</mat-label>
+                            <input OnlyCharacter  ondragstart="return false;" id="bankName"
+                                name="bankName" [(ngModel)]="request.bankName" singleSpace required={{bankName}}
+                                matInput #input autocomplete="off" [formControl]="bankNameValue"
+                                (ngModelChange)="bankNameValueChange()" maxlength="30" minlength="3"
+                                (keydown)="handleInput($event)" (keydown)="isAlfa($event)"
+                                style="text-transform: capitalize;">
+
+                            <mat-error *ngIf="bankNameValue.errors?.minlength ">Should have minumim 3 characters
+                            </mat-error>
+
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px ;margin-top: -20px;" *ngIf="bankName">
+                            Bank name is required
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Branch Name</mat-label>
+                            <input OnlyCharacter  ondragstart="return false;" id="branchName"
+                                name="branchName" [(ngModel)]="request.branchName" required={{branchName}} matInput
+                                #input autocomplete="off" [formControl]="branchNameValue" singleSpace
+                                (ngModelChange)="branchNameValueChange()" maxlength="30" minlength="3"
+                                style="text-transform: capitalize;" (keydown)="handleInput($event)"
+                                (keydown)="isAlfa($event)">
+
+                            <mat-error *ngIf="branchNameValue.errors?.minlength ">Should have minumim 3 characters
+                            </mat-error>
+
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px ;margin-top: -20px;" *ngIf="branchName">
+                            Branch name is required
+                        </span>
+                    </div>
+                </div>
+
+                <!-- <div class="form-group" class="col-md-6 mb-4 ">
+                        <div class="example-header">
+                            <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                                <mat-label class="asterix--before">Debit account number</mat-label>
+                                <mat-select  disableOptionCentering  ondragstart="return false;"
+                                     id="debitAccountNumber" name="debitAccountNumber" 
+                                    required={{debitAccountNo}} matInput placeholder="" #input autocomplete="off"  [formControl]="debitValue"  (selectionChange)="debitAcNoValueChange($event)" maxlength="15">
+                               <mat-option>
+                                        <lib-mat-select-search id="search"  (keypress)="onlyNumberKey($event)"
+                                            [list]="accountnumberlist1" [searchProperties]="['accNo']" [fixOnTop]="true"
+                                            [clearSearchInput]="true" (filtered)="accountnumberlist2 = $event">
+                                        </lib-mat-select-search>
+                                    </mat-option>
+<mat-option *ngIf="accountnumberlist2.length == 0">Record not found</mat-option>
+                             <mat-option value={{accountNumber.customerId}} *ngFor="let accountNumber of accountnumberlist2">
+                                {{accountNumber.accNo}}
+                             </mat-option>
+                            </mat-select>
+ </mat-form-field>
+                            <span class="mat-error" style="margin-left:70px ;margin-top: -20px;" *ngIf="debitAccountNo">
+                              Debit account number is required
+                            </span>
+                       
+                        </div>
+                    </div> -->
+            </div>
+
+
+
+            <div class="row">
+
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Beneficiary IFSC</mat-label>
+                            <input onlyAlphanumeric  ondragstart="return false;" noSpace
+                                id="beneficiaryIFSC" name="beneficiaryIFSC" [(ngModel)]="request.beneficiaryIFSC"
+                                toUppercase required={{beneficiaryIfsc}} matInput placeholder="" #input
+                                autocomplete="off" [formControl]="beneficiaryIfscValue"
+                                (ngModelChange)="beneIfscValueChange()" minlength="11" maxlength="11" (blur)='onBlur()'>
+
+                            <!-- <mat-error *ngIf="beneficiaryIfscValue.errors?.minlength ">Enter valid IFSC
+                            </mat-error> -->
+
+                            <mat-error *ngIf="beneficiaryIfscValue.invalid">{{getIFSCError()}} </mat-error>
+
+                        </mat-form-field>
+                        <!-- <span class="mat-error" style="margin-left:70px ;margin-top: -20px;" *ngIf="beneficiaryIfsc">
+                            Beneficiary IFSC is required
+                        </span> -->
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Beneficiary Account Number</mat-label>
+                            <input onlyAlphanumeric  ondragstart="return false;" noSpace
+                                id="beneficiaryAccountNumber" name="beneficiaryAccountNumber" toUppercase
+                                [(ngModel)]="request.beneficiaryAccountNumber" required={{beneficiaryAcNo}} matInput
+                                placeholder="" #input autocomplete="off" [formControl]="beneficaryValue"
+                                (ngModelChange)="beneAcNoValueChange()" maxlength="25" minlength="6">
+
+                            <mat-error *ngIf="beneficaryValue.errors?.minlength ">Should have minimum 6 characters
+                            </mat-error>
+
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px ;margin-top: -20px;" *ngIf="beneficiaryAcNo">
+                            Beneficiary account number is required
+                        </span>
+                    </div>
+                </div>
+
+                <!-- <div class="form-group" class="col-md-6 mb-4 ">
+                            <div class="example-header">
+                                <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                                    <mat-label class="asterix--before">Transfer type</mat-label>
+                                    <mat-select  disableOptionCentering  ondragstart="return false;"
+                                         id="transferType" name="transferType" [(ngModel)]="request.transferType"
+                                        required={{transferType}} matInput placeholder="" #input autocomplete="off"  [formControl]="transferTypeValue"  (selectionChange)="transferTypeValueChange($event)" maxlength="10">
+                                    <mat-option value="IMPS">IMPS</mat-option>
+                                    <mat-option value="NEFT">NEFT</mat-option>
+        
+                                </mat-select>
+                                </mat-form-field>
+                                <span class="mat-error" style="margin-left:70px ;margin-top: -20px;" *ngIf="transferType">
+                                    Transfer type is required
+                                </span>
+                            </div>
+                        </div> -->
+                <!-- <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Max.limit</mat-label>
+                            <input onlyNumber  ondragstart="return false;" id="maxLimit"
+                                name="maxLimit" [(ngModel)]="request.maxlimit" required={{maxLimit}} matInput
+                                placeholder="" #input autocomplete="off" [formControl]="maxLimitValue"
+                                (ngModelChange)="maxLimitValueChange()" maxlength="1" minlength="1">
+
+
+                            <mat-error *ngIf="maxLimitValue.errors?.minlength ">Should have Max.Limit 1 digit
+                            </mat-error>
+
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px ;margin-top: -20px;" *ngIf="maxLimit">
+                            Max.limit is required
+                        </span>
+                    </div>
+                </div> -->
+            </div>
+
+
+
+
+            <div class="row">
+
+
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Max.Limit
+                                <span>(₹)</span>
+                            </mat-label>
+                            <input onlyNumber  ondragstart="return false;" id="maxLimit"
+                                name="maxLimit" [(ngModel)]="request.maxlimit" required={{maxLimit}} matInput
+                                placeholder="" #input autocomplete="off" [formControl]="maxLimitValue" noSpace
+                                (input)="maxLimitValueChange()" maxlength="6" minlength="1">
+
+
+                            <mat-error *ngIf="maxLimitValue.errors?.minlength ">Should have Max.Limit 1 digit
+                            </mat-error>
+
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px ;margin-top: -20px;" *ngIf="maxLimit">
+                            Max.Limit is required
+                        </span>
+                    </div>
+                </div>
+
+
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Address</mat-label>
+                            <textarea  ondragstart="return false;" id="address" name="address"
+                                [(ngModel)]="request.addressLine" required={{address}} matInput placeholder="" #input
+                                autocomplete="off" autocorrect="off" [formControl]="addressValue"
+                                (ngModelChange)="addressValueChange()" minlength="5" maxlength="34"
+                                style="text-transform: capitalize;"></textarea>
+
+                            <mat-error *ngIf="addressValue.errors?.minlength ">Should have minimum 5 characters
+                            </mat-error>
+
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px ;margin-top: -20px;" *ngIf="address">
+                            Address is required
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="form-group" class="col-md-6 mb-4">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Bank name</mat-label>
+                            <input OnlyCharacter  ondragstart="return false;" id="bankName"
+                                name="bankName" [(ngModel)]="request.bankName" required={{bankName}} matInput #input
+                                autocomplete="off" [formControl]="bankNameValue" (ngModelChange)="bankNameValueChange()"
+                                maxlength="30" minlength="3" (keydown)="handleInput($event)" (keydown)="isAlfa($event)">
+
+                            <mat-error *ngIf="bankNameValue.errors?.minlength ">Should have minumim 3 characters
+                            </mat-error>
+
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px ;margin-top: -20px;" *ngIf="bankName">
+                            Bank name is required
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group" class="col-md-6 mb-4 ">
+                    <div class="example-header">
+                        <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                            <mat-label class="asterix--before">Branch name</mat-label>
+                            <input OnlyCharacter  ondragstart="return false;" id="branchName"
+                                name="branchName" [(ngModel)]="request.branchName" required={{branchName}} matInput
+                                #input autocomplete="off" [formControl]="branchNameValue"
+                                (ngModelChange)="branchNameValueChange()" maxlength="30" minlength="3"
+                                (keydown)="handleInput($event)" (keydown)="isAlfa($event)">
+
+                            <mat-error *ngIf="branchNameValue.errors?.minlength ">Should have minumim 3 characters
+                            </mat-error>
+
+                        </mat-form-field>
+                        <span class="mat-error" style="margin-left:70px ;margin-top: -20px;" *ngIf="branchName">
+                            Branch name is required
+                        </span>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="row">
+
+
+                <div class="example-header">
+                    <div class="text-center">
+
+                        <button mat-raised-button style="width: 90px;margin-right: 10px;">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>

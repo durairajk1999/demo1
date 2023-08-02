@@ -1,0 +1,312 @@
+
+
+
+<div class="container">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.19)" size="medium" type="ball-clip-rotate" color="#000183">
+    </ngx-spinner>
+    <form #formControl="ngForm">
+
+
+<br>
+       
+        <div class="row">
+            <div class="form">
+
+                <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                    <mat-label class="asterix--before">IA name</mat-label>
+                    <input autocomplete="off" autocorrect="off" OnlyCharacter ondragstart="return false;"
+                         matInput required #input placeholder="" [(ngModel)]="data.name_of_SHPI"
+                        name="name" required  (ngModelChange)="iaNameEnter(data.name_of_SHPI)" singleSpace
+                        [formControl]="iaNameForm"  minlength="3"  toUppercase >
+
+                    <mat-error *ngIf="iaNameForm.errors?.required">
+                        IA name is required
+                    </mat-error>
+
+                    <mat-error *ngIf="iaNameForm.errors?.minlength ">Should have minimum 3 characters </mat-error>
+                </mat-form-field>
+            </div>
+
+            
+
+            <div class="form">
+
+                <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                    <mat-label class="asterix--before">Category</mat-label>
+                    <mat-select required={{categoryvalue}} disableOptionCentering [(ngModel)]="data.category"
+                        id="category" name="category" [formControl]="category"
+                        (selectionChange)="selectCategoryName($event.value)">
+
+                        <mat-option>
+                            <lib-mat-select-search id="search" [list]="categorylist1" (keypress)="letterOnly($event)"
+                                [searchProperties]="['category']" [fixOnTop]="true" [clearSearchInput]="true"
+                                (filtered)="categorylist2 = $event">
+                            </lib-mat-select-search>
+                        </mat-option>
+
+                        <mat-option *ngIf="categorylist2.length == 0">Record not found</mat-option>
+
+
+                        <mat-option value={{category.category}} *ngFor="let category of categorylist2">
+                            {{category.category|uppercase}}
+                        </mat-option>
+
+                    </mat-select>
+                    <mat-error *ngIf="category.errors?.required ">
+                        Category is required
+                    </mat-error>
+                </mat-form-field>
+                
+
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+
+            <div class="form">
+                <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                    <mat-label class="asterix--before">Registration Number</mat-label>
+                    <input  [(ngModel)]="data.reg_No" id="reg_No" name="reg_No"  noSpace
+                        [formControl]="registerationNumber" required matInput #input
+                        (ngModelChange)="registrationNumberEnter(data.reg_No)" (blur)='onclick()' autocomplete="off"
+                        autocorrect="off" >
+
+                    <mat-error *ngIf="registerationNumber.errors?.required">
+                        Registration number is required
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+
+           
+            <div class="form demo ">
+                <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker" (click)="picker.open()" flex ="1" >
+                    <mat-label class="asterix--before">Registration Date</mat-label>
+                    <input  [(ngModel)]="convRegDate1"  matInput required = {{regDateValue}}
+                        [formControl]="registrationDate"  [matDatepicker]="picker" id="reg_Date" name="data.reg_Date"
+                        (dateChange)="orgValueChange()"   (input)="regDateSelect(iacreate.reg_Date)"  [max]="today" (blur)='onclick()'>
+                    <mat-datepicker-toggle   matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker [datepickeClass] = " 'datee' " #picker ></mat-datepicker>
+                    <mat-error *ngIf="regDateValue">
+                        Registration date is required
+                    </mat-error>
+                    <!-- <span class="mat-error" style="margin-left:70px ;margin-top: -20px;" *ngIf="regDateValue">
+                        Registration Date is required
+                    </span> -->
+                </mat-form-field>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+
+            <div class="form">
+
+                <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+
+                    <mat-label>Address
+                    </mat-label>
+                    <textarea style="resize: none;" (keydown)="handleInput($event)" 
+                        (keydown)="isAlfa($event)" matInput placeholder="" [(ngModel)]="data.address" name="address"
+                        #address="ngModel" autocomplete="off" autocorrect="off"   appAddressIa >
+            </textarea>
+
+
+
+                </mat-form-field>
+
+            </div>
+
+
+
+            
+
+                <div class="form">
+                    <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                        <mat-label class="asterix--before">CEO name</mat-label>
+                        <input    autocomplete="off" autocorrect="off"  OnlyCharacter
+                            ondragstart="return false;"  [formControl]="ceoNameForm" matInput
+                            #input placeholder="" [(ngModel)]="data.name_of_CEO" name="ceo" required
+                            (ngModelChange)="ceoNameEnter(data.name_of_CEO)" singleSpace minlength="3" maxlength="30" style="text-transform: capitalize;">
+
+                        <!-- <mat-error *ngIf="ceoNameForm.errors?.minlength ">Should have minimum 3 characters </mat-error> -->
+                        <mat-error *ngIf="ceoNameForm.errors?.required">
+                            CEO name is required
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- <span class="mat-error"  *ngIf="ceoname"
+                CEO name required
+            </span> -->
+                </div>
+            </div>
+            <br>
+        <div class = "row">
+
+                <div class="form">
+                    <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                        <mat-label class="asterix--before">CEO contact number</mat-label>
+                        <input autocomplete="off" autocorrect="off" onlyNumber ondragstart="return false;"
+                              matInput #input placeholder="" [(ngModel)]="data.conNo_CEO"
+                            name="conNo_CEO" required [formControl]="mobile" maxlength="12" noSpace>
+
+                        <!-- <mat-error *ngIf="ceoContact">
+                    CEO Contact Number is required 
+                </mat-error> -->
+                        <mat-error *ngIf="mobile.invalid">{{getMobileError()}}</mat-error>
+                    </mat-form-field>
+                </div>
+            
+
+            <div class="form">
+                <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                    <mat-label class="asterix--before">Secretary Name</mat-label>
+                    <input  singleSpace 
+                         [(ngModel)]="data.name_of_Secretary" id="name_of_Secretary" OnlyCharacter
+                        name="name_of_Secretary" [formControl]="secretaryName" required matInput #input
+                        (ngModelChange)="enterSecretaryname(data.name_of_Secretary)" autocomplete="off"
+                        autocorrect="off" maxlength="32" minlength="3"  style="text-transform: capitalize;" >
+                    <mat-error *ngIf="secretaryName.errors?.minlength">Should have minimum 3 characters
+                    </mat-error>
+                    <mat-error *ngIf="secretaryName.errors?.required">
+                        Secretary name is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+
+            <div class="form">
+                <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                    <mat-label class="asterix--before">MIS Operator Name</mat-label>
+                    <input OnlyCharacter  
+                        [(ngModel)]="data.name_of_MIS_Operator" id="name_of_MIS_Operator" name="name_of_MIS_Operator" singleSpace
+                         [formControl]="misOperatorName" required matInput placeholder="" #input
+                        (ngModelChange)="enterOperatorName(data.name_of_MIS_Operator)" autocomplete="off"
+                        autocorrect="off" maxlength="32" minlength="3" style="text-transform: capitalize;" >
+                    <mat-error *ngIf="misOperatorName.errors?.minlength">Should have minimum 3 characters
+                    </mat-error>
+                    <mat-error *ngIf="misOperatorName.errors?.required">
+                        MIS operator name is required
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+
+            <div class="form">
+                <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                    <mat-label class="asterix--before">MIS Operator Contact Number</mat-label>
+                    <input onlyNumber  [(ngModel)]="data.conNo_MIS_Operator" id="conNo_MIS_Operator"
+                        name="conNo_MIS_Operator" [formControl]="misOperatorContactNumber" required matInput
+                        placeholder="" #input autocomplete="off" autocorrect="off" noSpace
+                        maxlength="12">
+
+                    <mat-error *ngIf="misOperatorContactNumber.invalid">
+                        {{getMobile1Error()}}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    <br>
+
+
+        <div class="row">
+            <div class="form">
+                <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                    <mat-label class="asterix--before">IA Email ID 1</mat-label>
+                    <input style="text-transform: none;" (blur)='onclick()' noSpace
+                        (keydown)="$event.keyCode != 32 ? $event:$event.preventDefault()"
+                        [(ngModel)]="data.email_ID1_SHPI" type="email" id="email_ID1_SHPI" name="email_ID1_SHPI"
+                        [formControl]="iaEmailId1" required matInput placeholder="" autocomplete="off" autocorrect="off"
+                         (ngModelChange)="data.email_ID1_SHPI=$event?.toLowerCase()||''">
+
+                    <mat-error *ngIf="iaEmailId1.invalid">
+                        {{getEmail1Error()}} </mat-error>
+
+
+                </mat-form-field>
+
+            </div>
+
+            <div class="form">
+                <mat-form-field appearance="outline" [hideRequiredMarker]="hideRequiredMarker">
+                    <mat-label class="asterix--before">IA Email ID 2</mat-label>
+                    <input style="text-transform: none;" (blur)='onclick()' noSpace
+                        (keydown)="$event.keyCode != 32 ? $event:$event.preventDefault()"
+                        [(ngModel)]="data.email_ID2_SHPI" id="email_ID2_SHPI" name="email_ID2_SHPI"
+                        [formControl]="iaEmailId2" required matInput placeholder="" autocomplete="off" autocorrect="off"
+                         (ngModelChange)="data.email_ID2_SHPI=$event?.toLowerCase()||''">
+
+                    <mat-error *ngIf="iaEmailId2.invalid">
+                        {{getEmail2Error()}}
+                    </mat-error>
+
+                </mat-form-field>
+
+
+            </div>
+        </div>
+        
+        <div class="row">
+
+            <div class="form-group" class="col-md-6 mb-4 ">
+                <div class="toggle1" style="margin-top:10px;">
+                    <mat-slide-toggle   [(ngModel)]="payoutToggle"   name="payoutFlag"  >
+                        <!-- <mat-slide-toggle (toggleChange)="onToggleChange($event)"
+                    [(ngModel)]="iacreate.ngO_Payout_Flag"> -->
+                   
+                        Payout Provision
+                    </mat-slide-toggle>
+                    <br>
+                    <br>
+                    <mat-slide-toggle  name="ngoNameFlag"  [(ngModel)]="ngoNameToggle" >
+                        NGO Name
+                    </mat-slide-toggle>
+                    
+                </div>
+            </div>
+            
+
+
+            <div class="form-group" class="col-md-6 mb-4 ">
+                <div class="toggle1" >
+ 
+
+                    <mat-slide-toggle class="toggle"  [(ngModel)]="shgtxnToggle"  name="transactionFlag"  >
+                        SHG Txn Commission
+                    </mat-slide-toggle>
+
+                   
+                    <br>
+                    <br>
+                    <mat-slide-toggle    name="ngoLogoFlag" [(ngModel)]="ngoLogoToggle" >
+                        NGO Logo
+                    </mat-slide-toggle>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group" class="col-md-6 mb-4 ">
+                <div class="toggle2" >
+                    <mat-slide-toggle  name="ngoMemberName" [(ngModel)]= "memberNameToggle">
+                        Member Name
+                    </mat-slide-toggle>
+                </div>
+            </div>
+
+
+
+            <div class="mat-dialog-actions"  align="center">
+                <button  style="width: 90px;" type="submit" mat-raised-button (click)="submit()"> Save</button>
+                <button  style="width: 90px;" mat-raised-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
